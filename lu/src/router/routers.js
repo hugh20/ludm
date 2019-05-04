@@ -170,14 +170,16 @@ export default[
         path: '/app-versions',
         name: 'app-versions',
         meta: {
-          title: 'app 版本控制'
+          title: 'app 版本控制',
+            hideInMenu: true,
         },
         component: () => import ('@/view/security/app-versions/list.vue')
       }, {
         path: '/system-versions',
         name: 'system-versions',
         meta: {
-          title: 'lucms 版本更新日志'
+          title: 'lucms 版本更新日志',
+            hideInMenu: true,
         },
         component: () => import ('@/view/system-version')
       }
@@ -188,7 +190,8 @@ export default[
     component: Main,
     meta: {
       title: '消息中心',
-      icon: 'ios-analytics'
+      icon: 'ios-analytics',
+        hideInMenu: true
     },
     children: [
       {

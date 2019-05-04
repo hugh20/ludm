@@ -54,7 +54,9 @@ $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
+//dd($app->make('routes'));
 
+//exit(phpinfo());
 $response->send();
 
 $kernel->terminate($request, $response);

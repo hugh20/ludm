@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'supportsCredentials' => false,
+    'supportsCredentials' => true,
     'allowedOrigins' => [env('CORS_ALLOWED_ORIGIN')],
     'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['*'],

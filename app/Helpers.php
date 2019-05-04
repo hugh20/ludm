@@ -209,3 +209,51 @@ function http_get_request($url, string $params)
     return $result;
 }
 
+
+
+if( !function_exists('byte_to_size') ){
+
+    function byte_to_size($byte){
+        if($byte > pow(2,40)){
+            $size = round($byte/pow(2,40),2).' TB';
+        }elseif($byte > pow(2,30)){
+            $size = round($byte/pow(2,30),2).' GB';
+        }elseif($byte > pow(2,20)){
+            $size = round($byte/pow(2,20),2).' MB';
+        }elseif($byte > pow(2,10)){
+            $size = round($byte/pow(2,10),2).' KB';
+        }else{
+            $size = round($byte,2).' B';
+        }
+
+        return $size;
+    }
+}
+
+
+if( !function_exists('storage_url') ){
+    /**
+     * 获取文章完整的 URL
+     */
+    function storage_url($path){
+        return \Illuminate\Support\Facades\Storage::url($path);
+    }
+}
+
+if( !function_exists('storage_image_url') ){
+    /**
+     * 获取图片完整 URL
+     */
+    function storage_image_url($path){
+        return !empty($path) ? storage_url($path) : config('app.url') . '/images/pic-none.png';
+    }
+}
+
+if( !function_exists('storage_video_url') ){
+    /**
+     * 获取视频缩略图完整 URL
+     */
+    function storage_video_url($path){
+        return !empty($path) ? storage_url($path) : config('app.url') . '/images/video-none.png';
+    }
+}

@@ -12,7 +12,6 @@ import 'iview/dist/styles/iview.css'
 import './index.less'
 import '@/assets/icons/iconfont.css'
 import Highlight from '@/libs/highlight.js'
-
 // import apiRequest from './libs/api.request'
 import appUrl from '../config/url'
 // import Cookies from 'js-cookie'

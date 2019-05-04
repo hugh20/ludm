@@ -218,7 +218,7 @@ const PRO_URL = 'https://lucms.com/'
 1). 开发环境
 ```
 $ cd lu
-$ cnpm install
+$ cnpm install || npm install
 $ npm run dev
 ```
 

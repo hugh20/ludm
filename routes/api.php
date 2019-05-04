@@ -23,7 +23,7 @@ Route::namespace('Api')->group(function () {
 
     Route::get('excels/export/advertisement_positions', 'ExcelController@exportAdvertisementPosition')->name('excel.export_advertisement_positions');
     Route::post('excels/import/advertisement_positions', 'ExcelController@importExcelAdvertisementPosition')->name('excel.import_advertisement_positions');
-
+    Route::post('upload/{folder}', 'UploadController@uploader')->name('upload.file');
 });
 
 
