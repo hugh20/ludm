@@ -66,7 +66,10 @@ export default {
         },
         wang_size: 1 * 1024 * 1024, // 1M
         uploadUrl: window.uploadUrl.uploadWang,
-        params: {},
+        params: {
+            editor_type: 'wang',
+            file_type: 'image'
+        },
         max_length: 3,
         file_name: 'file',
         z_index: 10000,
@@ -99,7 +102,7 @@ export default {
     this.editor.customConfig.uploadImgServer = this.uploadConfig.uploadUrl // 上传图片到服务器
     this.editor.customConfig.uploadImgMaxSize = this.uploadConfig.wang_size
     this.editor.customConfig.uploadImgParams = this.uploadConfig.params
-    this.editor.customConfig.uploadImgParams = this.uploadConfig.max_length
+    this.editor.customConfig.uploadImgMaxLength = this.uploadConfig.max_length
     this.editor.customConfig.uploadFileName = this.uploadConfig.file_name
     this.editor.customConfig.uploadImgHeaders = this.uploadConfig.headers
     this.editor.customConfig.zIndex = this.uploadConfig.z_index
@@ -117,6 +120,9 @@ export default {
       success: function(xhr, editor, result) {
         // 图片上传并返回结果，图片插入成功之后触发
         // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+          if(result.errno == 0){
+          }
+//          console.log(result);
       },
       fail: function(xhr, editor, result) {
         // 图片上传并返回结果，但图片插入错误时触发

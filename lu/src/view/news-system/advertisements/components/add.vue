@@ -123,7 +123,10 @@ export default {
         },
         wang_size: 1 * 1024 * 1024, // 1M
         uploadUrl: window.uploadUrl.uploadWang,
-        params: {},
+        params: {
+            editor_type: 'wang',
+            file_type: 'image'
+        },
         max_length: 3,
         file_name: 'file',
         z_index: 10000,
@@ -139,7 +142,8 @@ export default {
         file_name: 'file',
         multiple: false,
         file_num: 1,
-        default_list: []
+        default_list: [],
+          params: {},
       },
       rules: {
         name: [{

@@ -11,7 +11,7 @@
         <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
     </template>
   </div>
-  <Upload ref="upload" :show-upload-list="false" :default-file-list="uploadConfig.default_list" :on-success="handleSuccess" :headers="uploadConfig.headers" :format="uploadConfig.format" :max-size="uploadConfig.max_size" :on-format-error="handleFormatError"
+  <Upload ref="upload" :data="uploadConfig.params" :show-upload-list="false" :default-file-list="uploadConfig.default_list" :on-success="handleSuccess" :headers="uploadConfig.headers" :format="uploadConfig.format" :max-size="uploadConfig.max_size" :on-format-error="handleFormatError"
     :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" :multiple="uploadConfig.multiple" :name="uploadConfig.file_name" type="drag" :action="uploadConfig.upload_url" style="display: inline-block;width:58px;">
     <div style="width: 58px;height:58px;line-height: 58px;">
       <Icon type="ios-camera" size="20"></Icon>
@@ -68,7 +68,10 @@ export default {
             attachment_id: 0,
             url: ''
           }
-        ]
+        ],
+        params: {
+            file_type: 'image'
+        }
 
       }
     }
@@ -97,17 +100,19 @@ export default {
       this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
 
       let formatFileList = this.fomatFile()
-      this.$emit('input', formatFileList)
+      this.$emit('input', formatFileList)//父组件v-model命令
       this.$emit('on-upload-change', this.uploadList, formatFileList)
       this.ViewImage()
     },
     handleSuccess(res, file) {
+        console.log(res, file);
+
       file.url = res.data.url
       file.name = res.data.original_name
       file.attachment_id = res.data.attachment_id
 
       let formatFileList = this.fomatFile()
-      this.$emit('input', formatFileList)
+      this.$emit('input', formatFileList)//父组件v-model命令
       this.$emit('on-upload-change', this.uploadList, formatFileList)
       this.ViewImage()
     },
@@ -155,7 +160,7 @@ export default {
     ViewImage() {
       this.$nextTick(() => {
         $(function() {
-          $('.l-hide').click(function() {
+          $('.l-hide').click(function() {//
             $('.l-show').removeAttr('id').addClass('l-hide').removeClass('l-show');
             $(this).attr('id', 'galley');
             $(this).addClass('l-show');

@@ -63,7 +63,10 @@ export default {
         file_name: 'file',
         multiple: false,
         file_num: 1,
-        default_list: []
+        default_list: [],
+          params: {
+            file_type: 'image'
+        }
       },
     }
   },
