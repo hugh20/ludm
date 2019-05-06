@@ -169,31 +169,31 @@ class UploadHandler
 
         return false;
     }
-    
+
     /**
      * 保存上传文件
      *
+     * @param $mi
      * @param $type
      * @param $object_id
      * @param $file
      * @param $folder
      * @param $editor
-     *
      * @return array|bool
      */
-    public function saveUploadFile($type, $object_id, $file, $folder, $editor)
+    public function saveUploadFile($mi, $type, $object_id, $file, $folder, $editor)
     {
         $type = strtolower($type);
         
         // 构建存储的文件夹规则，值如：images/avatars/201709/21/
-        $folder_name = $type."s/$folder/" . date("Ym", time()) . '/'.date("d", time());
+        $folder_name = $mi."s/$type/$folder/" . date("Ym", time()) . '/'.date("d", time());
         
         // 获取文件的后缀名，因图片从剪贴板里黏贴时后缀名为空，所以此处确保后缀一直存在
 
         $extension = strtolower($file->getClientOriginalExtension()) ? : 'png';
 
         // 检查文件后缀是否是规则允许后缀
-        if ( ! in_array($extension, config('filesystems.uploader.'.$type.'.allowed_ext')) ) {
+        if ( ! in_array($extension, config('filesystems.uploader.'.$mi.'.allowed_ext')) ) {
             return false;
         }
     
@@ -209,16 +209,17 @@ class UploadHandler
         // 获取文件 MD5 值
         $md5 = md5_file($file->getPathname());
         // 检查文件是否已上传过
-        if($fileModel = $this->checkFile($md5, $type, $folder)){
+        if($fileModel = $this->checkFile($md5, $type)){
             return [
-                'id'    => $fileModel->id,
+                'attachment_id'    => $fileModel->id,
                 'path'  => $fileModel->path,
-                'url'   => $type == 'image' ? storage_image_url($fileModel->path) : storage_url($fileModel->path),
+                'url'   => $mi == 'image' ? storage_image_url($fileModel->path) : storage_url($fileModel->path),
+                'original_name' => $title
             ];
         }
     
         // 实例化 Image 对象
-        if($type == 'image'){
+        if($mi == 'image'){
             $image = Image::make($file->getPathname());
             $width = $image->width();
             $height = $image->height();
@@ -236,9 +237,10 @@ class UploadHandler
         // 将文件信息记录到数据库
         if($result = $this->saveFile($object_id, $type, $path, $mimeType, $md5, $title, $folder, $size, $width, $height, $editor)){
             return [
-                'id'    => $result->id,
+                'attachment_id'    => $result->id,
                 'path'  => $path,
-                'url'   => $type == 'image' ? storage_image_url($result->path) : storage_url($result->path),
+                'url'   => $mi == 'image' ? storage_image_url($result->path) : storage_url($result->path),
+                'original_name' => $title
             ];
         }else{
             Storage::delete($path);
@@ -276,9 +278,10 @@ class UploadHandler
      * 检查文件是否已存在
      *
      * @param $md5
+     * @param $type
      * @return mixed
      */
-    public function checkFile($md5, $type, $folder){
+    public function checkFile($md5, $type){
         return FileModel::where('md5','=',$md5)->where('type','=',$type)->first();
     }
 

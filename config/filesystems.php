@@ -77,26 +77,18 @@ return [
 
         'folder' => ['avatar', 'advertisement', 'wang', 'tmp', 'new_version', 'carousel', 'article', 'blog', 'page', 'website', 'slide', 'link', 'video', 'annex', 'voice', 'navigation'],
 
+        'application' => [
+            'size_limit' => 204857600000, // 单位：字节，默认：5MB (5242880 B)  // 104857600
+            'allowed_ext' => ['zip','rar','7z','gz', 'pdf','doc','docx','xls','xlsx','ppt','pptx'],
+        ],
         // 图片
         'image' => [
             'size_limit' => 5242880, // 单位：字节，默认：5MB
             'allowed_ext' => ["png", "jpg", "gif", 'jpeg', 'bmp'],
         ],
 
-        // 附件
-        'annex' => [
-            'size_limit' => 204857600000, // 单位：字节，默认：5MB (5242880 B)  // 104857600
-            'allowed_ext' => ['zip','rar','7z','gz'],
-        ],
-
-        // 文件
-        'file' => [
-            'size_limit' => 5242880, // 单位：字节，默认：5MB
-            'allowed_ext' => ['pdf','doc','docx','xls','xlsx','ppt','pptx'],
-        ],
-
         // 音频
-        'voice' => [
+        'audio' => [
             'size_limit' => 5242880, // 单位：字节，默认：5MB
             'allowed_ext' => ['mp3','wmv'],
         ],

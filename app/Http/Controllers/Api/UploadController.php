@@ -116,15 +116,7 @@ class UploadController extends ApiController
         // 检查文件
         $file = $uploader->checkFile($md5, $type, $folder);
 
-        if ($file && request('uploader_type', '') == 'multiple') {
-            // 处理多文件
-            $result = [
-                'id' => $file->id,
-                'path' => $file->path,
-                'url' => $type == 'image' ? storage_image_url($file->path) : storage_url($file->path),
-            ];
-            return $this->multiple($result, $request);
-        } else if ($file) {
+        if ($file) {
             return $this->responseAjax(4, true, '已存在', $file->path, $type == 'image' ? storage_image_url($file->path) : storage_url($file->path), $file->id);
         } else {
             return $this->responseAjax(5, false, '未上传');
@@ -160,11 +152,7 @@ class UploadController extends ApiController
         // 合并分片并保存到文件系统
         $result = $uploader->mergeChunks($guid, $md5, $chunks, $originalName, $mimeType, $extension, $type, $object_id, $folder, $editor);
 
-        // 判断是否为多图多附件上传
-        if ($result && request('uploader_type', '') == 'multiple') {
-            // 处理多文件
-            return $this->multiple($result, $request);
-        } else if ($result) {
+        if ($result) {
             // 上传成功
             return $this->responseAjax(0, true, '上传成功', $result['path'], $result['url'], $result['id']);
         } else {
@@ -192,81 +180,69 @@ class UploadController extends ApiController
         if (!($file = $request->file())) {
             return $this->responseAjax(3, false, '上传文件不允许未空');
         }
+        $success = 1;
         // 获取上传的类型
-        $file = $file['file'];
-//        $file_type = substr($file->getMimeType(), 0, strpos($file->getMimeType(), '/'));
-        // 检查文件大小是否合法
-        if ($file->getSize() <= 0) {
-            return $this->responseAjax(7, false, '文件大小不能为: 0 ');
-        }
-        $file_type = $request->file_type ?? 'file';
-        if ($file->getSize() > config('filesystems.uploader.' . $file_type . '.size_limit')) {
-            $message = '大小不能超过 ' . byte_to_size(config('filesystems.uploader.' . $file_type . '.size_limit')) . '';
-            return $this->responseAjax(8, false, $message);
-        }
+        $res = [];
+        foreach ($file['file'] as $key=>$file) {
+            // 检查文件大小是否合法
+            if ($file->getSize() <= 0) {
+                $res[] = ['errno' => 7, 'message' => '文件大小不能为: 0 '];
+                $success = 0;
+                continue;
+            }
+            $mi = substr($file->getMimeType(), 0, strpos($file->getMimeType(), '/'));
 
-        // 获取分片参数
-        $chunk  = request('chunk', 0);
-        $chunks = request('chunks', 1);
-
-        // 检查是否是分片上传
-        if ($chunks > 1) {
-            $md5  = request('md5', '');
-            $guid = request('guid', '');
-
-            $result = $uploader->saveUploadChunk($guid, $md5, $file, $chunk);
-
-            if ($result) {
-                return $this->responseAjax(0, true, '上传成功');
+            if ($file->getSize() > config('filesystems.uploader.' . $mi . '.size_limit')) {
+                $res[] = ['errno' => 8, 'message' => '大小不能超过 ' . byte_to_size(config('filesystems.uploader.' . $mi . '.size_limit')) ];
+                $success = 0;
+                continue;
             }
 
-            return $this->responseAjax(6, false, '上传失败');
-        }
-        // 保存附件到文件系统
-        $result = $uploader->saveUploadFile($file_type, intval($request->object_id ?? 0), $file, $request->folder, intval($request->editor ?? 0));
+            // 获取分片参数
+            $chunk  = request('chunk', 0);
+            $chunks = request('chunks', 1);
 
-        // 判断是否为多图多附件上传
-        if ($result && request('uploader_type', '') == 'multiple') {
-            // 处理多文件
-            return $this->multiple($result, $request);
-        } else if ($result) {
+            // 检查是否是分片上传
+            if ($chunks > 1) {
+                $md5  = request('md5', '');
+                $guid = request('guid', '');
+
+                $result = $uploader->saveUploadChunk($guid, $md5, $file, $chunk);
+
+                if ($result) {
+                    $res[] = ['errno' => 0, 'success' => true, 'message' => '上传成功'];
+                    continue;
+                }
+                $res[] = ['errno' => 6, 'success' => false, 'message' => '上传失败'];
+                $success = 0;
+                continue;
+            }
+            // 保存附件到文件系统
+            $result = $uploader->saveUploadFile($mi, $file->getType(), intval($request->object_id ?? 0), $file, $request->folder, intval($request->editor ?? 0));
+            if($result){
+                $res[] = ['errno' => 0, 'success' => true, 'message' => '上传成功' , 'data' => $result];
+
+            }else{
+                $res[] = ['errno' => 6, 'success' => false, 'message' => '上传失败'];
+                $success = 0;
+            }
+        }
+        if ($success) {
             // 上传成功
-            return $this->responseAjax(0, true, '上传成功', $result['path'], $result['url'], $result['id'], 0, $request->folder);
+            return $this->uploadResponse($res);
         } else {
             // 上传失败
-            return $this->responseAjax(6, false, '上传失败');
+            return $this->uploadResponse($res);
         }
     }
 
-    /**
-     * 保存多文件
-     *
-     * @param $result
-     * @param $request
-     * @return array
-     */
-    private function multiple($result, $request)
-    {
-
-        // 获取多附件所需参数
-        $article_id = $request->article_id;
-        $field      = $request->field;
-        $article    = Article::find($article_id);
-
-        // 将附件保存到内容节点
-        if ($article->addMultipleFiles($result['path'], $field) === null) {
-            // 判断是否已在当前内容节点，上传过该文件
-            return $this->responseAjax(9, false, '该文件已上传，请勿重复上传');
-        } else {
-            // 多图插入成功
-            $file        = MultipleFile::where('field', $field)->where('path', $result['path'])->pluck('id')->first();
-            $multiple_id = intval($file);
+    protected function uploadResponse($res){
+        if(count($res) == 1){
+            return $res[0];
+        }else{
+            return $res;
         }
-
-        // 上传成功
-        return $this->responseAjax(0, true, '上传成功', $result['path'], $result['url'], $result['id'], $multiple_id, $request->folder);
     }
-
     /**
      * 生成响应结构
      *
@@ -277,10 +253,9 @@ class UploadController extends ApiController
      * @param string $url
      * @param int $id
      * @param int $multiple_id
-     * @param null $folder
      * @return array
      */
-    protected function responseAjax($code = 1, $success = false, $message = '上传失败', $path = '', $url = '', $id = 0, $multiple_id = 0, $folder = null)
+    protected function responseAjax($code = 1, $success = false, $message = '上传失败', $path = '', $url = '', $id = 0, $multiple_id = 0)
     {
 
 
@@ -296,8 +271,6 @@ class UploadController extends ApiController
                 'path' => $path,             // 文件相对地址
                 'attachment_id' => $id ?: $multiple_id,// 文件ID
                 'original_name' => $fileInfo->title ?? '',
-                'type' => $fileInfo->mime_type ?? '',
-                'size' => $fileInfo->site ?? 0,
             ]
         ];
 

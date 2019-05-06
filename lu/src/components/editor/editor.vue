@@ -70,7 +70,7 @@ export default {
             editor_type: 'wang',
             file_type: 'image'
         },
-        max_length: 3,
+        max_length: 999,
         file_name: 'file',
         z_index: 10000,
         heightStyle: 'wang-editor-text-400'
@@ -108,6 +108,7 @@ export default {
     this.editor.customConfig.zIndex = this.uploadConfig.z_index
     this.editor.customConfig.uploadImgHooks = {
       before: function(xhr, editor, files) {
+          console.log(files);
         // 图片上传之前触发
         // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
 
@@ -142,10 +143,16 @@ export default {
       customInsert: function(insertImg, result, editor) {
         // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
         // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+          if(result instanceof Array) {
+              // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+              result.forEach(function (val, key) {
+                  console.log(key, val);
+                  insertImg(val.data.url);
+              });
+          }else if(result instanceof Object){
 
-        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-        var url = result.data.url
-        insertImg(url)
+              insertImg(result.data.url);
+          }
 
         // result 必须是一个 JSON 格式字符串！！！否则报错
       }

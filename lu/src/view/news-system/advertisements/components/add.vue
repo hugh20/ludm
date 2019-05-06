@@ -127,8 +127,8 @@ export default {
             editor_type: 'wang',
             file_type: 'image'
         },
-        max_length: 3,
-        file_name: 'file',
+        max_length: 999,
+        file_name: 'file[]',
         z_index: 10000,
         heightStyle: 'wang-editor-text-300'
       },
