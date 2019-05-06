@@ -183,17 +183,20 @@ class UploadController extends ApiController
         $success = 1;
         // 获取上传的类型
         $res = [];
-        foreach ($file['file'] as $key=>$file) {
+        if(!is_array($file['file'])){
+            $file['file'] = [$file['file']];
+        }
+        foreach ($file['file'] as $key => $file) {
             // 检查文件大小是否合法
             if ($file->getSize() <= 0) {
-                $res[] = ['errno' => 7, 'message' => '文件大小不能为: 0 '];
+                $res[]   = ['errno' => 7, 'message' => '文件大小不能为: 0 '];
                 $success = 0;
                 continue;
             }
             $mi = substr($file->getMimeType(), 0, strpos($file->getMimeType(), '/'));
 
             if ($file->getSize() > config('filesystems.uploader.' . $mi . '.size_limit')) {
-                $res[] = ['errno' => 8, 'message' => '大小不能超过 ' . byte_to_size(config('filesystems.uploader.' . $mi . '.size_limit')) ];
+                $res[]   = ['errno' => 8, 'message' => '大小不能超过 ' . byte_to_size(config('filesystems.uploader.' . $mi . '.size_limit'))];
                 $success = 0;
                 continue;
             }
@@ -213,17 +216,17 @@ class UploadController extends ApiController
                     $res[] = ['errno' => 0, 'success' => true, 'message' => '上传成功'];
                     continue;
                 }
-                $res[] = ['errno' => 6, 'success' => false, 'message' => '上传失败'];
+                $res[]   = ['errno' => 6, 'success' => false, 'message' => '上传失败'];
                 $success = 0;
                 continue;
             }
             // 保存附件到文件系统
             $result = $uploader->saveUploadFile($mi, $file->getType(), intval($request->object_id ?? 0), $file, $request->folder, intval($request->editor ?? 0));
-            if($result){
-                $res[] = ['errno' => 0, 'success' => true, 'message' => '上传成功' , 'data' => $result];
+            if ($result) {
+                $res[] = ['errno' => 0, 'success' => true, 'message' => '上传成功', 'data' => $result];
 
-            }else{
-                $res[] = ['errno' => 6, 'success' => false, 'message' => '上传失败'];
+            } else {
+                $res[]   = ['errno' => 6, 'success' => false, 'message' => '上传失败'];
                 $success = 0;
             }
         }
