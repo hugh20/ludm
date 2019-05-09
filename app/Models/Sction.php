@@ -3,28 +3,36 @@
 namespace App\Models;
 
 use App\Handlers\MarkdownerHandler;
-use App\Models\Traits\ArticleFilterTrait;
+use App\Models\Traits\SectionFilterTrait;
 use DB;
 use Illuminate\Support\Facades\Auth;
 
-class Article extends Model
+class Section extends Model
 {
-    use ArticleFilterTrait;
+    use SectionFilterTrait;
 
     protected $fillable = [
-        'title', 'keywords', 'slug', 'descriptions', 'cover_image', 'content', 'view_count', 'vote_count', 'comment_count', 'collection_count',
-        'enable', 'recommend', 'top', 'weight', 'access_type', 'access_value', 'created_year', 'created_month', 'category_id',
+        'article_id',
+        'title',
+        'slug',
+        'keywords',
+        'descriptions',
+        'cover_image',
+        'content',
+        'user_id',
+        'view_count',
+        'vote_count',
+        'comment_count',
+        'collection_count',
+        'access_type',
+        'created_at',
+        'updated_at',
     ];
 
 
     public function user()
     {
         return $this->belongsTo('App\Models\User');
-    }
-
-    public function category()
-    {
-        return $this->belongsTo('App\Models\Category');
     }
 
     protected function setContentAttribute($value)

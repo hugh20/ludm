@@ -19,14 +19,11 @@ class IpFilter extends Model
     public function destroyAction()
     {
 
-        DB::beginTransaction();
         try {
-            DB::commit();
             $this->delete();
             return $this->baseSucceed([], '删除成功');
         } catch (\Exception $e) {
             throw $e;
-            DB::rollBack();
             return $this->baseFailed('内部错误');
         }
     }

@@ -20,13 +20,10 @@ class AdvertisementPosition extends Model
     public function destroyAction()
     {
 
-        DB::beginTransaction();
         try {
             $this->delete();
-            DB::commit();
             return $this->baseSucceed([], '广告位删除成功');
         } catch (\Exception $e) {
-            DB::rollBack();
             return $this->baseFailed('内部错误');
         }
     }

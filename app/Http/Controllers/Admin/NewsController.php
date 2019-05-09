@@ -22,8 +22,8 @@ class NewsController extends AdminController
     public function storeCarousel(Request $request, Carousel $model)
     {
         $request_data = $request->all();
-        if (isset($request_data['cover_image']['attachment_id'])) {
-            $request_data['cover_image'] = $request_data['cover_image']['attachment_id'];
+        if (isset($request_data['cover_image'][0]['attachment_id'])) {
+            $request_data['cover_image'] = $request_data['cover_image'][0]['attachment_id'];
         } else {
             return $this->failed('必须上传图片');
         }
@@ -39,8 +39,8 @@ class NewsController extends AdminController
     public function updateCarousel(Request $request, Carousel $model, $id)
     {
         $request_data = $request->all();
-        if (isset($request_data['cover_image']['attachment_id'])) {
-            $request_data['cover_image'] = $request_data['cover_image']['attachment_id'];
+        if (isset($request_data['cover_image'][0]['attachment_id'])) {
+            $request_data['cover_image'] = $request_data['cover_image'][0]['attachment_id'];
         } else {
             return $this->failed('必须上传图片');
         }

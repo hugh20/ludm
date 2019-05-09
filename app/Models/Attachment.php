@@ -43,7 +43,6 @@ class Attachment extends Model
         $base_image_up_dir = 'images';
         $rest_delet_file = (new FileuploadHandler)->fileDelete($base_image_up_dir . '/' . $this->type . '/' . $this->storage_name);
 
-        DB::beginTransaction();
         try {
             $this->delete();
             if ($rest_delet_file) {
@@ -51,10 +50,8 @@ class Attachment extends Model
             } else {
                 $tip = '：附件找不到';
             }
-            DB::commit();
             return $this->baseSucceed([], '附件删除成功' . $tip);
         } catch (\Exception $e) {
-            DB::rollBack();
             return $this->baseFailed('内部错误');
         }
     }

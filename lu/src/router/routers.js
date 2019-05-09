@@ -109,7 +109,17 @@ export default[
           title: '文章管理'
         },
         component: () => import ('@/view/news-system/articles/list.vue')
-      }, {
+      },
+        {
+            path: '/article/:article_id(\\d+)/section-list',
+            name: 'article-section-list',
+            meta: {
+                hideInMenu: true,
+                title: '章节管理'
+            },
+            component: () => import ('@/view/news-system/article-sections/list.vue')
+        },
+      {
         path: '/carousel-list',
         name: 'carousel-list',
         meta: {

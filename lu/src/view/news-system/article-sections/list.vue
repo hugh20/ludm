@@ -9,28 +9,6 @@
     <Input icon="search" placeholder="请输入标题..." v-model="searchForm.title" />
     </Col>
     <Col :xs="3" :lg="3">
-    <Select v-model="searchForm.enable" placeholder="是否启用">
-      <Option value="" key="">全部</Option>
-      <Option v-for="(item,key) in tableStatus.enable" :value="key" :key="key">{{ item }}</Option>
-    </Select>
-    </Col>
-    <Col :xs="3" :lg="3" class="hidden-mobile">
-    <Select v-model="searchForm.category_id" placeholder="分类" filterable>
-      <Option value="" key="">全部</Option>
-      <Option v-for="(item,key) in articleCategories" :value="item.id" :key="item.id">{{ item.name }} </Option>
-    </Select>
-    </Col>
-    <Col :xs="3" :lg="3">
-    <Select v-model="searchForm.recommend" placeholder="推荐" filterable>
-        <Option value="" key="">全部</Option>
-        <Option v-for="(item,key) in tableStatus.recommend" :value="key" :key="key">{{ item }} </Option>
-    </Select>
-    </Col>
-    <Col :xs="3" :lg="3">
-    <Select v-model="searchForm.top" placeholder="置顶" filterable>
-        <Option value="" key="">全部</Option>
-        <Option v-for="(item,key) in tableStatus.top" :value="key" :key="key">{{ item }} </Option>
-    </Select>
     </Col>
     <Col :xs="1" :lg="3">
     <Button type="primary" icon="ios-search" @click="getTableDataExcute(feeds.current_page)">Search</Button>
@@ -77,9 +55,8 @@ import {
 
 import {
   getTableData,
-  getArticleCategories,
   destroy
-} from '@/api/article'
+} from '@/api/article-section'
 
 export default {
   components: {
@@ -96,9 +73,7 @@ export default {
       },
       tableLoading: false,
       tableStatus: {
-        enable: [],
-        top: [],
-        recommend: [],
+        enable: []
       },
       feeds: {
         data: [],
@@ -106,8 +81,7 @@ export default {
         current_page: 1,
         per_page: 10
       },
-      articleCategories: {},
-      articleTagList: {},
+      tagList: {},
       addModal: {
         show: false
       },
@@ -154,15 +128,6 @@ export default {
           }
         },
         {
-          title: '分类',
-          minWidth: 100,
-          render: (h, params) => {
-            return h('div',
-              params.row.category.name
-            )
-          }
-        },
-        {
           title: '标签',
           minWidth: 100,
           render: (h, params) => {
@@ -178,67 +143,6 @@ export default {
             return h('div',
               text
             )
-          }
-        },
-        {
-          title: '置顶',
-          minWidth: 100,
-          render: (h, params) => {
-            var row = params.row;
-            var color = 'green';
-            var text = '置顶';
-            if (row.top === 'F') {
-              text = '非置顶';
-              color = 'default';
-            }
-
-            return h('div', [
-              h('Tag', {
-                props: {
-                  color: color
-                }
-              }, text)
-            ]);
-          }
-        },
-        {
-          title: '推荐',
-          minWidth: 100,
-          render: (h, params) => {
-            var row = params.row;
-            var color = 'green';
-            var text = '推荐';
-            if (row.recommend === 'F') {
-              text = '非推荐';
-              color = 'default';
-            }
-
-            return h('div', [
-              h('Tag', {
-                props: {
-                  color: color
-                }
-              }, text)
-            ]);
-          }
-        },
-        {
-          title: '启用状态',
-          key: 'enable',
-          minWidth: 100,
-          render: (h, params) => {
-            return h('i-switch', {
-              props: {
-                slot: 'open',
-                type: 'primary',
-                value: params.row.enable === 'T', //控制开关的打开或关闭状态，官网文档属性是value
-              },
-              on: {
-                'on-change': (value) => {
-                  this.switchEnableExcute(params.index)
-                }
-              }
-            });
           }
         },
         {
@@ -307,18 +211,7 @@ export default {
                 }
 
               }, '修改'),
-              delete_btn,
-                h('Button',{
-                    props: {
-                        type: 'success',
-                        size: 'small'
-                    },
-                    on: {
-                        click: () => {
-                            this.$router.push({name: 'article-section-list', params: { article_id: params.row.id}});
-                        }
-                    }
-                }, '章节管理')
+              delete_btn
             ])
           }
         }
@@ -327,8 +220,6 @@ export default {
   },
   mounted() {
     let t = this
-    t.getTableStatusExcute('articles')
-    t.getArticleCategoriesExcute()
     t.getTableDataExcute(t.feeds.current_page)
   },
   computed: {
@@ -363,8 +254,7 @@ export default {
       let t = this
       t.tableLoading = true
       t.feeds.current_page = to_page
-      getTableData(to_page, t.feeds.per_page, t.searchForm).then(res => {
-          console.log(res.data);
+      getTableData(this.$route.params.article_id,to_page, t.feeds.per_page, t.searchForm).then(res => {
         t.feeds.data = res.data
         t.feeds.total = res.meta.total
         t.tableLoading = false
