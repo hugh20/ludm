@@ -315,7 +315,7 @@ export default {
                     },
                     on: {
                         click: () => {
-                            this.$router.push({name: 'article-section-list', params: { article_id: params.row.id}});
+                            this.$router.push({name: 'article-section-list', params: { article_id: params.row.id}, query: {article_title:params.row.title}});
                         }
                     }
                 }, '章节管理')

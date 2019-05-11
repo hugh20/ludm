@@ -20,13 +20,13 @@ class SectionsController extends AdminController
     {
         $per_page = $request->get('per_page', 10);
         $search_data = json_decode($request->get('search_data'), true);
-        $filter = 'free';
+        $filter = 'default';
         $user_id = 0;
         $title = isset_and_not_empty($search_data, 'title');
         $tag_id = 0;
         $order = 'created_at';
         $order_type = 'desc';
-
+        $article_id = $request->input('article_id');
         $order_by = isset_and_not_empty($search_data, 'order_by');
         if ($order_by) {
             $order_by = explode(',', $order_by);
@@ -34,13 +34,14 @@ class SectionsController extends AdminController
             $order_type = $order_by[1];
         }
 
-        $list = $model->getSectionWithFilter($filter, $user_id, $title, $tag_id, $order, $order_type, $per_page);
+        $list = $model->getSectionWithFilter($filter, $article_id, $user_id, $title, $tag_id, $order, $order_type, $per_page);
         return new CommonCollection($list);
     }
 
 
     public function show(Section $model)
     {
+
         $article_tag = $model->tags->toArray();
 
         $model->tagids = array_column($article_tag, 'id');

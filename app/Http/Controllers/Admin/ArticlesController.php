@@ -47,6 +47,7 @@ class ArticlesController extends AdminController
 
     public function show(Article $model)
     {
+
         $article_tag = $model->tags->toArray();
 
         $model->tagids = array_column($article_tag, 'id');

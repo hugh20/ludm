@@ -5,22 +5,14 @@
     <Row>
       <Col span="24">
       <Form ref="formData" :model="formData" :rules="rules" label-position="left" :label-width="100">
-        <FormItem label="分类：">
-          <Select v-model="formData.category_id" filterable placeholder="请选择文章分类">
-              <Option v-for="(item,key) in articleCategories" :value="item.id" :key="key">{{ item.name }} </Option>
-          </Select>
+        <FormItem label="文章：">
+          <Input :value="$route.query.article_title" readonly></Input>
         </FormItem>
         <FormItem label="标题：" prop="title">
           <Input v-model="formData.title"></Input>
         </FormItem>
         <FormItem label="封面：">
           <upload v-model="formData.cover_image" :upload-config="imguploadConfig" @on-upload-change='uploadChange'></upload>
-        </FormItem>
-        <FormItem label="是否启用：">
-          <RadioGroup v-model="formData.enable">
-            <Radio label="F">禁用</Radio>
-            <Radio label="T">启用</Radio>
-          </RadioGroup>
         </FormItem>
         <FormItem label="关键词：" prop="keywords">
           <Input type="textarea" v-model="formData.keywords" placeholder="以英文逗号隔开"></Input>
@@ -29,24 +21,10 @@
         <FormItem label="描述：" prop="description">
           <Input type="textarea" v-model="formData.descriptions" placeholder="请输入"></Input>
         </FormItem>
-        <FormItem label="排序：">
-          <Input v-model="formData.weight" placeholder="请输入"></Input>
-        </FormItem>
-        <FormItem label="置顶：">
-          <Select size="small" style="width:20%" v-model="formData.top">
-              <Option value="F">否</Option>
-              <Option value="T">是</Option>
-            </Select>
-        </FormItem>
-        <FormItem label="推荐：">
-          <Select size="small" style="width:20%" v-model="formData.recommend">
-              <Option value="F">否</Option>
-              <Option value="T">是</Option>
-            </Select>
+        <FormItem label="章节序号：">
+          <Input v-model="formData.weight" placeholder="请输入序号"></Input>
         </FormItem>
         <p class="margin-top-10">
-          <Icon type="eye"></Icon>&nbsp;&nbsp;公开度：&nbsp;<b>{{ Openness }}</b>
-          <Button v-show="!editOpenness" size="small" type="text" @click="handleEditOpenness">修改</Button>
           <transition name="openness-con">
             <div v-show="editOpenness" class="publish-time-picker-con">
               <RadioGroup v-model="formData.access_type" vertical>

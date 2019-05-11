@@ -27,6 +27,11 @@ class Article extends Model
         return $this->belongsTo('App\Models\Category');
     }
 
+    public function section()
+    {
+        return $this->hasMany('App\Models\Section');
+    }
+
     protected function setContentAttribute($value)
     {
 //        $value = clean($value, 'article_content');

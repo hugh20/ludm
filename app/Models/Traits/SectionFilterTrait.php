@@ -10,6 +10,7 @@ trait SectionFilterTrait
 
     /**
      * @param string $filter 免费、vip、收费
+     * @param $article_id
      * @param int $user_id 用户 id
      * @param string $title 标题
      * @param int $tag_id
@@ -20,21 +21,27 @@ trait SectionFilterTrait
      * @internal param int $year 创建 年份
      * @internal param int $month ....
      */
-    public function getSectionWithFilter($filter, $user_id = 0, $title = '', $tag_id = 0, $order = 'created_at', $order_type = 'desc', $limit = 15)
+    public function getSectionWithFilter($filter, $article_id, $user_id = 0, $title = '', $tag_id = 0, $order = 'created_at', $order_type = 'desc', $limit = 15)
     {
         $filter = $this->getSectionFilter($filter);
-
-        return $this->applyFilter($filter, $user_id, $title, $tag_id, $order, $order_type)
+        return $this->applyFilter($filter, $article_id, $user_id, $title, $tag_id, $order, $order_type)
             ->with('user', 'tags')
             ->paginate($limit);
     }
 
-    public function getSectionsWithWhoFilter($filter, $limit = 5, $user_id = 0)
+    /**
+     * @param $filter
+     * @param $article_id
+     * @param int $limit
+     * @param int $user_id
+     * @return mixed
+     */
+    public function getSectionsWithWhoFilter($filter, $article_id, $limit = 5, $user_id = 0)
     {
 
         $filter = $this->getSectionFilter($filter);
 
-        return $this->applyFilter($filter, 0)
+        return $this->applyFilter($filter, $article_id)
             ->where('user_id', '=', $user_id)
             ->paginate($limit);
     }
@@ -49,7 +56,7 @@ trait SectionFilterTrait
         return $this->tags()->sync($tags);
     }
 
-    protected function applyFilter($filter, $user_id, $title, $tag_id, $order, $order_type)
+    protected function applyFilter($filter, $article_id, $user_id, $title, $tag_id, $order, $order_type)
     {
         $query = $this;
         if ($user_id) {
@@ -68,8 +75,9 @@ trait SectionFilterTrait
         if ($title) {
             $query = $query->sectionSearch($title);
         }
-
         switch ($filter) {
+            case 'default':
+                break;
             case 0 :
                 $query = $query->withAccessType('0');
                 break;
@@ -78,8 +86,9 @@ trait SectionFilterTrait
                 break;
             case 2:
                 $query = $query->withAccessType('2');
-            case 'default':
-                break;
+        }
+        if($article_id){
+            $query = $query->where('article_id', $article_id);
         }
         return $query->orderBy($order, $order_type);
     }

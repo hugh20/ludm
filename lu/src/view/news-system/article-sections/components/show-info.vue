@@ -7,9 +7,9 @@
         <Col span="12"> Slug: {{info.slug}} </Col>
         <Col span="12"> 作者： {{info.user.name}} </Col>
         <Col span="12"> 访问方式：
-        <span class="green-color" v-if="info.access_type === 'PUB' "> 公开  </span>
-        <span class="green-color" v-else-if="info.access_type === 'PWD' ">  密码访问： {{ info.access_value }}  </span>
-        <span class="green-color" v-else>  私密  </span>
+        <span class="green-color" v-if="info.access_type == '0' "> 免费  </span>
+        <span class="green-color" v-else-if="info.access_type == '1' ">  VIP  </span>
+        <span class="green-color" v-else>  付费  </span>
         </Col>
       </Row>
       <hr class="hr-line-0">

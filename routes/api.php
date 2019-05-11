@@ -97,11 +97,11 @@ Route::namespace('Admin')->group(function () {
     Route::patch('admin/articles/{article}', 'ArticlesController@update')->name('articles.update');
     Route::delete('admin/articles/{article}', 'ArticlesController@destroy')->name('articles.destroy');
 
-    Route::get('admin/articles/{article}/sections', 'SectionsController@sectionList')->name('sections.list');
-    Route::get('admin/articles/{article}/sections/{section}', 'SectionsController@show')->name('sections.show');
-    Route::post('admin/articles/{article}/sections', 'SectionsController@store')->name('sections.store');
-    Route::patch('admin/articles/{article}/sections/{section}', 'SectionsController@update')->name('sections.update');
-    Route::delete('admin/articles/{article}/sections/{section}', 'SectionsController@destroy')->name('sections.destroy');
+    Route::get('admin/sections', 'SectionsController@sectionList')->name('sections.list');
+    Route::get('admin/sections/{section}', 'SectionsController@show')->name('sections.show');
+    Route::post('admin/sections', 'SectionsController@store')->name('sections.store');
+    Route::patch('admin/sections/{section}', 'SectionsController@update')->name('sections.update');
+    Route::delete('admin/sections/{section}', 'SectionsController@destroy')->name('sections.destroy');
 
     Route::get('admin/logs', 'LogsController@logList')->name('logs.list');
 

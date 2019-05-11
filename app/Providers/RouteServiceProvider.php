@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\IpFilter;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\Section;
 use App\Models\SystemConfig;
 use App\Models\Tag;
 use App\Models\User;
@@ -73,8 +74,9 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('ip_filter', function ($value) {
             return IpFilter::where('id', $value)->first();
         });
-        Route::bind('ip_filter', function ($value) {
-            return IpFilter::where('id', $value)->first();
+
+        Route::bind('section', function ($value) {
+            return Section::where('id', $value)->first();
         });
     }
 

@@ -61,9 +61,9 @@ class  SectionValidate extends Validate
         $message = [
             'title.required' => '标题不能为空',
             'name.between' => '标题称只能在:min-:max个字符范围',
-            'article_id.required' => '必须选择分类',
-            'article_id.integer' => '分类格式不正确',
-            'article_id.min' => '必须选择分类',
+            'article_id.required' => '必须选择文章',
+            'article_id.integer' => '文章格式不正确',
+            'article_id.min' => '必须选择分类文章',
             'content.required' => '必须填写内容',
         ];
         $validator = Validator::make($request_data, $rules, $message);

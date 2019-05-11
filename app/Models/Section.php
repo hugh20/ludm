@@ -27,12 +27,18 @@ class Section extends Model
         'access_type',
         'created_at',
         'updated_at',
+        'weight'
     ];
 
 
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function article()
+    {
+        return $this->belongsTo('App\Models\Article');
     }
 
     protected function setContentAttribute($value)
