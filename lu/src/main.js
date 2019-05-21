@@ -36,6 +36,7 @@ window.exportExcelUrl = {
   exportAdvertisementPosition: appUrl + 'api/excels/export/advertisement_positions'
 }
 
+console.log(iView);
 Vue.use(iView, {
   i18n: (key, value) => i18n.t(key, value)
 })

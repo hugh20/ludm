@@ -138,14 +138,11 @@ class Role extends Model implements RoleContract
 
     public function destroyAction()
     {
-        DB::beginTransaction();
         try {
             $this->delete();
             $this->syncPermissions([]);
-            DB::commit();
             return $this->baseSucceed([], '角色删除成功');
         } catch (\Exception $e) {
-            DB::rollBack();
             return $this->baseFailed('内部错误');
         }
     }

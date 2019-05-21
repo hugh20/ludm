@@ -139,13 +139,10 @@ class Permission extends Model implements PermissionContract
 
     public function destroyAction()
     {
-        DB::beginTransaction();
         try {
             $this->delete();
-            DB::commit();
             return $this->baseSucceed([], '权限删除成功');
         } catch (\Exception $e) {
-            DB::rollBack();
             return $this->baseFailed('内部错误');
         }
     }

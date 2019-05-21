@@ -22,7 +22,7 @@ export const destroy = (id) => {
     })
 }
 
-export const add = (article_id, formData) => {
+export const add = (formData) => {
     return axios.request({url: '/api/admin/sections', data: formData, method: 'post'})
 }
 

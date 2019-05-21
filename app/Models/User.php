@@ -47,7 +47,6 @@ class User extends Authenticatable
 
     public function storeAction($input)
     {
-        DB::beginTransaction();
         try {
             if ($input['head_image']) {
                 $this->saveAttachmentAfterSave($input['head_image']);
@@ -57,11 +56,9 @@ class User extends Authenticatable
             $this->password = bcrypt($input['password']);
             $this->save();
 
-            DB::commit();
             return $this->baseSucceed([], '操作成功');
         } catch (\Exception $e) {
             throw $e;
-            DB::rollBack();
             return $this->baseFailed('内部错误');
         }
     }
@@ -73,7 +70,6 @@ class User extends Authenticatable
         if ($input['id'] === 1) {
             unset($input['email']);
         }
-        DB::beginTransaction();
         try {
             if (($old_head_image != $new_head_image)) {
                 if ($old_head_image > 0) {
@@ -85,18 +81,15 @@ class User extends Authenticatable
             }
             $this->fill($input)->save();
 
-            DB::commit();
             return $this->baseSucceed([], '操作成功');
         } catch (\Exception $e) {
             throw  $e;
-            DB::rollBack();
             return $this->baseFailed('内部错误');
         }
     }
 
     public function destroyAction()
     {
-        DB::beginTransaction();
         try {
             $this->syncRoles([]);
             $this->delete();
@@ -104,14 +97,15 @@ class User extends Authenticatable
             if ($attachment_id) {
                 $this->deleteAttachmentAfterDelete($attachment_id);
             }
-            DB::commit();
             return $this->baseSucceed([], '用户删除成功');
         } catch (\Exception $e) {
-            DB::rollBack();
             return $this->baseFailed('内部错误');
         }
 
     }
 
+    public function vip(){
+        return $this->hasOne('App\Models\Vip');
+    }
 
 }

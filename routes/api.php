@@ -45,6 +45,12 @@ Route::namespace('Admin')->group(function () {
     Route::post('admin/give/{user}/roles', 'UserController@giveUserRoles')->name('users.give_user_roles');
     Route::delete('admin/users/{user}', 'UserController@destroy')->name('users.destroy');
 
+//    Route::get('admin/vips', 'VipController@vipsList')->name('vips.list');
+    Route::get('admin/vips/{vip}', 'VipController@show')->name('vips.show');
+    Route::post('admin/vips', 'VipController@store')->name('vips.store');
+    Route::patch('admin/vips/{vip}', 'VipController@update')->name('vips.update');
+    Route::delete('admin/vips/{vip}', 'VipController@destroy')->name('vips.destroy');
+
     Route::get('admin/permissions', 'PermissionsController@permissionList')->name('permissions.list');
     Route::post('admin/permissions', 'PermissionsController@addEdit')->name('permissions.add_edit');
     Route::get('admin/all_permissions', 'PermissionsController@allPermissions')->name('permissions.all');

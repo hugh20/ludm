@@ -23,6 +23,7 @@ class UserController extends AdminController
         $per_page = $request->get('per_page', 10);
         $search_data = json_decode($request->get('search_data'), true);
 
+        $model = $model->with('vip');
         $email = isset_and_not_empty($search_data, 'email');
         if ($email) {
             $model = $model->columnLike('email', $email);

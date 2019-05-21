@@ -167,6 +167,7 @@
                     t.formData = {
                         id: res_data.id,
                         title: res_data.title,
+                        keywords: res_data.keywords,
                         descriptions: res_data.descriptions,
                         category_id: res_data.category_id,
                         weight: res_data.weight,
@@ -177,7 +178,7 @@
                         },
                         article_id: res_data.article_id
                     };
-                    t.handleSaveOpenness();
+                    console.log(t.formData);
                     if(t.formData.cover_image.attachment_id) {
                         t.imguploadConfig.default_list = [t.formData.cover_image];
                     }
@@ -192,7 +193,7 @@
                 let t = this
                 t.$refs.formData.validate((valid) => {
                     if (valid) {
-                        t.saveLoading = true
+                        t.saveLoading = true;
                         edit(t.modalId, t.formData).then(res => {
                             t.saveLoading = false
                             t.modalShow = false
@@ -212,32 +213,6 @@
                 this.$emit('on-edit-modal-hide')
             },
             uploadChange(fileList, formatFileList) {
-            },
-            handleEditOpenness() {
-                this.editOpenness = !this.editOpenness;
-            },
-            handleSaveOpenness() {
-                var access_type = this.formData.access_type;
-                if (this.passwordValidate()) {
-                    this.Openness = (access_type === 'PUB') ? '公开' : (access_type === 'PWD') ? '密码' : '私密';
-                    this.editOpenness = false;
-                }
-            },
-            passwordValidate() {
-                var access_type = this.formData.access_type;
-                var access_value = this.formData.access_value;
-                if (access_type === 'PWD') {
-                    var patt = /^[a-zA-Z0-9]{4,8}$/;
-                    if (!patt.test(access_value)) {
-                        this.$Notice.error({
-                            title: '出错了',
-                            desc: '密码只能是4到8位的数字与字母'
-                        });
-                        return false;
-                    }
-
-                }
-                return true;
             },
             addEditExcute() {
                 let t = this;
