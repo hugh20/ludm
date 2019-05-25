@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Advertisement;
+
 class IndexController extends WebController
 {
 
@@ -12,7 +14,12 @@ class IndexController extends WebController
 
     public function index()
     {
-        return view('welcome');
+        //轮播图
+        $advert = Advertisement::advertisementPositionSearch(2);//2是广告位
+        $adverts = $advert->enable()->select('id', 'name', 'cover_image', 'link_url' )->limit(5)->get();
+
+//        dd($adverts->toArray());
+        return view('welcome',['adverts'=>$adverts->toArray()]);
     }
 
     public function dashboard()

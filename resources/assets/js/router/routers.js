@@ -1,5 +1,4 @@
-import Main from '@/view/main'
-import parentView from '@/components/parent-view'
+import Main from 'view$/main'
 
 export default[
   {
@@ -9,7 +8,7 @@ export default[
       title: 'Login - 登录',
       hideInMenu: true
     },
-    component: () => import ('@/view/login/login.vue')
+    component: () => import ('view$/login/login.vue')
   }, {
     path: '/',
     name: '_home',
@@ -28,7 +27,7 @@ export default[
           title: '首页',
           notCache: true
         },
-        component: () => import ('@/view/single-page/home')
+        component: () => import ('view$/single-page/home')
       }
     ]
   }, {
@@ -47,7 +46,7 @@ export default[
         meta: {
           title: '权限列表'
         },
-        component: () => import ('@/view/privileges/permissions/list.vue')
+        component: () => import ('view$/privileges/permissions/list.vue')
       }, {
         path: '/role-list',
         name: 'role-list',
@@ -55,14 +54,14 @@ export default[
           title: '角色列表',
           // href: 'https://lison16.github.io/iview-admin-doc/#/'
         },
-        component: () => import ('@/view/privileges/roles/list.vue')
+        component: () => import ('view$/privileges/roles/list.vue')
       }, {
         path: '/administrator-list',
         name: 'administrator-list',
         meta: {
           title: '用户列表'
         },
-        component: () => import ('@/view/privileges/users/list.vue')
+        component: () => import ('view$/privileges/users/list.vue')
       }
     ]
   }, {
@@ -80,35 +79,35 @@ export default[
         meta: {
           title: '广告位'
         },
-        component: () => import ('@/view/news-system/advertisement-positions/list.vue')
+        component: () => import ('view$/news-system/advertisement-positions/list.vue')
       }, {
         path: 'advertisement-list',
         name: 'advertisement-list',
         meta: {
           title: '广告列表'
         },
-        component: () => import ('@/view/news-system/advertisements/list.vue')
+        component: () => import ('view$/news-system/advertisements/list.vue')
       }, {
         path: '/category-list',
         name: 'category-list',
         meta: {
           title: '分类管理'
         },
-        component: () => import ('@/view/news-system/categories/list.vue')
+        component: () => import ('view$/news-system/categories/list.vue')
       }, {
         path: '/tag-list',
         name: 'tag-list',
         meta: {
           title: '标签管理'
         },
-        component: () => import ('@/view/news-system/tags/list.vue')
+        component: () => import ('view$/news-system/tags/list.vue')
       }, {
         path: '/article-list',
         name: 'article-list',
         meta: {
           title: '文章管理'
         },
-        component: () => import ('@/view/news-system/articles/list.vue')
+        component: () => import ('view$/news-system/articles/list.vue')
       },
         {
             path: '/article/:article_id(\\d+)/section-list',
@@ -117,7 +116,7 @@ export default[
                 hideInMenu: true,
                 title: '章节管理'
             },
-            component: () => import ('@/view/news-system/article-sections/list.vue')
+            component: () => import ('view$/news-system/article-sections/list.vue')
         },
       {
         path: '/carousel-list',
@@ -125,7 +124,7 @@ export default[
         meta: {
           title: '抡播图'
         },
-        component: () => import ('@/view/news-system/carousels/list.vue')
+        component: () => import ('view$/news-system/carousels/list.vue')
       }
     ]
   }, {
@@ -143,14 +142,14 @@ export default[
         meta: {
           title: '附件列表'
         },
-        component: () => import ('@/view/resources/attachments/list.vue')
+        component: () => import ('view$/resources/attachments/list.vue')
       }, {
         path: '/config-item-list',
         name: 'config-item-list',
         meta: {
           title: '系统配置项'
         },
-        component: () => import ('@/view/resources/systems/config-item-list.vue')
+        component: () => import ('view$/resources/systems/config-item-list.vue')
       }
     ]
   }, {
@@ -168,14 +167,14 @@ export default[
         meta: {
           title: '系统日志'
         },
-        component: () => import ('@/view/security/logs/list.vue')
+        component: () => import ('view$/security/logs/list.vue')
       }, {
         path: '/ip-filters',
         name: 'ip-filters',
         meta: {
           title: 'ip 过滤'
         },
-        component: () => import ('@/view/security/ip_filters/list.vue')
+        component: () => import ('view$/security/ip_filters/list.vue')
       }, {
         path: '/app-versions',
         name: 'app-versions',
@@ -183,7 +182,7 @@ export default[
           title: 'app 版本控制',
             hideInMenu: true,
         },
-        component: () => import ('@/view/security/app-versions/list.vue')
+        component: () => import ('view$/security/app-versions/list.vue')
       }, {
         path: '/system-versions',
         name: 'system-versions',
@@ -191,7 +190,7 @@ export default[
           title: 'lucms 版本更新日志',
             hideInMenu: true,
         },
-        component: () => import ('@/view/system-version')
+        component: () => import ('view$/system-version')
       }
     ]
   }, {
@@ -210,14 +209,14 @@ export default[
         meta: {
           title: '后台消息'
         },
-        component: () => import ('@/view/messages/admin-messages/list.vue')
+        component: () => import ('view$/messages/admin-messages/list.vue')
       }, {
         path: '/api-messages',
         name: 'api-messages',
         meta: {
           title: 'api 消息'
         },
-        component: () => import ('@/view/messages/api-messages/list.vue')
+        component: () => import ('view$/messages/api-messages/list.vue')
       }
     ]
   }, {
@@ -226,20 +225,20 @@ export default[
     meta: {
       hideInMenu: true
     },
-    component: () => import ('@/view/error-page/401.vue')
+    component: () => import ('view$/error-page/401.vue')
   }, {
     path: '/500',
     name: 'error_500',
     meta: {
       hideInMenu: true
     },
-    component: () => import ('@/view/error-page/500.vue')
+    component: () => import ('view$/error-page/500.vue')
   }, {
     path: '*',
     name: 'error_404',
     meta: {
       hideInMenu: true
     },
-    component: () => import ('@/view/error-page/404.vue')
+    component: () => import ('view$/error-page/404.vue')
   }
 ]

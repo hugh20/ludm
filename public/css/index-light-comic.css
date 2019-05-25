@@ -1,0 +1,6 @@
+﻿.float-bar .scroll, .float-bar .swipe {
+  display: none !important; }
+
+.comic-pic-item {
+  border-top: 0 !important;
+  border-bottom: 0 !important; }
