@@ -1,2 +1,2 @@
-import HeaderBar from './header-bar'
+import HeaderBar from './header'
 export default HeaderBar

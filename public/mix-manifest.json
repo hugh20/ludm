@@ -1,5 +1,8 @@
 {
+    "/error_500.js": "/error_500.js",
+    "/error_404.js": "/error_404.js",
+    "/error_401.js": "/error_401.js",
+    "/index.js": "/index.js",
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/js/jquery.js": "/js/jquery.js"
+    "/css/app.css": "/css/app.css"
 }

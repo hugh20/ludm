@@ -17,11 +17,12 @@
     "laravel-mix": "^1.0",
     "lodash": "^4.17.4",
     "vue": "^2.5.7",
-    "vuex": "^3.0.1",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "dependencies": {
     "element-ui": "^2.4.8",
+    "js-cookie": "^2.2.0",
     "vue-amap": "^0.5.8"
   }
 }

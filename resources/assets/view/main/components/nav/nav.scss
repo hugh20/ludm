@@ -1,0 +1,181 @@
+
+/* 导航菜单 */
+.nav-menu-box {
+  display: none;
+  position: fixed;
+  z-index: 150;
+  top: 2.5rem;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.nav-menu-box .nav-menu-bg {
+  position: absolute;
+  z-index: 151;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-transition: opacity 300ms ease;
+  transition: opacity 300ms ease;
+  opacity: 0;
+}
+
+.nav-menu-box.show .nav-menu-bg {
+  opacity: 1;
+}
+
+.nav-menu-box .nav-menu {
+  position: relative;
+  z-index: 152;
+  background-color: #F5F5EE;
+  padding-bottom: 0.75rem;
+  border-bottom: 0.25rem solid #ff9a6a;
+  -webkit-transition: -webkit-transform 300ms ease;
+  transition: -webkit-transform 300ms ease;
+  transition: transform 300ms ease;
+  transition: transform 300ms ease, -webkit-transform 300ms ease;
+  -webkit-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+  text-align: center;
+}
+
+.nav-menu-box.show .nav-menu {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.nav-menu .nav-list {
+  font-size: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.2rem;
+}
+
+.nav-menu .nav-list .item {
+  display: inline-block;
+  width: 28%;
+  margin-right: 4%;
+}
+
+.nav-menu .nav-list .item:nth-child(3n) {
+  margin-right: 0;
+}
+
+.nav-menu .nav-list .link {
+  display: inline-block;
+  height: 2.75rem;
+  padding-top: 0.25rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.nav-menu .nav-list .link:active {
+  background-color: #DCDCD6;
+}
+
+.nav-menu .nav-list .icon {
+  display: block;
+  margin: 0 auto;
+}
+
+.nav-menu .nav-list .icon.index {
+  width: 1.7rem;
+  height: 1.7rem;
+  background: url("../../../../images/sc_img_default.png") no-repeat -10.15rem -2.55rem;
+  background-size: 14.8rem 7rem;
+  width: 1.7rem;
+  height: 1.7rem;;
+
+  background-repeat: no-repeat;
+}
+
+.nav-menu .nav-list .icon.collect {
+  width: 1.7rem;
+  height: 1.7rem;
+  background: url("../../../../images/sc_img_default.png") no-repeat -12.1rem -2.55rem;
+  background-size: 14.8rem 7rem;
+  width: 1.7rem;
+  height: 1.7rem;;
+
+  background-repeat: no-repeat;
+}
+
+.nav-menu .nav-list .icon.history {
+  width: 1.7rem;
+  height: 1.7rem;
+  background: url("../../../../images/sc_img_default.png") no-repeat -6.25rem -2.55rem;
+  background-size: 14.8rem 7rem;
+  width: 1.7rem;
+  height: 1.7rem;;
+
+  background-repeat: no-repeat;
+}
+
+.nav-menu .nav-list .icon.category {
+  width: 1.7rem;
+  height: 1.7rem;
+  background: url("../../../../images/sc_img_default.png") no-repeat -1.95rem -5.3rem;
+  background-size: 14.8rem 7rem;
+  width: 1.7rem;
+  height: 1.7rem;;
+
+  background-repeat: no-repeat;
+}
+
+.nav-menu .nav-list .icon.rank {
+  width: 1.7rem;
+  height: 1.7rem;
+  background: url("../../../../images/sc_img_default.png") no-repeat 0rem -5.3rem;
+  background-size: 14.8rem 7rem;
+  width: 1.7rem;
+  height: 1.7rem;;
+
+  background-repeat: no-repeat;
+}
+
+.nav-menu .nav-list .icon.time {
+  width: 1.7rem;
+  height: 1.7rem;
+  background: url("../../../../images/sc_img_default.png") no-repeat -8.2rem -2.55rem;
+  background-size: 14.8rem 7rem;
+  width: 1.7rem;
+  height: 1.7rem;;
+
+  background-repeat: no-repeat;
+}
+
+.nav-menu .nav-list .name {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.6rem;
+  color: #969696;
+}
+
+.nav-menu .btn-home {
+  display: block;
+  text-indent: -2500rem;
+  font-size: 0;
+  margin: 0 auto;
+  width: 14.85rem;
+  height: 2.3rem;
+  background: url("../../../../images/sc_img_default.png") no-repeat 0rem 0rem;
+  background-size: 14.8rem 7rem;
+  width: 14.8rem;
+  height: 2.3rem;;
+
+  background-repeat: no-repeat;
+}
+
+.nav-menu .btn-home:active {
+  -webkit-transform: translate3d(0, 0.1rem, 0);
+  transform: translate3d(0, 0.1rem, 0);
+}
+
+
+.top-bar .btn-top.back, .top-bar .btn-top.search, .top-bar .btn-top.menu, .nav-menu .nav-list .link {
+  border-radius: 0.1rem;
+  overflow: hidden;
+}

@@ -1,0 +1,43 @@
+@charset "UTF-8";
+html {
+  font-size: 20px;
+}
+
+html {
+  font-size: 10px;
+  overflow-x: hidden;
+}
+
+@media screen and (min-width: 320px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+@media screen and (min-width: 360px) {
+  html {
+    font-size: 19px;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 414px) {
+  html {
+    font-size: 22px;
+  }
+}
+
+body {
+  font-size: 14px;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #F5F5EE;
+}

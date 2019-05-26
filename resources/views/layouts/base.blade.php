@@ -47,152 +47,15 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-    <script>
-        window.COOPERATION_CLIENT = '';
-
-        window.pageAction = window.pageAction || {};
-        window.presetPageAction = window.presetPageAction || {};
-        ;
-        /**
-         * Created by krimeshu on 2016/6/6.
-         */
-
-        (function () {
-            function Blocker(opts) {
-                opts = opts || {};
-                var timeKey = opts.timeKey || 'default';
-
-                this.KEY = 'H5_BLOCKER-' + timeKey;
-                this.EXPIRE_DAYS = 2;
-                // this.BLOCK_TIME = ['00:00', '23:59'];
-            }
-
-            Blocker.prototype = {
-                check: function () {
-                    var isCooperation = COOPERATION_CLIENT ? true : false,
-                        isPad = this.isPad(),
-                        hasBlocked = this.getCookie(this.KEY),
-                        // now = new Date(),
-                        // today = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
-                        // blockTimeStart = new Date(today + ' ' + this.BLOCK_TIME[0]),
-                        // blockTimeEnd = new Date(today + ' ' + this.BLOCK_TIME[1]),
-                        // isBlockTime = now >= blockTimeStart && now < blockTimeEnd;
-                        isBlockTime = true;
-                    return (!isCooperation && !isPad && !hasBlocked && isBlockTime);
-                },
-                checkAndGo: function () {
-                    if (this.check()) {
-                        this.rememberBlocked();
-                        this.goBlockPage();
-                    }
-                },
-                checkAndDialog: function () {
-                    if (this.check()) {
-                        this.rememberBlocked();
-                        this.showBlockDialog();
-                    }
-                },
-                rememberBlocked: function () {
-                    var expire = this.EXPIRE_DAYS * 24 * 60;
-                    this.setCookie(this.KEY, new Date().getTime(), expire, '', '/');
-                },
-                goBlockPage: function () {
-                    var channelIDs = { 'index': 1 },
-                        channelID = channelIDs['index'];
-                    window.location.href = '/block.html?retUrl=' + encodeURIComponent(window.location.href) +
-                        (channelID ? '&channelID=' + channelID : '');
-                },
-                showBlockDialog: function () {
-                    var self = this,
-                        dialog = window.blockDialog;
-                    if (dialog) {
-                        dialog.open();
-                    } else {
-                        window.setTimeout(function () {
-                            self.showBlockDialog();
-                        }, 50);
-                    }
-                },
-                getCookie: function (key) {
-                    var allcookies = document.cookie;
-                    var cookiesReg = new RegExp('(^|;)\\s*' + key + '\\s*(=\\s*([^;$]*?))?(;|$)');
-                    var groups = cookiesReg.exec(allcookies);
-                    return decodeURIComponent(groups ? (groups[3] || '') : '');
-                },
-                setCookie: function (key, value, expires, domain, path) {
-                    var values = [key + '=' + encodeURIComponent(value)];
-                    if (expires) {
-                        if (typeof expires === 'number') {
-                            var expiresTime = new Date();
-                            expiresTime.setMinutes(expiresTime.getMinutes() + expires);
-                            values.push('expires=' + expiresTime.toGMTString());
-                        } else {
-                            values.push('expires=' + expires);
-                        }
-                    }
-                    values.push('domain=' + (domain || ''));
-                    values.push('path=' + (path || '/'));
-                    document.cookie = values.join(';');
-                },
-                isPad: function () {
-                    var ua = window.navigator.userAgent;
-                    return /(^| |\()iPad(;| |\/|$)/.test(ua);
-                }
-            };
-
-            window.Blocker = Blocker;
-        })();;
-    </script>
-    <!-- fragEnd: withOutDynamicConfig -->
-    <script>
-        window.COOPERATION_CLIENT = '';
-    </script>
-    <script>
-
-        (function autoBlock() {
-            // 拦截类型：页面、忽略、对话框（默认）
-            var specBlockType = {
-                'index': 'ignore',
-                'chapter': 'ignore',
-                'comic_info': 'ignore'
-            };
-            // 根据页面名称确定拦截类型，并做处理
-            var blockType = specBlockType['index'];
-            // 微博里不适合跳转拦截页，强制改为弹窗
-            if (/(^| )(Weibo)( |\/|$|\()/i.test(navigator.userAgent)) {
-                blockType = null;
-            }
-            switch (blockType) {
-                case 'page':
-                    new Blocker().checkAndGo();
-                    break;
-                case 'ignore':
-                    break;
-                default:
-                    new Blocker().checkAndDialog();
-                    break;
-            }
-        })();
-    </script>
     <title>@yield('title'){{ config('app.name') }} </title>
     <link rel="stylesheet" href="css/index.css"/>
 </head>
-<body class="pushable">
-<div id="app2">
-    @include('layouts.common.navbar')
-</div>
-<div class="main container pusher" id="app">
-    @yield('content')
-    <messages message-session="{{ session()->get('toastrMsg.message') }}"
-              message-type="{{ session()->get('toastrMsg.status') }}"></messages>
-</div>
-@include('layouts.common.footer')
+<body>
 
-{{--<script src="{{ mix('js/app.js') }}"></script>--}}
+@yield('content')
+
 <script src="{{ mix('js/jquery.js') }}"></script>
-
+<script src="{{ mix('js/app.js') }}"></script>
 @yield('script')
-
 </body>
-
 </html>

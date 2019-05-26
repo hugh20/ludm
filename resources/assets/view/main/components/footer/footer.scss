@@ -1,0 +1,99 @@
+/* 底部区域 */
+footer.bottom {
+  position: relative;
+  width: 100%;
+  height: 3.5rem;
+  background-image: url("../../../../images/bottombg.png");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+
+footer.bottom .bottom-row {
+  position: absolute;
+  bottom: 0;
+  left: 52%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  text-align: center;
+  width: 15rem;
+  margin-left: -7.5rem;
+}
+
+footer.bottom .bottom-row .link {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #535252;
+  position: relative;
+  z-index: 2;
+  line-height: 3.75rem;
+}
+
+footer.bottom .bottom-row .link.em {
+  text-shadow: 0 0 0.15rem #FEF886;
+}
+
+footer.bottom .bottom-row .link.f-2 {
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+}
+
+footer.bottom .bottom-row .link.f-3 {
+  -webkit-box-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+}
+
+footer.bottom .bottom-row .link.f-4 {
+  -webkit-box-flex: 4;
+  -ms-flex: 4;
+  flex: 4;
+}
+
+footer.bottom .bottom-row .link.f-5 {
+  -webkit-box-flex: 5;
+  -ms-flex: 5;
+  flex: 5;
+}
+
+footer.bottom .bottom-row .link.f-6 {
+  -webkit-box-flex: 6;
+  -ms-flex: 6;
+  flex: 6;
+}
+
+footer.bottom .bottom-row .link.w-150 {
+  width: 3rem;
+}
+
+footer.bottom .bottom-row .link.w-200 {
+  width: 2rem;
+}
+
+footer.bottom .bottom-row .link.w-400 {
+  width: 4rem;
+}
+
+footer.bottom .bottom-row .npc-3 {
+  display: inline-block;
+  text-indent: -2500rem;
+  font-size: 0;
+  width: 3.75rem;
+  height: 3.325rem;
+  background: url("../../../../images/sc_img_index.png") no-repeat -13rem -2.25rem;
+  background-size: 20.5rem 17.5rem;
+  width: 3.75rem;
+  height: 3.325rem;;
+
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 1;
+  left: 0.75rem;
+  vertical-align: bottom;
+}

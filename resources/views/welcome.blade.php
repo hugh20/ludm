@@ -1,7 +1,6 @@
 @extends('layouts.base')
 
 @section('content')
-
     <!-- Banner与主菜单 -->
     <section class="banner-menu under-top-bar">
         <div class="banner-list-box">
@@ -65,13 +64,6 @@
                 </a>
             </li>
         </ul>
-        <!-- 历史记录弹出框 -->
-        <a class="history-popup closed">
-            <i class="npc-avatar">[NPC头像]</i>
-            <span class="text">续看: 漫画名 第...话</span>
-            <span class="close">X</span>
-            <span class="arrow"></span>
-        </a>
     </section>
     <!-- APP引导语 -->
     <!--<section class="app-guiding">-->

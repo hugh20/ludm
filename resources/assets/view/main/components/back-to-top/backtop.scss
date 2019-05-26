@@ -1,0 +1,40 @@
+.back-to-top {
+  position: fixed;
+  z-index: 10;
+  bottom: 4rem;
+  right: 1rem;
+  text-indent: -2500rem;
+  font-size: 0;
+  padding: 0.275rem;
+  background-color: white;
+  border-radius: 0.125rem;
+  border: 1px solid #797878;
+  -webkit-transition: visibility 300ms ease, opacity 300ms ease, -webkit-transform 300ms ease;
+  transition: visibility 300ms ease, opacity 300ms ease, -webkit-transform 300ms ease;
+  transition: transform 300ms ease, visibility 300ms ease, opacity 300ms ease;
+  transition: transform 300ms ease, visibility 300ms ease, opacity 300ms ease, -webkit-transform 300ms ease;
+  -webkit-transform: translate3d(0, 200%, 0);
+  transform: translate3d(0, 200%, 0);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.back-to-top::after {
+  content: "";
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
+  background: url("../../../../images/sc_img_default.png") no-repeat -8.7rem -5.3rem;
+  background-size: 14.8rem 7rem;
+  width: 1.35rem;
+  height: 1.35rem;;
+
+  background-repeat: no-repeat;
+}
+
+.back-to-top.show {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+  opacity: 1;
+}

@@ -7,7 +7,6 @@ window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
 window.baseURL = 'http://dm.lc/';
 
-
 new Vue({
     el: '#app',
     router,
