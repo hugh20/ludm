@@ -55130,8 +55130,8 @@ __webpack_require__(240);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__App__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_vue__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__App_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__router__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(78);
 
@@ -55148,7 +55148,7 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     router: __WEBPACK_IMPORTED_MODULE_2__router__["a" /* default */],
     store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* default */],
     render: function render(h) {
-        return h(__WEBPACK_IMPORTED_MODULE_1__App___default.a);
+        return h(__WEBPACK_IMPORTED_MODULE_1__App_vue___default.a);
     }
 });
 
@@ -67433,7 +67433,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "app" } }, [_c("router-view")], 1)
+  return _c("div", [_c("router-view")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -83085,15 +83085,15 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("header"),
+      _c("Header"),
       _vm._v(" "),
-      _c("nav"),
+      _c("Nav"),
       _vm._v(" "),
       _c("router-view"),
       _vm._v(" "),
       _c("back-to-top"),
       _vm._v(" "),
-      _c("footer")
+      _c("Footer")
     ],
     1
   )
