@@ -55,7 +55,7 @@ body {
 
 @font-face {
     font-family: 'iconfont';
-    src: url("../../public/font/iconfont.eot?v=b5578579b7a67d36");
+    src: url("../fonts/iconfont.eot?v=b5578579b7a67d36");
     /* IE9*/
     src: url("../fonts/iconfont.woff") format("woff"), url("../fonts/iconfont.ttf") format("truetype"), url("../fonts/iconfont.svg") format("svg");
     /* iOS 4.1- */

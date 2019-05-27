@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Header></Header>
-        <Nav></Nav>
+        <Header @on-show-menu="show_menu = $event"></Header>
+        <Nav :class="show_menu ? 'show':  ''" :display="show_menu ? 'display' : 'none'"></Nav>
         <router-view/>
         <back-to-top></back-to-top>
         <Footer></Footer>
@@ -23,12 +23,15 @@
             Nav
         },
         data() {
-            return {}
+            return {
+                show_menu: false
+            }
         },
         computed: {},
         watch: {},
         mounted() {
 
-        }
+        },
+        methods: {}
     }
 </script>

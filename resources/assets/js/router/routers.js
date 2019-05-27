@@ -30,7 +30,10 @@ export default [
                 component: r => require.ensure([], () => r(require('../../view/single-page/index')), 'index')
             }
         ]
-    }, {
+    },
+
+
+    {
         path: '/401',
         name: 'error_401',
         meta: {
