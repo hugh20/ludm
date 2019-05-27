@@ -40,7 +40,6 @@
     <meta name="page-name" content="index" />
 
     <!-- 通用样式与脚本 -->
-    <link rel="stylesheet" href="css/core.css" />
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <script>
         window.Laravel = <?php echo json_encode([
@@ -48,14 +47,11 @@
         ]); ?>
     </script>
     <title>@yield('title'){{ config('app.name') }} </title>
-    <link rel="stylesheet" href="css/index.css"/>
 </head>
 <body>
 
 @yield('content')
 
-<script src="{{ mix('js/jquery.js') }}"></script>
-<script src="{{ mix('js/app.js') }}"></script>
 @yield('script')
 </body>
 </html>

@@ -13,5 +13,8 @@ mix.webpackConfig({
             'node_modules',
             path.resolve(__dirname, 'resources')
         ]
+    },
+    devServer: {
+        disableHostCheck: true
     }
 });

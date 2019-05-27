@@ -1,10 +1,10 @@
 <template>
     <div>
-        <header></header>
-        <nav></nav>
+        <Header></Header>
+        <Nav></Nav>
         <router-view/>
         <back-to-top></back-to-top>
-        <footer></footer>
+        <Footer></Footer>
     </div>
 </template>
 <script>

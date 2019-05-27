@@ -1,8 +1,10 @@
 {
+    "/index.js": "/index.js",
     "/error_500.js": "/error_500.js",
     "/error_404.js": "/error_404.js",
     "/error_401.js": "/error_401.js",
-    "/index.js": "/index.js",
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/0.d2d660ef17d136bc3ad1.hot-update.js": "/0.d2d660ef17d136bc3ad1.hot-update.js",
+    "/0.e2d57b54800671825c00.hot-update.js": "/0.e2d57b54800671825c00.hot-update.js"
 }
