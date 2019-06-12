@@ -3,7 +3,7 @@
         <h2 class="sub-title">
             <strong class="title-content">[{{title}}]</strong>
             <small class="desc">“{{titleDesc}}”</small>
-            <a class="link-more" :href="linkMore">[更多]</a>
+            <router-link class="link-more" :to="linkMore">[更多]</router-link>
         </h2>
 
         <ul :class="['comic-list', 'col-3', 'no-tag', typeClass + '-list']">

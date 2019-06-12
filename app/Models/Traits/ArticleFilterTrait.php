@@ -17,7 +17,7 @@ trait ArticleFilterTrait
      * @param int $limit
      * @return mixed
      */
-    public function getArticlesWithFilter($filter, $user_id = 0, $title = '', $tag_id = 0, $category_id = 0, $recommend = '', $top = '', $enable = '', $year = '', $month = '', $order = 'created_at', $order_type = 'desc', $limit = 15)
+    public function getArticlesWithFilter($filter, $user_id = 0, $title = '', $tag_id = 0, $category_id = 0, $recommend = '', $top = '', $enable = '', $year = '', $month = '', $order = 'id', $order_type = 'desc', $limit = 15)
     {
         $filter = $this->getArticleFilter($filter);
 

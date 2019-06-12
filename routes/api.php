@@ -163,5 +163,11 @@ Route::namespace('Admin')->group(function () {
 
 });
 
+Route::namespace('Api')->group(function () {
+    /**       ==========================          自定义 Api           ====================   */
+    Route::get('adverts', 'IndexController@getAdverts')->name('index.getAdverts');
+    Route::get('index/comic', 'IndexController@getComic')->name('index.getComic');
+});
+
 
 

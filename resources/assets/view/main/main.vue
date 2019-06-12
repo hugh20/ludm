@@ -1,7 +1,6 @@
 <template>
     <div>
-        <Header @on-show-menu="show_menu = $event"></Header>
-        <Nav :class="show_menu ? 'show':  ''" :display="show_menu ? 'display' : 'none'"></Nav>
+        <Header></Header>
         <router-view/>
         <back-to-top></back-to-top>
         <Footer></Footer>
@@ -24,7 +23,6 @@
         },
         data() {
             return {
-                show_menu: false
             }
         },
         computed: {},

@@ -1,6 +1,6 @@
 <template>
     <!-- 导航菜单 -->
-    <div class="nav-menu-box" style="{'display': display}">
+    <div class="nav-menu-box" :style="{'display': display}">
         <div class="nav-menu-bg"></div>
         <div class="nav-menu">
             <ul class="nav-list">

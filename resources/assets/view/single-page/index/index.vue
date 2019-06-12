@@ -3,6 +3,16 @@
         <!-- Banner与主菜单 -->
         <section class="banner-menu under-top-bar">
             <!--轮播图-->
+            <div class="banner-list-box">
+                <div class="banner-list-pad"></div>
+                <Carousel style="width:auto; height:auto;" arrow="never" ref="carousel">
+                    <carousel-item v-for="(item, index) in adverts" :key="index">
+                        <v-touch @swipeleft="swipe_next(index)" @swiperight="swipe_prev(index)">
+                            <img :src="item['cover_image']['url']"/>
+                        </v-touch>
+                    </carousel-item>
+                </Carousel>
+            </div>
             <ul class="menu-list">
                 <li class="item">
                     <a class="link"
@@ -38,26 +48,114 @@
                 </li>
             </ul>
         </section>
+        <recommend title="无良推荐" title-desc="无良推荐" link-more="/index/more/3" :comic-data="comices.recommend.data" type-class="recommend"></recommend>
+        <!-- 条漫推荐 -->
+        <section class="light-comic">
+            <h2 class="sub-title">
+                <strong class="title-content">[每日一推]</strong>
+                <small class="desc">“弹幕君出没，快去抓住它！”</small>
+                <router-link class="link-more" to="/Light/recommend">[更多]</router-link>
+            </h2>
+            <div class="light-comic-recommend"
+                 data-id="518333">
+                <a class="link comic-cover"
+                   href="/Light/comicInfo/id/518333">
+                    <img class="cover-image"
+                         src="picture/e2a11c231f4944ddb09bf459a470eee3.gif"/>
+                </a>
 
-
-        <recommend title="dfsaf" title-desc="dsf" link-more="sdag" :comic-data="[]" type-class="recommend"></recommend>
+                <a class="link comic-title">
+                    <span class="text">狐妖小红娘</span>
+                    <small class="artist">作者：小新</small>
+                </a>
+            </div>
+        </section>
+        <!-- 今日更新 -->
+        <section class="update-today">
+            <h2 class="sub-title">
+                <strong class="title-content">[今日我更新]</strong>
+                <small class="desc">“已把作者逼疯，吐血ing...”</small>
+                <router-link class="link-more" to="/index/more/4">[更多]</router-link>
+            </h2>
+            <div class="update-area">
+                <aside class="npc-2">[NPC图片2]</aside>
+                <ul class="comic-list col-1">
+                    <li class="comic-item item-1">
+                        <a class="comic-link"
+                           href="/comic/index/id/634566"
+                           data-id="634566"
+                           data-pos="1">
+                            <div class="comic-cover">
+                                <img class="cover-image" src="picture/7bcb4fadaf9f4f888b019aa5cda4b683.gif"/>
+                            </div>
+                            <div class="comic-content">
+                                <strong class="comic-title"></strong>
+                                <small class="comic-artist">作者：凤凰娱乐</small>
+                                <small class="comic-latest">更新到49话</small>
+                                <ul class="rank-bar">
+                                    <li class="rank-star">[星]</li>
+                                    <li class="rank-star">[星]</li>
+                                    <li class="rank-star">[星]</li>
+                                    <li class="rank-star">[星]</li>
+                                    <li class="rank-score">7.9</li>
+                                </ul>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <recommend title="日漫经典" title-desc="日漫经典" link-more="/index/more/5" :comic-data="comices.classical.data" type-class="japan-comic"></recommend>
+        <recommend title="新作上线" title-desc="新作上线" link-more="/index/more/2" :comic-data="comices.be_online.data" type-class="new-comic"></recommend>
     </div>
 </template>
 
 <script>
     import './index.scss';
     import Recommend from 'components/recommend';
+    import {Carousel, CarouselItem} from 'element-ui';
+    import {getAdverts, getIndexComic} from '@/api/index';
+    import Vue from 'vue';
+
+    const VueTouch = require('vue-touch');
+    Vue.use(VueTouch, {name: 'v-touch'});
 
     export default {
         name: 'index',
         components: {
-            Recommend
+            Recommend,
+            Carousel,
+            CarouselItem
         },
         data() {
-            return {}
+            return {
+                adverts:[],
+                comices: {
+                    be_online:{data:[]},
+                    classical:{data:[]},
+                    day_push:{data:[]},
+                    new_update:{data:[]},
+                    recommend:{data:[]}
+                }
+            }
         },
         mounted() {
+            getAdverts().then(res => {
+                this.adverts = res.data;
+            });
+
+            getIndexComic().then(res => {
+                this.comices = res.data;
+
+            });
         },
-        methods: {}
+        methods: {
+            swipe_prev(i) {
+                this.$refs.carousel.setActiveItem(i-1);
+            },
+            swipe_next(i) {
+                this.$refs.carousel.setActiveItem(i+1);
+            }
+        }
     }
 </script>
