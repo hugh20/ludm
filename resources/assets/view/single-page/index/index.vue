@@ -15,36 +15,28 @@
             </div>
             <ul class="menu-list">
                 <li class="item">
-                    <a class="link"
-                       href="/category/index"
-                       data-name="category">
+                    <router-link to="/category-list" class="link" data-name="category">
                         <i class="icon category">[分]</i>
                         <span class="name">分类</span>
-                    </a>
+                    </router-link>
                 </li>
                 <li class="item">
-                    <a class="link"
-                       href="/vip/index"
-                       data-name="rank">
+                    <router-link to="/vip/index" data-name="rank" class="link">
                         <i class="icon rank">[奖]</i>
                         <span class="name">VIP</span>
-                    </a>
+                    </router-link>
                 </li>
                 <li class="item">
-                    <a class="link"
-                       href="/login/index"
-                       data-name="schedule">
+                    <router-link to="/login/index" class="link" data-name="schedule">
                         <i class="icon time">[表]</i>
                         <span class="name">登录</span>
-                    </a>
+                    </router-link>
                 </li>
                 <li class="item">
-                    <a class="link"
-                       href="/bookshelf/index?type=his"
-                       data-name="history">
+                    <router-link class="link" data-name="history" to="/bookshelf/index">
                         <i class="icon history">[钟]</i>
                         <span class="name">历史</span>
-                    </a>
+                    </router-link>
                 </li>
             </ul>
         </section>
