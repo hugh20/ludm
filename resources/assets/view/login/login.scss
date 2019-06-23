@@ -1,0 +1,173 @@
+.header_div {
+  height: 1.226667rem;
+  position: relative;
+}
+
+.login {
+  background-color: #fff;
+}
+
+.header_jiantou_div {
+  max-width: 10.666667rem !important;
+  margin: 0 auto !important;
+  text-align: center;
+  padding: .266667rem 0 .4rem;
+  width: 100%;
+  background: #fff;
+  z-index: 30;
+}
+
+#app, .container, .rel {
+  position: relative;
+}
+
+.to_back_div {
+  width: 5.333333rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  line-height: 1.146667rem;
+  color: #666 !important;
+  width: 2rem;
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  font-size: .4rem;
+  height: .933333rem;
+  -webkit-background-size: cover;
+  font-weight: 400;
+  background-size: cover;
+  text-align: right;
+  padding-right: .466667rem;
+}
+
+.icon-jiantou:before {
+  content: "\e60d";
+}
+
+.page_title {
+  font-size: .426667rem;
+  color: #000 !important;
+}
+
+.login_title span {
+  font-size: .8rem;
+  color: #ff4a60;
+  padding: .16rem .32rem;
+  border-bottom: .08rem solid #ff4a60;
+}
+
+.errorMask {
+  width: 100%;
+  height: 22rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, .5);
+}
+
+.error {
+  position: absolute;
+  top: 50%;
+  left: 12%;
+  z-index: 11;
+  background: #fff;
+  text-align: center;
+  width: 7.546667rem;
+  border-radius: .266667rem;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.error_title {
+  font-size: .373333rem;
+  color: #000;
+  margin: .266667rem 0 0;
+}
+
+.error_message {
+  font-size: .426667rem;
+  color: #3d3d3d;
+  margin: .2rem 0 .4rem;
+}
+
+.error_confirm {
+  font-size: .426667rem;
+  color: #f8485e;
+  padding: .266667rem 0;
+  border-top: .026667rem solid #eee;
+}
+
+.login_fields {
+  text-align: center;
+}
+
+.mobile_type, .pwd_type {
+  padding-top: .8rem;
+}
+
+.login_fields__password, .login_fields__user {
+  position: relative;
+  border-bottom: .026667rem solid #eee !important;
+  margin: 0 .8rem .266667rem;
+  padding: .533333rem 0;
+  text-align: left;
+}
+
+.icon {
+  width: 2.133333rem;
+  display: inline-block;
+  vertical-align: middle;
+  z-index: 1;
+  font-size: .426667rem;
+  color: #555;
+}
+
+.login_fields input {
+  border-left: .026667rem solid #eee;
+  text-indent: .266667rem;
+  right: 0;
+  color: #afb1be;
+  outline: 0;
+  font-size: .426667rem;
+}
+
+input {
+  -webkit-tap-highlight-color: rgba(255,255,255,0);
+  -webkit-user-select: auto;
+  -moz-user-focus: auto;
+  -moz-user-select: auto;
+  -webkit-appearance: none;
+  outline: 0;
+  border: 0;
+}
+
+.login_account {
+  font-size: .373333rem;
+  color: #555;
+  margin: .8rem 0;
+}
+
+.change_login {
+  text-decoration: underline;
+  color: #48a0f8;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.login_fields__submit input {
+  width: 8rem;
+  height: 1.2rem;
+  text-align: center;
+  line-height: 1.2rem;
+  background: #f8485e;
+  color: #fff;
+  border-radius: .666667rem;
+  font-size: .426667rem;
+  margin-left: 0;
+}
