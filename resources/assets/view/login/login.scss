@@ -23,22 +23,21 @@
 }
 
 .to_back_div {
-  width: 5.333333rem;
   position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-  line-height: 1.146667rem;
+  display: table-cell;
   color: #666 !important;
   width: 2.2rem;
-  -webkit-transform: rotateY(180deg);
-  transform: rotateY(180deg);
-  height: .933333rem;
-  -webkit-background-size: cover;
-  font-weight: 400;
-  background-size: cover;
-  text-align: right;
-  padding-right: .466667rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
+  text-align: center;
+  padding-left: .466667rem;
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+.to_back_div i {
+  vertical-align: middle;
+  color: #969696;
 }
 
 .icon-jiantou:before {
@@ -55,53 +54,6 @@
   color: #ff4a60;
   padding: .16rem .32rem;
   border-bottom: .08rem solid #ff4a60;
-}
-
-.errorMask {
-  width: 100%;
-  height: 22rem;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  background: rgba(0, 0, 0, .5);
-}
-
-.error {
-  position: absolute;
-  top: 50%;
-  left: 12%;
-  z-index: 11;
-  background: #fff;
-  text-align: center;
-  width: 7.546667rem;
-  border-radius: .266667rem;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-.error_title {
-  color: #000;
-  margin: .266667rem 0 0;
-}
-
-.error_message {
-  color: #3d3d3d;
-  margin: .2rem 0 .4rem;
-}
-
-.error_confirm {
-  color: #f8485e;
-  padding: .266667rem 0;
-  border-top: .026667rem solid #eee;
-}
-
-.login_fields {
-  font-size: 1rem;
-}
-
-.mobile_type, .pwd_type {
-  padding-top: .8rem;
 }
 
 .set-plack {
@@ -135,4 +87,8 @@
   border-radius: 1rem;
   margin-left: 0;
   border-width: 0;
+}
+
+.login_fields__submit input:focus {
+  outline: 0;
 }

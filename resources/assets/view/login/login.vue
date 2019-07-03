@@ -1,32 +1,23 @@
 <template>
     <div class="login">
-        <div>
-            <div class="header_div">
-                <header class="header_jiantou_div rel">
-                    <div class="to_back_div"></div>
-                    <span class="page_title">账号登录</span>
-                </header>
-            </div>
-            <el-form class="login_fields" :model="form"  ref="loginForm" label-width="80px">
-                <el-form-item label="账号">
-                    <el-input prefix-icon="el-icon-phone" placeholder="手机号码" type="text" name="account" class="set-plack" maxlength="11"></el-input>
-                </el-form-item>
-
-                <el-form-item label="密码">
-                    <el-input prefix-icon="el-icon-lock" placeholder="请输入密码" type="password" name="password" oninput="if(value.length>16)value=value.slice(0,16)" class="set-plack"></el-input>
-                </el-form-item>
-                <div class="login_account">
-                    未注册账号？<a href="javascript:;" class="change_login">快速注册 &gt;</a>
-                </div>
-                <div class="login_fields__submit"><input type="" value="登录" @click="handleSubmit"></div>
-            </el-form>
+        <div class="header_div">
+            <header class="header_jiantou_div rel">
+                <div class="to_back_div"><router-link to="/index"><i class="el-icon-arrow-left"></i></router-link></div>
+                <span class="page_title">账号登录</span>
+            </header>
         </div>
-        <div class="errorMask" style="display: none;"></div>
-        <div class="error" style="display: none;">
-            <div class="error_title">登录失败</div>
-            <div class="error_message"></div>
-            <div class="error_confirm">确定</div>
-        </div> <!---->
+        <el-form class="login_fields" :model="form" :rules="rules"   ref="loginForm" label-width="80px">
+            <el-form-item label="账号" prop="account">
+                <el-input v-model="form.account" prefix-icon="el-icon-phone" placeholder="手机号码" type="text" class="set-plack" maxlength="11"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="password">
+                <el-input v-model="form.password" prefix-icon="el-icon-lock" placeholder="请输入密码" type="password" class="set-plack" maxlength="16"></el-input>
+            </el-form-item>
+            <div class="login_account">
+                未注册账号？<router-link to="/register" class="change_login">快速注册 &gt;</router-link>
+            </div>
+            <div class="login_fields__submit"><input type="button" value="登录" @click="handleSubmit('loginForm')"></div>
+        </el-form>
     </div>
 </template>
 
@@ -39,7 +30,18 @@
         data: function () {
             return {
                 form: {
-
+                    account:'',
+                    password:''
+                },
+                rules: {
+                    account: [
+                        { required: true, type:'number', message: '请输账号', trigger: 'blur' },
+                        { min: 11, message: '请输正确手机号', trigger: 'blur' },
+                    ],
+                    password: [
+                        { required: true, message: '请输入密码', trigger: 'blur' },
+                        { min: 6, message: '请输入6-16位密码', trigger: 'blur' },
+                    ]
                 }
             };
         },
@@ -48,28 +50,23 @@
                 'handleLogin',
                 'getUserInfo'
             ]),
-            handleSubmit() {
-//                this.$refs.loginForm.validate((valid) => {
-//                    if (valid) {
-//                        this.saveLoading = true
-//                        this.$emit('on-success-valid', {
-//                            email: this.form.userName,
-//                            password: this.form.password
-//                        })
-//                    } else {
-//                        this.saveLoading = false
-//                    }
-//                })
+            handleSubmit(form_name){
+                console.log(this.$refs[form_name]);
+                this.$refs[form_name].validate((valid) => {
+                    if (valid) {
+                        this.handleLogin(this.form).then(res => {
+                            this.getUserInfo().then(res => {
+                                this.$router.push({
+                                    name: 'home'
+                                })
+                            })
+                        });
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
             },
-//            handleSubmit({email, password}) {
-//                this.handleLogin({email, password}).then(res => {
-//                    this.getUserInfo().then(res => {
-//                        this.$router.push({
-//                            name: 'home'
-//                        })
-//                    })
-//                })
-//            }
         }
     }
 </script>
