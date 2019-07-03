@@ -27,7 +27,7 @@
                     </router-link>
                 </li>
                 <li class="item">
-                    <router-link to="/login/index" class="link" data-name="schedule">
+                    <router-link to="/login" class="link" data-name="schedule">
                         <i class="icon time">[表]</i>
                         <span class="name">登录</span>
                     </router-link>

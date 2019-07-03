@@ -1,16 +1,15 @@
 import Main from '../../view/main'
 
-// {
-//     path: '/login',
-//         name: 'login',
-//     meta: {
-//     title: 'Login - 登录',
-//         hideInMenu: true
-// },
-//
-//     component: r => require.ensure([], () => r(require('../../view/login/login.vue')), 'login')
-// },
+
 export default [
+    {
+        path: '/login',
+        name: 'login',
+        meta: {
+            title: 'Login - 登录'
+        },
+        component: r => require.ensure([], () => r(require('../../view/login/login.vue')), 'login')
+    },
      {
         path: '/',
         name: 'main',
