@@ -24,6 +24,10 @@ class LoginController extends ApiController
         $this->middleware('ip-filter')->only('login');
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function login(Request $request)
     {
         $validator = $this->validator($request->all());
@@ -60,6 +64,44 @@ class LoginController extends ApiController
         return $this->success(['token' => $tokens, 'user' => $return]);
     }
 
+    /**
+     * @param Request $request
+     */
+    public function clientLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'phone'     => 'required',
+            'password'  => 'required|string|min:6',
+        ], [
+            'phone.required' => '请输入手机号',
+            'password.required' => '请输入密码',
+            'password.min' => '密码长度至少是6位',
+        ]);
+
+        if ($validator->fails()) {
+            $res_msg = $validator->errors()->first();
+            return $this->failed($res_msg);
+        }
+        $user = User::enable()
+            ->where('phone', $request->phone)
+            ->first();
+
+        if(!$user){
+            return $this->failed('您的账户未注册！');
+        }
+        if (!Hash::check($request->password, $user->password)) {
+            return $this->failed('密码不正确');
+        }
+
+        $user->last_login_at = Carbon::now();
+        $user->save();
+
+        $return = $user->toArray();
+
+        $tokens = $this->authenticate('', 'phone');
+        return $this->success(['token' => $tokens, 'user' => $return]);
+    }
+
     public function logout()
     {
 //        if (\Auth::guard('api')->check()) {
@@ -70,6 +112,10 @@ class LoginController extends ApiController
         return $this->message('退出登录成功');
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function adminUserLogin(Request $request)
     {
 

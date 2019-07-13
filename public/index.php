@@ -55,7 +55,7 @@ $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
 //dd($app->make('routes'));
-
+//exit();
 //exit(phpinfo());
 $response->send();
 

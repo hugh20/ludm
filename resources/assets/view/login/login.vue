@@ -8,7 +8,7 @@
         </div>
         <el-form class="login_fields" :model="form" :rules="rules"   ref="loginForm" label-width="80px">
             <el-form-item label="账号" prop="account">
-                <el-input v-model="form.account" prefix-icon="el-icon-phone" placeholder="手机号码" type="text" class="set-plack" maxlength="11"></el-input>
+                <el-input v-model="form.phone" prefix-icon="el-icon-phone" placeholder="手机号码" type="text" class="set-plack" maxlength="11"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
                 <el-input v-model="form.password" prefix-icon="el-icon-lock" placeholder="请输入密码" type="password" class="set-plack" maxlength="16"></el-input>
@@ -30,12 +30,12 @@
         data: function () {
             return {
                 form: {
-                    account:'',
+                    phone:'',
                     password:''
                 },
                 rules: {
-                    account: [
-                        { required: true, type:'number', message: '请输账号', trigger: 'blur' },
+                    phone: [
+                        { required: true,  message: '请输账号', trigger: 'blur' },
                         { min: 11, message: '请输正确手机号', trigger: 'blur' },
                     ],
                     password: [
@@ -51,7 +51,6 @@
                 'getUserInfo'
             ]),
             handleSubmit(form_name){
-                console.log(this.$refs[form_name]);
                 this.$refs[form_name].validate((valid) => {
                     if (valid) {
                         this.handleLogin(this.form).then(res => {
@@ -60,7 +59,7 @@
                                     name: 'home'
                                 })
                             })
-                        });
+                        })
                     } else {
                         console.log('error submit!!');
                         return false;

@@ -1,5 +1,6 @@
 import { login, logout, getUserInfo } from '@/api/user'
 import { setToken, getToken } from '@/libs/util'
+import {Message} from 'element-ui';
 
 export default {
   state: {
@@ -34,16 +35,21 @@ export default {
   },
   actions: {
     // 登录
-    handleLogin ({ commit }, {email, password}) {
-      email = email.trim()
+    handleLogin ({ commit }, {phone, password}) {
+        phone = phone.trim()
       return new Promise((resolve, reject) => {
         login({
-          email,
+            phone,
           password
         }).then(res => {
-          const data = res.data
-          commit('setAccessToken', data)
-          resolve(res)
+          if(res.status == 'success'){
+              const data = res.token;
+              commit('setAccessToken', data);
+              resolve(res)
+          }else {
+              Message({showClose: true, message: res.message, type: 'error'});
+          }
+          console.log(res);
         }).catch(err => {
           reject(err)
         })

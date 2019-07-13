@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\RequestException;
 
 trait ProxyTrait
 {
-    public function authenticate($guard = '')
+    public function authenticate($guard = '', $username = 'email')
     {
         $client = new Client();
 
@@ -17,13 +17,13 @@ trait ProxyTrait
 
             if ($guard) {
                 $params = array_merge(config('passport.proxy'), [
-                    'username' => request('email'),
+                    'username' => request($username),
                     'password' => request('password'),
                     'provider' => $guard
                 ]);
             } else {
                 $params = array_merge(config('passport.proxy'), [
-                    'username' => request('email'),
+                    'username' => request($username),
                     'password' => request('password'),
                 ]);
             }

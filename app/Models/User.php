@@ -108,4 +108,10 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Vip');
     }
 
+
+    // 通过 phone 查找没有在禁用状态下的用户：
+    public function findForPassport($username)
+    {
+        return $this->enable()->orWhere('email', $username)->orWhere('phone', $username)->first();
+    }
 }

@@ -4,7 +4,8 @@
 /**       ==========================          基本APi           ====================   */
 Route::namespace('Api')->group(function () {
 
-    Route::post('login', 'LoginController@login');
+    Route::post('login', 'LoginController@login');//后台登录
+    Route::post('client_login', 'LoginController@clientLogin');
     Route::post('logout', 'LoginController@logout');
     Route::post('refreshtoken', 'LoginController@refreshToken');
 
