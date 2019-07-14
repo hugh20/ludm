@@ -10,6 +10,14 @@ export default [
         },
         component: r => require.ensure([], () => r(require('../../view/login/login.vue')), 'login')
     },
+    {
+        path: '/register',
+        name: 'register',
+        meta: {
+            title: '注册'
+        },
+        component: r => require.ensure([], () => r(require('../../view/register/register.vue')), 'register')
+    },
      {
         path: '/',
         name: 'main',

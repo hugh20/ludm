@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router';
-import {Loading} from 'element-ui';
+import {Loading, Message} from 'element-ui';
 import routes from './routers'
 import store from '@/store'
 import {getToken, canTurnTo} from '@/libs/util'
@@ -13,8 +13,12 @@ const router = new Router({
 let loadinginstace;
 
 router.beforeEach((to, from, next) => {
-    loadinginstace = Loading.service({fullscreen: true});
     const token = getToken();
+    if(to.name == 'login' && token) {
+        Message({showClose: true, message: '您已登录', type: 'warning'});
+        return next({ path: '/' });
+    }
+    loadinginstace = Loading.service({fullscreen: true});
     if (to.matched.some(res => res.meta.requireAuth)) {
         //是否需要登录
         if (token) {

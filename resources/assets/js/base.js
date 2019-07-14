@@ -4,6 +4,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import Cookies from 'js-cookie'
+
 window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
 window.baseURL = 'http://dm.lc/';
@@ -24,7 +26,7 @@ Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue')
 );*/
-
+// Cookies.remove('access_token');
 new Vue({
     el: '#app',
     router,

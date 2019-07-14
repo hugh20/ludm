@@ -43,8 +43,10 @@ export default {
           password
         }).then(res => {
           if(res.status == 'success'){
-              const data = res.token;
-              commit('setAccessToken', data);
+              commit('setAccessToken', res.data);
+              commit('setEmail', res.data.user.email);
+              commit('setAvator', res.data.user.head_image.url);
+              commit('setUserId', res.data.user.id);
               resolve(res)
           }else {
               Message({showClose: true, message: res.message, type: 'error'});
