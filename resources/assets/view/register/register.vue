@@ -27,7 +27,8 @@
 <script>
     import './register.scss';
     import {mapActions} from 'vuex';
-
+    import {register} from '@/api/register';
+    import {Message} from 'element-ui';
 
     export default {
         data: function () {
@@ -37,7 +38,7 @@
                     callback(new Error('请输入密码'));
                 } else {
                     if (this.form.checkPass !== '') {
-                        this.$refs.form.validateField('checkPass');
+                        this.$refs.registerForm.validateField('checkPass');
                     }
                     callback();
                 }
@@ -73,16 +74,13 @@
             };
         },
         methods: {
-            ...mapActions([
-                'handleLogin',
-                'getUserInfo'
-            ]),
             handleSubmit(form_name){
                 this.$refs[form_name].validate((valid) => {
                     if (valid) {
-                        this.handleLogin(this.form).then(res => {
+                        register(this.form).then(res => {
+                            Message({showClose: true, message: '注册成功，欢迎登录', type: 'success'});
                             this.$router.push({
-                                name: 'index'
+                                name: 'login'
                             });
                         })
                     } else {

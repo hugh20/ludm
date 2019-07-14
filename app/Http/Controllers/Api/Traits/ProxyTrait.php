@@ -31,7 +31,7 @@ trait ProxyTrait
 
             $respond = $client->request('POST', $url, ['form_params' => $params]);
         } catch (RequestException $exception) {
-            abort(401, '请求失败，服务器错误');
+            abort(401, '请求失败，服务器错误' . $exception->getMessage());
         }
 
         if ($respond->getStatusCode() !== 401) {

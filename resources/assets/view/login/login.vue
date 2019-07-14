@@ -24,6 +24,7 @@
 <script>
     import './login.scss';
     import {mapActions} from 'vuex';
+    import {Message} from 'element-ui';
 
 
     export default {
@@ -54,6 +55,7 @@
                 this.$refs[form_name].validate((valid) => {
                     if (valid) {
                         this.handleLogin(this.form).then(res => {
+                            Message({showClose: true, message: '欢迎回来', type: 'success'});
                             this.$router.push({
                                 name: 'index'
                             });

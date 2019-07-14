@@ -16,3 +16,11 @@ Route::get('/docs', 'IndexController@docs')->name('web.docs');
 
 Route::get('/changeLocale/{locale}', 'IndexController@changeLocale')->name('web.change_locale');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

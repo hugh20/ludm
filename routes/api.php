@@ -9,6 +9,8 @@ Route::namespace('Api')->group(function () {
     Route::post('logout', 'LoginController@logout');
     Route::post('refreshtoken', 'LoginController@refreshToken');
 
+    Route::post('register', 'RegisterController@register');
+
     // 多表登录测试
     /*
     Route::post('admin_user/login', 'LoginController@adminUserLogin');

@@ -17,7 +17,7 @@ class User extends Authenticatable
     use Notifiable, HasApiTokens, ScopeTrait, ExcuteTrait, HasRoles, BaseResponseTrait;
 
     protected $fillable = [
-        'name', 'password', 'head_image', 'last_login_at', 'is_admin'
+        'name', 'password', 'head_image', 'last_login_at', 'is_admin', 'phone'
     ];
 
     protected $hidden = [
@@ -112,6 +112,8 @@ class User extends Authenticatable
     // 通过 phone 查找没有在禁用状态下的用户：
     public function findForPassport($username)
     {
-        return $this->enable()->orWhere('email', $username)->orWhere('phone', $username)->first();
+        return $this->enable()->where(function ($query) use ($username) {
+            $query->where('email', $username)->orWhere('phone', $username);
+        })->first();
     }
 }
