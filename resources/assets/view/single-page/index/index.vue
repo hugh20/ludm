@@ -99,12 +99,14 @@
         </section>
         <recommend title="日漫经典" title-desc="日漫经典" link-more="/index/more/5" :comic-data="comices.classical.data" type-class="japan-comic"></recommend>
         <recommend title="新作上线" title-desc="新作上线" link-more="/index/more/2" :comic-data="comices.be_online.data" type-class="new-comic"></recommend>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
     import './index.scss';
     import Recommend from 'components/recommend';
+    import Footer from '../components/footer';
     import {Carousel, CarouselItem} from 'element-ui';
     import {getAdverts, getIndexComic} from '@/api/index';
     import Vue from 'vue';
@@ -117,7 +119,8 @@
         components: {
             Recommend,
             Carousel,
-            CarouselItem
+            CarouselItem,
+            Footer
         },
         data() {
             return {
