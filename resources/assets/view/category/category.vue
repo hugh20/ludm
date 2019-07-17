@@ -3,38 +3,21 @@
         <!--推荐分类-->
         <section class="category-strong under-top-bar">
             <ul class="category-strong-ul">
-                <li class="strong-ul-item">
-                    <a class="strong-ul-item-link" href="/category/listAll?type=1">
-                        <strong>条漫</strong>
+                <li class="strong-ul-item" v-for="(item, index) in categorys1">
+                    <router-link :to="'/category-comic-list/' + (index + 1)" class="strong-ul-item-link">
+                        <strong>{{item.name}}</strong>
                         <small>城会玩</small>
-                    </a>
+                    </router-link>
                 </li>
-                <li class="strong-ul-item">
-                    <a class="strong-ul-item-link" href="/category/listAll?type=2">
-                        <strong>独家</strong>
-                        <small>就我有</small>
-                    </a>
-                </li>
-                <li class="strong-ul-item">
-                    <a class="strong-ul-item-link" href="/category/listAll?type=3">
-                        <strong>完结</strong>
-                        <small>选我咯</small>
-                    </a>
-                </li>
-                <li class="strong-ul-item">
-                    <a class="strong-ul-item-link" href="/category/listAll?type=4">
-                        <strong>日漫</strong>
-                        <small>神作集</small>
-                    </a>
-                </li>
+
             </ul>
         </section>
 
         <!--普通分类列表-->
         <section class="category-normal">
             <ul class="category-normal-ul">
-                <li class="category-normal-item" v-for="item in categorys">
-                    <router-link to="/" class="item-link">
+                <li class="category-normal-item" v-for="(item, index) in categorys2">
+                    <router-link :to="{ path: '/category-comic-list/' + (index + 1), params: { category: item.name }}" class="item-link">
                         <span class="item-name">| {{item.name}} </span>
                         <img class="item-cover" :src="item.cover_image.url">
                     </router-link>
@@ -54,13 +37,16 @@
         },
         data() {
             return {
-                categorys:[]
+                categorys1:[],
+                categorys2:[],
+
             }
         },
         mounted() {
             getCategorys().then((res) => {
+                this.categorys1 = res.data.slice(0, 4);
+                this.categorys2 = res.data.slice(4);
                 console.log(res.data);
-                this.categorys = res.data;
             });
         },
         methods: {

@@ -48,6 +48,18 @@ export default [
         ]
     },
     {
+        path: '/categoryComic',
+        name: 'categoryComic',
+        component: Main,
+        children: [
+            {
+                path: '/category-comic-list/:id',
+                name: 'category-comic-list',
+                component: r => require.ensure([], () => r(require('../../view/category-comic/index')), 'category-comic-list')
+            }
+        ]
+    },
+    {
         path: '/401',
         name: 'error_401',
         component: r => require.ensure([], () => r(require('../../view/error-page/401.vue')), 'error_401')

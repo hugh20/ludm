@@ -1,2 +1,2 @@
-import Category from './category.vue'
-export default Category
+import CategoryComic from './categoryComic.vue'
+export default CategoryComic
