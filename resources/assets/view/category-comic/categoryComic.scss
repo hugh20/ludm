@@ -147,7 +147,6 @@ parameter:$itemWidth
 }
 
 .categoryList-tab {
-  height: 2rem;
   background-color: white;
 }
 
@@ -193,16 +192,4 @@ parameter:$itemWidth
 
 .categoryList-content .comic-list.active {
   display: block;
-}
-
-.categoryList-content .comic-list.update .comic-item .comic-link .comic-info .comic-hot, .categoryList-content .comic-list.update .comic-item .comic-link .comic-info .comic-fav {
-  display: none;
-}
-
-.categoryList-content .comic-list.hot .comic-item .comic-link .comic-info .comic-update, .categoryList-content .comic-list.hot .comic-item .comic-link .comic-info .comic-fav {
-  display: none;
-}
-
-.categoryList-content .comic-list.fav .comic-item .comic-link .comic-info .comic-hot, .categoryList-content .comic-list.fav .comic-item .comic-link .comic-info .comic-update {
-  display: none;
 }

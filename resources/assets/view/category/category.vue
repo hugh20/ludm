@@ -6,7 +6,7 @@
                 <li class="strong-ul-item" v-for="(item, index) in categorys1">
                     <router-link :to="'/category-comic-list/' + (index + 1)" class="strong-ul-item-link">
                         <strong>{{item.name}}</strong>
-                        <small>城会玩</small>
+                        <small>{{item.description}}</small>
                     </router-link>
                 </li>
 
@@ -17,7 +17,7 @@
         <section class="category-normal">
             <ul class="category-normal-ul">
                 <li class="category-normal-item" v-for="(item, index) in categorys2">
-                    <router-link :to="{ path: '/category-comic-list/' + (index + 1), params: { category: item.name }}" class="item-link">
+                    <router-link :to="{ path: '/category-comic-list/' + item.id, query: { category: item.name }}" class="item-link">
                         <span class="item-name">| {{item.name}} </span>
                         <img class="item-cover" :src="item.cover_image.url">
                     </router-link>
@@ -46,7 +46,6 @@
             getCategorys().then((res) => {
                 this.categorys1 = res.data.slice(0, 4);
                 this.categorys2 = res.data.slice(4);
-                console.log(res.data);
             });
         },
         methods: {

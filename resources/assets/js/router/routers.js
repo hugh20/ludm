@@ -55,7 +55,8 @@ export default [
             {
                 path: '/category-comic-list/:id',
                 name: 'category-comic-list',
-                component: r => require.ensure([], () => r(require('../../view/category-comic/index')), 'category-comic-list')
+                component: r => require.ensure([], () => r(require('../../view/category-comic/index')), 'category-comic-list'),
+                props: true
             }
         ]
     },

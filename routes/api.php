@@ -171,6 +171,7 @@ Route::namespace('Api')->group(function () {
     Route::get('adverts', 'IndexController@getAdverts')->name('index.getAdverts');
     Route::get('index/comic', 'IndexController@getComic')->name('index.getComic');
     Route::get('categorys', 'CategoriesController@categoryList')->name('front.categories.list');
+    Route::get('category_comic', 'ArticlesController@categoryComic')->name('category_comic.list');
 });
 
 
