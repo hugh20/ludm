@@ -193,3 +193,138 @@ parameter:$itemWidth
 .categoryList-content .comic-list.active {
   display: block;
 }
+
+.categoryList-tab {
+  background-color: white;
+}
+
+.categoryList-tab .tab-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.categoryList-tab .tab-list .tab-list-item {
+  display: block;
+  width: 5rem;
+  text-align: center;
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 0.75rem;
+  position: relative;
+  color: #969696;
+}
+
+.categoryList-tab .tab-list .tab-list-item.active {
+  color: #535252;
+}
+
+.categoryList-tab .tab-list .tab-list-item.active::after {
+  content: '';
+  width: 0.5rem;
+  height: 0.15rem;
+  left: 2.25rem;
+  bottom: 0;
+  position: absolute;
+  background-color: #ff9a6a;
+  border-radius: 0.15rem;
+  display: block;
+}
+
+.categoryList-content .comic-list {
+  display: none;
+}
+
+.categoryList-content .comic-list.active {
+  display: block;
+}
+
+.categoryList-content .comic-list.update .comic-item .comic-link .comic-info .comic-hot, .categoryList-content .comic-list.update .comic-item .comic-link .comic-info .comic-fav {
+  display: none;
+}
+
+.categoryList-content .comic-list.hot .comic-item .comic-link .comic-info .comic-update, .categoryList-content .comic-list.hot .comic-item .comic-link .comic-info .comic-fav {
+  display: none;
+}
+
+.categoryList-content .comic-list.fav .comic-item .comic-link .comic-info .comic-hot, .categoryList-content .comic-list.fav .comic-item .comic-link .comic-info .comic-update {
+  display: none;
+}
+
+.mod-load-more {
+  text-align: center;
+  padding-top: 0.95rem;
+  padding-bottom: 0.95rem;
+  color: #9a9a9a;
+  font-size: 0.6rem;
+}
+
+.mod-load-more .mlm-status-loading .mlm-dots {
+  text-align: center;
+  display: inline-block;
+}
+
+.mod-load-more .mlm-status-loading .mlm-dots span.mlm-dot {
+  display: inline-block;
+  vertical-align: middle;
+  width: 5px;
+  height: 5px;
+  background-color: #7a8090;
+  border-radius: 50%;
+  margin: 0 3px;
+}
+
+.mod-load-more .mlm-status-loading .mlm-dots span.mlm-dot:nth-of-type(1) {
+  background-color: #7a8090;
+  -webkit-animation: mod-load-more_dot_move 1s ease-in infinite;
+}
+
+.mod-load-more .mlm-status-loading .mlm-dots span.mlm-dot:nth-of-type(2) {
+  background-color: rgba(122, 128, 144, 0.6);
+  -webkit-animation: mod-load-more_dot_move 1s ease-in 0.3s infinite;
+}
+
+.mod-load-more .mlm-status-loading .mlm-dots span.mlm-dot:nth-of-type(3) {
+  background-color: rgba(122, 128, 144, 0.3);
+  -webkit-animation: mod-load-more_dot_move 1s ease-in 0.7s infinite;
+}
+
+@-webkit-keyframes mod-load-more_dot_move {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.mod-load-more .mlm-status-loading p.mlm-info {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+.mod-load-more .mlm-status-again {
+  width: 100%;
+}
+
+.mod-load-more .mlm-status-again a.mlm-btn-again {
+  display: block;
+  margin: 0 auto;
+  width: 7.5rem;
+  background-color: #666;
+  color: white;
+  font-size: 0.75rem;
+  height: 2.25rem;
+  line-height: 2.25rem;
+}
+
+ul{
+   margin: 0;
+}
+.mod-load-more .mlm-status-loading p.mlm-info{
+  margin: 0;
+}
