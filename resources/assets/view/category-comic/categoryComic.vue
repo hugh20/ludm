@@ -1,6 +1,6 @@
 <template>
 
-    <div class="categoryList-content content-update  infinite-list">
+    <div class="categoryList-content content-update" >
         <section class="categoryList-tab under-top-bar">
             <div class="tab-list" style="display: none;">
                 <a id="tab_update" class="tab-list-item update active"></a>
@@ -8,7 +8,8 @@
                 <a id="tab_fav" class="tab-list-item fav"></a>
             </div>
         </section>
-        <div id="list_hot_box" class="comic-list hot active">
+        <div id="list_hot_box" class="comic-list hot active" v-infinite-scroll="loadMore"
+             infinite-scroll-immediate="true" infinite-scroll-disabled="disabled">
             <ul id="list_hot" >
                 <li class="comic-item" v-for="item in comics">
                     <router-link class="comic-link" to="/">
@@ -49,8 +50,6 @@
                 </div>
             </section>
         </div>
-        <div v-infinite-scroll="loadMore"
-              infinite-scroll-immediate="true" infinite-scroll-disabled="disabled"></div>
     </div>
 </template>
 

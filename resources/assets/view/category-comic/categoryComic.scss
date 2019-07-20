@@ -1,5 +1,10 @@
+html,body{
+  height: 100%;
+}
+
 .categoryList-content .comic-list {
   padding-top: 0.25rem;
+
 }
 
 .categoryList-content .comic-list ul .comic-link, .categoryList-content .comic-list ul .comic-cover img {
@@ -306,7 +311,6 @@ parameter:$itemWidth
   vertical-align: middle;
 }
 
-
 .mod-load-more .mlm-status-again {
   width: 100%;
 }
@@ -322,9 +326,10 @@ parameter:$itemWidth
   line-height: 2.25rem;
 }
 
-ul{
-   margin: 0;
+ul {
+  margin: 0;
 }
-.mod-load-more .mlm-status-loading p.mlm-info{
+
+.mod-load-more .mlm-status-loading p.mlm-info {
   margin: 0;
 }
