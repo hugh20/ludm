@@ -12,7 +12,10 @@ class ArticlesController extends ApiController
 
     public function categoryComic(Request $request)
     {
-        $validator = $this->validator($request->all());
+        $validator = Validator::make($request->all(), [
+            'category_id' => 'required|integer|min:1',
+        ]);
+
         if ($validator->fails()) {
             $res_msg = $validator->errors()->first();
             return $this->failed($res_msg);
@@ -33,10 +36,21 @@ class ArticlesController extends ApiController
 
     }
 
-    protected function validator($data)
+    public function comic(Request $request)
     {
-        return Validator::make($data, [
-            'category_id' => 'required|integer|min:1',
+        $validator = Validator::make($request->all(), [
+            'comic_id' => 'required|integer|min:1',
         ]);
+
+        if ($validator->fails()) {
+            $res_msg = $validator->errors()->first();
+            return $this->failed($res_msg);
+        }
+
+        $comic_id = $request->get('comic_id');
+
+        $comic = Article::with('user', 'category', 'tags')->where(['id' => $comic_id])->first();
+
+        return $this->success($comic ? $comic->toArray() : []);
     }
 }

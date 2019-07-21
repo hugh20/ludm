@@ -12,7 +12,7 @@
              infinite-scroll-immediate="true" infinite-scroll-disabled="disabled">
             <ul id="list_hot" >
                 <li class="comic-item" v-for="item in comics">
-                    <router-link class="comic-link" to="/">
+                    <router-link class="comic-link" :to="{path: '/comic-desc/' + item.id, query: {title: item.title}}">
                         <div class="comic-cover">
                             <img class="cover-image" :src="item.cover_image.url">
                         </div>

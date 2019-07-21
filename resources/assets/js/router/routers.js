@@ -61,6 +61,19 @@ export default [
         ]
     },
     {
+        path: '/comic',
+        name: 'comic',
+        component: Main,
+        children: [
+            {
+                path: '/comic-desc/:id',
+                name: 'comic-desc',
+                component: r => require.ensure([], () => r(require('../../view/comic/index')), 'comic-desc'),
+                props: true
+            }
+        ]
+    },
+    {
         path: '/401',
         name: 'error_401',
         component: r => require.ensure([], () => r(require('../../view/error-page/401.vue')), 'error_401')
