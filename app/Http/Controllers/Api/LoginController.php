@@ -93,10 +93,12 @@ class LoginController extends ApiController
             return $this->failed('密码不正确');
         }
 
+        $vip = $user->vip();
         $user->last_login_at = Carbon::now();
         $user->save();
 
         $return = $user->toArray();
+        $return['vip'] = $vip ? true : false;
 
         $tokens = $this->authenticate('', 'phone');
         return $this->success(['token' => $tokens, 'user' => $return]);

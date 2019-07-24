@@ -105,7 +105,10 @@ class User extends Authenticatable
     }
 
     public function vip(){
-        return $this->hasOne('App\Models\Vip');
+        $time = date('Y-m-d');
+        return $this->hasOne('App\Models\Vip')
+            ->where('started_at', '<', $time)
+            ->where('expired_at', '>', $time);
     }
 
 

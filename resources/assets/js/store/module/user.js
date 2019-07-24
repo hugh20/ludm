@@ -8,6 +8,7 @@ export default {
     email: '',
     avatorImgPath: '',
     accessRole: '',
+    vip: false,
     access_token: getToken()
   },
   mutations: {
@@ -22,6 +23,9 @@ export default {
     },
     setAccessRole (state, role) {
       state.accessRole = role
+    },
+    setVip(state, vip){
+        state.vip = vip
     },
     setAccessToken (state, data) {
       let token = ''
@@ -47,6 +51,7 @@ export default {
               commit('setEmail', res.data.user.email);
               commit('setAvator', res.data.user.head_image.url);
               commit('setUserId', res.data.user.id);
+              commit('setVip', res.data.user.vip);
               resolve(res)
           }else {
               Message({showClose: true, message: res.message, type: 'error'});
@@ -77,10 +82,11 @@ export default {
       return new Promise((resolve, reject) => {
         getUserInfo(state.access_token).then(res => {
           const data = res.data
-          commit('setEmail', data.email)
-          commit('setAvator', data.head_image.url)
-          commit('setUserId', data.user_id)
-          commit('setAccessRole', data.roles)
+          commit('setEmail', data.email);
+          commit('setAvator', data.head_image.url);
+          commit('setUserId', data.user_id);
+          // commit('setAccessRole', data.roles);
+          commit('setVip', data.vip);
           resolve(data)
         }).catch(err => {
           reject(err)

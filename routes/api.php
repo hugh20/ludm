@@ -10,6 +10,8 @@ Route::namespace('Api')->group(function () {
     Route::post('refreshtoken', 'LoginController@refreshToken');
 
     Route::post('register', 'RegisterController@register');
+    Route::get('users/current_user', 'UserController@currentUser')->name('users.current_user');
+
 
     // 多表登录测试
     /*

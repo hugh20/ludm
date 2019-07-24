@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\CommonCollection;
 use App\Models\Article;
+use App\Models\Section;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -51,6 +52,11 @@ class ArticlesController extends ApiController
 
         $comic = Article::with('user', 'category', 'tags')->where(['id' => $comic_id])->first();
 
-        return $this->success($comic ? $comic->toArray() : []);
+        if($comic){
+            $comic = $comic->toArray();
+            $sections = Section::where('article_id', $comic['id'])->limit(9)->orderBy('article_id', 'desc')->orderBy('weight', 'desc')->get(['id', 'article_id', 'weight', 'updated_at', 'access_type'])->toArray();
+            $comic['sections'] = $sections;
+        }
+        return $this->success($comic);
     }
 }

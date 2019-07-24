@@ -184,6 +184,7 @@ return [
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
 //        App\Providers\CommonDataServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
 
     ],
 

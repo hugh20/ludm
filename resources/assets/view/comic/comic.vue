@@ -28,13 +28,10 @@
                         <ul>
                             <li class="head-info-title">
                                 <h1>{{comic.title}}</h1>
-                                <span class="head-info-grade">{{comic.score}}</span>
+                                <span class="head-info-grade">{{comic.score || 9.0}}</span>
                             </li>
-                            <li class="head-info-tags">
-                                <label>标签：</label>
-                                <span></span>
-                                <span></span>
-                                <span></span>
+                            <li class="head-info-tags" v-html="'<label>标签：</label>' + comic.tags_name">
+
                             </li>
                             <li class="head-info-author">
                                 作者：{{comic.user.name}}
@@ -59,7 +56,6 @@
                     <a class="tab-list-item active" data-tab-link="comicList">目录</a>
 
                     <!--普通情况引用正常的评论tab-->
-                    <a class="tab-list-item" data-tab-link="comment">评论</a>
 
                 </div>
             </section>
@@ -94,102 +90,40 @@
 
                     <div class="comicList-info-layBox">
                     <span
-                            class="comicList-info-time">2019-02-26</span>
-                        <span class="comicList-info-update">更新到64话</span>
+                            class="comicList-info-time">{{comic.sections.length && comic.sections[0].updated_at.substr(0, 11)}}</span>
+                        <span class="comicList-info-update">更新到{{comic.sections.length && comic.sections[0].weight}}话</span>
                     </div>
                 </div>
                 <!-- 9 -->
                 <div class="chapter-list-box ">
                     <ul class="chapter-list" data-vip-free="1">
-                        <li class="chapter-item">
-                            <a class="chapter-link lock"
-                               data-cid="91" data-seq="64"
-                               href="/chapter/index/id/622756/cid/91">64</a>
-                        </li>
-                        <li class="chapter-item">
-                            <a class="chapter-link lock"
-                               data-cid="89" data-seq="63"
-                               href="/chapter/index/id/622756/cid/89">63</a>
-                        </li>
-                        <li class="chapter-item">
-                            <a class="chapter-link lock"
-                               data-cid="88" data-seq="62"
-                               href="/chapter/index/id/622756/cid/88">62</a>
-                        </li>
-                        <li class="chapter-item">
-                            <a class="chapter-link "
-                               data-cid="87" data-seq="61"
-                               href="/chapter/index/id/622756/cid/87">61</a>
-                        </li>
-                        <li class="chapter-item">
-                            <a class="chapter-link lock"
-                               data-cid="86" data-seq="60"
-                               href="/chapter/index/id/622756/cid/86">60</a>
-                        </li>
-                        <li class="chapter-item">
-                            <a class="chapter-link lock"
-                               data-cid="84" data-seq="59"
-                               href="/chapter/index/id/622756/cid/84">59</a>
-                        </li>
-                        <li class="chapter-item">
-                            <a class="chapter-link lock"
-                               data-cid="83" data-seq="58"
-                               href="/chapter/index/id/622756/cid/83">58</a>
-                        </li>
-                        <li class="chapter-item">
-                            <a class="chapter-link lock"
-                               data-cid="82" data-seq="57"
-                               href="/chapter/index/id/622756/cid/82">57</a>
-                        </li>
-                        <li class="chapter-item">
-                            <a class="chapter-link lock"
-                               data-cid="81" data-seq="56"
-                               href="/chapter/index/id/622756/cid/81">56</a>
+                        <li class="chapter-item" v-for="section in comic.sections">
+                            <router-link :class="{'chapter-link' : true, lock: section.access_type > 0}"
+                               :to="{path: '/'}">
+                                {{section.weight}}
+                            </router-link>
                         </li>
                     </ul>
-                    <a class="btn-expand-chapter-list"
+                    <router-link class="btn-expand-chapter-list"
                        id="btn_expandChapterList"
-                       href="/comic/chapterList/id/622756">大人，查看更多目录
-                    </a>
+                       :to="{}">大人，查看更多目录
+                    </router-link>
                 </div>
             </section>
             <!--作品目录 end-->
         </div>
 
-        <div data-tab-name="comment" style="display: none;" class="lay-content lay-comment">
-            <section class="mod-common">
-                <ul id="mod_comment">
-                </ul>
-            </section>
-            <section class="mod-common-status" style="display: none;">
-                <div class="common-status-loading">
-                    <div class="mod-loading-btn-top">
-                        <span></span><span></span><span></span>
-                    </div>
-                    <p>嘿咻嘿咻加载中</p>
-                </div>
-                <div class="common-status-over" style="display: none;">
-                    客官，人家已经没有那个的啦~~
-                </div>
-            </section>
-            <section class="mod-commentLink">
-                <a href="/comment/index/id/622756">
-                    <span class="iconfont">&#xe618;</span> 我来说两句
-                </a>
-            </section>
-        </div>
-
         <!--底部工具栏 begin-->
         <section class="mod-toolBar">
             <div class="lay-flex">
-                <div class="lay-box">
+                <div class="lay-box" style="display: none;">
                     <a id="btn_toolFav" class="toolBar-toolFav unfav">[收藏]</a>
                     <a id="btn_toolShare" class="toolBar-toolShare">[分享]</a>
                     <a id="btn_toolDownload" class="toolBar-toolDownload">[下载]</a>
                 </div>
-                <a id="btn_toolRead" class="toolBar-toolRead"
-                   href="/chapter/index/id/622756/seqno/1">开始阅读
-                </a>
+                <router-link id="btn_toolRead" class="toolBar-toolRead"
+                   :to="{}">开始阅读
+                </router-link>
             </div>
         </section>
     </article>
@@ -211,11 +145,19 @@
         mounted() {
             getComic({id:this.id}).then((res) => {
                 if(!res.data || !res.data.id){
-                    this.$router();
+                    this.$router().go(-1);
                 }
+                if (res.data.tags.length) {
+                    res.data.tags_name = res.data.tags.map(function (tag) {
+                        return '<span>' + tag.name + '</span>';
+                    }).join(' ');
+                } else {
+                    res.data.tags_name = '';
+                }
+
                 this.comic = res.data;
+                console.log(res);
             });
-            console.log(this.id);
         },
         methods: {}
     }
