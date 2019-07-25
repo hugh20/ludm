@@ -4,7 +4,7 @@ import {Message} from 'element-ui';
 
 export default {
   state: {
-    userId: '',
+    userId: 0,
     email: '',
     avatorImgPath: '',
     accessRole: '',
@@ -46,17 +46,19 @@ export default {
             phone,
           password
         }).then(res => {
+            console.log(res);
           if(res.status == 'success'){
+              // console.log(res.data);
               commit('setAccessToken', res.data);
-              commit('setEmail', res.data.user.email);
-              commit('setAvator', res.data.user.head_image.url);
-              commit('setUserId', res.data.user.id);
-              commit('setVip', res.data.user.vip);
+              commit('setEmail', res.data.email);
+              commit('setAvator', res.data.head_image.url);
+              commit('setUserId', res.data.id);
+              commit('setVip', res.data.vip);
               resolve(res)
           }else {
               Message({showClose: true, message: res.message, type: 'error'});
           }
-          console.log(res);
+
         }).catch(err => {
           reject(err)
         })
@@ -81,13 +83,13 @@ export default {
     getUserInfo ({ state, commit }) {
       return new Promise((resolve, reject) => {
         getUserInfo(state.access_token).then(res => {
-          const data = res.data
+          const data = res.data;
           commit('setEmail', data.email);
           commit('setAvator', data.head_image.url);
-          commit('setUserId', data.user_id);
+          commit('setUserId', data.id);
           // commit('setAccessRole', data.roles);
           commit('setVip', data.vip);
-          resolve(data)
+          resolve(res)
         }).catch(err => {
           reject(err)
         })

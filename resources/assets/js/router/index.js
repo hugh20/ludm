@@ -18,9 +18,9 @@ router.beforeEach((to, from, next) => {
         Message({showClose: true, message: '您已登录', type: 'warning'});
         return next({ path: '/' });
     }
-    if(token && !store.state.userId) {
+    if(token && !store.state.user.userId) {
         store.dispatch('getUserInfo').then(user => {
-            console.log(user);
+            // console.log(user);
         });
     }
     loadinginstace = Loading.service({fullscreen: true});
