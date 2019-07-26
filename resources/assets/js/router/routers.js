@@ -74,6 +74,25 @@ export default [
         ]
     },
     {
+        path: '/chapter',
+        name: 'chapter',
+        component: Main,
+        children: [
+            {
+                path: '/chapter-list/:id',
+                name: 'chapter-list',
+                component: r => require.ensure([], () => r(require('../../view/chapter/index')), 'chapter-list'),
+                props: true
+            }
+        ]
+    },
+    {
+        path: '/art/:id',
+        name: 'art-desc',
+        component: r => require.ensure([], () => r(require('../../view/art/index')), 'art-desc'),
+        props: true
+    },
+    {
         path: '/401',
         name: 'error_401',
         component: r => require.ensure([], () => r(require('../../view/error-page/401.vue')), 'error_401')

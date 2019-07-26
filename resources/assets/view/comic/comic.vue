@@ -52,41 +52,30 @@
             <!--标签切换 begin-->
             <section class="mod-tab" data-nowTab="comicList">
                 <div class="tab-list">
-                    <a class="tab-list-item" data-tab-link="detail">详情</a>
-                    <a class="tab-list-item active" data-tab-link="comicList">目录</a>
-
+                    <a :class="{'tab-list-item': true, active:!toggle}" data-tab-link="detail" @click="tab(1)">详情</a>
+                    <a :class="{'tab-list-item': true, active:toggle}" data-tab-link="comicList" @click="tab(2)">目录</a>
                     <!--普通情况引用正常的评论tab-->
-
                 </div>
             </section>
             <!--标签切换 end-->
         </div>
 
-        <div data-tab-name="detail" style="display: none;" class="lay-content">
+        <div data-tab-name="detail" class="lay-content" v-if="!toggle">
             <!--作品详情 begin-->
             <section class="mod-detail">
                 <i class="detail-icon iconfont">&#xe614;</i>
 
                 <div class="detail-summary">
-                    <p>三年前邱子南高中毕业时，曾和朋友们去酒吧玩耍，他乔装打扮，在那一晚偶遇了叫做【柳也】的男人。
-                        子南一直对他念念不忘，没想到三年后这个男人成了姐姐的男朋友…</p>
+                    <p>{{comic.descriptions}}</p>
                 </div>
             </section>
             <!--作品详情 end-->
         </div>
 
-        <div data-tab-name="comicList" class="lay-content">
+        <div data-tab-name="comicList" class="lay-content" v-if="toggle">
             <!--作品目录 begin-->
             <section class="mod-comicList">
                 <div class="comicList-info">
-
-                    <div class="comicList-info-free" style="display: none;">
-                        <a id="btn_payVip">
-                            <img class="info-free-headImg" src="picture/freehead_03.png" alt="">
-                            <span class="info-free-text"
-                                  id="info_pay_text"></span>
-                        </a>
-                    </div>
 
                     <div class="comicList-info-layBox">
                     <span
@@ -98,15 +87,15 @@
                 <div class="chapter-list-box ">
                     <ul class="chapter-list" data-vip-free="1">
                         <li class="chapter-item" v-for="section in comic.sections">
-                            <router-link :class="{'chapter-link' : true, lock: section.access_type > 0}"
-                               :to="{path: '/'}">
+                            <router-link :class="{'chapter-link' : true, lock: section.access_type > 0 && !vip}"
+                                         :to="{path:'/art/' + section.id}">
                                 {{section.weight}}
                             </router-link>
                         </li>
                     </ul>
                     <router-link class="btn-expand-chapter-list"
-                       id="btn_expandChapterList"
-                       :to="{}">大人，查看更多目录
+                                 id="btn_expandChapterList"
+                                 :to="{path: '/chapter-list/1'}">大人，查看更多目录
                     </router-link>
                 </div>
             </section>
@@ -122,7 +111,7 @@
                     <a id="btn_toolDownload" class="toolBar-toolDownload">[下载]</a>
                 </div>
                 <router-link id="btn_toolRead" class="toolBar-toolRead"
-                   :to="{}">开始阅读
+                             :to="{path:'/art/1'}">开始阅读
                 </router-link>
             </div>
         </section>
@@ -132,19 +121,32 @@
 <script>
     import './comic.scss';
     import {getComic} from '@/api/comic';
+    import { mapState } from 'vuex';
 
     export default {
         name: 'Comic',
         components: {},
-        props:['id'],
+        props: ['id'],
         data() {
             return {
-                comic: {}
+                comic: {
+                    cover_image: {url:''},
+                    user: {},
+                    sections: []
+                },
+                toggle: 1
             }
         },
+        computed:{
+
+            ...mapState({
+                vip: state => state.user.vip,
+
+            })
+        },
         mounted() {
-            getComic({id:this.id}).then((res) => {
-                if(!res.data || !res.data.id){
+            getComic({id: this.id}).then((res) => {
+                if (!res.data || !res.data.id) {
                     this.$router().go(-1);
                 }
                 if (res.data.tags.length) {
@@ -156,9 +158,17 @@
                 }
 
                 this.comic = res.data;
-                console.log(res);
             });
+            console.log(this.$data);
         },
-        methods: {}
+        methods: {
+            tab(type) {
+                if(type == 1){
+                    this.toggle = 0;
+                }else{
+                    this.toggle = 1;
+                }
+            }
+        }
     }
 </script>

@@ -1,2 +1,2 @@
 import Chapter from './chapter.vue'
-export default Category
+export default Chapter

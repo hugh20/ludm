@@ -1,3 +1,7 @@
+.lay-head {
+
+}
+
 .mod-comicList .comicList-info .comicList-info-free .info-free-text, .mod-comicList .chapter-list-box .chapter-list .chapter-link, .mod-comicList .chapter-list-box .btn-expand-chapter-list, .mod-recommend3 .list_recommend3 .comic-item .comic-link, .mod-recommend3 .list_recommend3 .comic-item .comic-link .comic-cover, .mod-recommend3 .list_recommend3 .comic-item .comic-link .comic-cover img, .mod-animationList .animation-list.col-2 .animation-link, .mod-animationList .animation-list.col-2 .animation-cover, .mod-animationList .animation-list.col-2 .animation-cover .cover-image, .mod-animationList .animation-list.col-2 .animation-cover .video-dark-cover, .mod-toolBar .toolBar-toolRead {
   border-radius: 0.1rem;
   overflow: hidden;
@@ -569,7 +573,7 @@ body.auto-jump-into .top-bar, body.auto-jump-into .main {
 }
 
 .mod-detail .detail-icon {
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #C5C5C5;
   text-align: center;
   display: block;
@@ -582,6 +586,9 @@ body.auto-jump-into .top-bar, body.auto-jump-into .main {
   color: #535252;
   line-height: 150%;
   padding-bottom: 0.75rem;
+}
+.mod-comicList{
+  background-color: white;
 }
 
 .mod-comicList .comicList-info {

@@ -24,9 +24,10 @@
 //    import {getAdverts, getIndexComic} from '@/api/index';
 
     export default {
-        name: 'category',
+        name: 'chapter',
         components: {
         },
+        prop:['id'],
         data() {
             return {
             }
