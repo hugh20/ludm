@@ -56,7 +56,37 @@ class ArticlesController extends ApiController
             $comic = $comic->toArray();
             $sections = Section::where('article_id', $comic['id'])->limit(9)->orderBy('article_id', 'desc')->orderBy('weight', 'desc')->get(['id', 'article_id', 'weight', 'updated_at', 'access_type'])->toArray();
             $comic['sections'] = $sections;
+            return $this->success($comic);
+        }else{
+            return $this->failed('漫画不存在');
         }
-        return $this->success($comic);
+    }
+
+    public function chapters(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'comic_id' => 'required|integer|min:1',
+            'sort_type' => 'required|string|in:desc,asc',
+        ]);
+
+        if ($validator->fails()) {
+            $res_msg = $validator->errors()->first();
+            return $this->failed($res_msg);
+        }
+
+        $comic_id = $request->get('comic_id');
+
+        $sort_type = $request->get('sort_type', 'desc');
+
+        $comic = Article::with(['section' => function($query) use($sort_type){
+            $query->orderBy('weight', $sort_type);
+        }])->where(['id' => $comic_id])->first();
+
+
+        if($comic){
+            return $this->success($comic);
+        }else{
+            return $this->failed('漫画不存在');
+        }
     }
 }

@@ -88,14 +88,14 @@
                     <ul class="chapter-list" data-vip-free="1">
                         <li class="chapter-item" v-for="section in comic.sections">
                             <router-link :class="{'chapter-link' : true, lock: section.access_type > 0 && !vip}"
-                                         :to="{path:'/art/' + section.id}">
+                                         :to="{path:'/art/' + section.id, query:{lock: section.access_type > 0 && !vip}}">
                                 {{section.weight}}
                             </router-link>
                         </li>
                     </ul>
                     <router-link class="btn-expand-chapter-list"
                                  id="btn_expandChapterList"
-                                 :to="{path: '/chapter-list/1'}">大人，查看更多目录
+                                 :to="{path: '/chapter-list/'+ id}">大人，查看更多目录
                     </router-link>
                 </div>
             </section>
@@ -122,6 +122,7 @@
     import './comic.scss';
     import {getComic} from '@/api/comic';
     import { mapState } from 'vuex';
+    import {Message} from 'element-ui';
 
     export default {
         name: 'Comic',
@@ -169,6 +170,15 @@
                     this.toggle = 1;
                 }
             }
+        },
+        beforeRouteLeave (to, from, next) {
+            // 导航离开该组件的对应路由时调用
+            // 可以访问组件实例 `this`
+            if(to.query.lock) {
+                Message({showClose: true, message: '您暂时没有权限阅读此章节', type: 'error'});
+                return next(false);
+            }
+            next();
         }
     }
 </script>

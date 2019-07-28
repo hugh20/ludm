@@ -1,18 +1,18 @@
 <template>
     <div>
-
         <section class="chapterAll-info under-top-bar">
-            <a class="chapterAll-count">共64话</a>
-            <a class="chapterAll-sequence reverse" id="btn_sequence">
-                <span class="iconfont">&#xe60b;</span><span id="sequence_text">正序</span>
+            <a class="chapterAll-count">共{{sections.length}}话</a>
+            <a class="chapterAll-sequence reverse" @click="reverse">
+                <span class="iconfont" :style="iconfont">&#xe60b;</span><span>{{sort_text}}</span>
             </a>
         </section>
         <section class="chapter-list-box list-expanded" data-vip-free="1">
             <ul class="chapter-list normal">
-                <li class="chapter-item">
-                    <a class="chapter-link lock"
-                       data-cid="91" data-seq="64"
-                       href="/chapter/index/id/622756/cid/91">64</a>
+                <li class="chapter-item" v-for="section in sections">
+                    <router-link :class="{'chapter-link' : true, lock: section.access_type > 0 && !vip}"
+                                 :to="{path:'/art/' + section.id, query:{lock: section.access_type > 0 && !vip}}">
+                        {{section.weight}}
+                    </router-link>
                 </li>
             </ul>
         </section>
@@ -21,21 +21,53 @@
 
 <script>
     import './chapter.scss';
-//    import {getAdverts, getIndexComic} from '@/api/index';
+    import { mapState } from 'vuex';
+    import { getChapters } from '@/api/chapter';
+    //    import {getAdverts, getIndexComic} from '@/api/index';
 
     export default {
         name: 'chapter',
-        components: {
-        },
-        prop:['id'],
+        components: {},
+        props: ['id'],
         data() {
             return {
+                sort: 'desc',
+                sort_text: '正序',
+                sections: [],
+                iconfont: {transform: 'rotate(180deg)'}
             }
         },
+        computed: {
+            ...mapState({
+                vip: state => state.user.vip,
+
+            })
+        },
         mounted() {
-            console.log(this.$route);
+            getChapters({id: this.id, sort: this.sort}).then((res) => {
+                if (res.status == 'success') {
+                    this.sections = res.data.section;
+                }
+
+            });
         },
         methods: {
+            reverse(){
+                getChapters({id: this.id, sort: this.sort == 'desc' ? 'asc' : 'desc'}).then((res) => {
+                    if (res.status == 'success') {
+                        this.sections = res.data.section;
+                        if(this.sort == 'desc'){
+                            this.sort = 'asc';
+                            this.sort_text = '返序';
+                            this.iconfont = {transform: 'rotate(0deg)'};
+                        }else{
+                            this.sort = 'desc';
+                            this.sort_text = '正序';
+                            this.iconfont = {transform: 'rotate(180deg)'};
+                        }
+                    }
+                });
+            }
         }
     }
 </script>

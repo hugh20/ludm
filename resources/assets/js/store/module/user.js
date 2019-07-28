@@ -48,12 +48,12 @@ export default {
         }).then(res => {
             console.log(res);
           if(res.status == 'success'){
-              // console.log(res.data);
+              console.log(res.data);
               commit('setAccessToken', res.data);
-              commit('setEmail', res.data.email);
-              commit('setAvator', res.data.head_image.url);
-              commit('setUserId', res.data.id);
-              commit('setVip', res.data.vip);
+              commit('setEmail', res.data.user.email);
+              commit('setAvator', res.data.user.head_image.url);
+              commit('setUserId', res.data.user.id);
+              commit('setVip', res.data.user.vip);
               resolve(res)
           }else {
               Message({showClose: true, message: res.message, type: 'error'});
