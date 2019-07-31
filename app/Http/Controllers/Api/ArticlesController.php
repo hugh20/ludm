@@ -56,6 +56,12 @@ class ArticlesController extends ApiController
             $comic = $comic->toArray();
             $sections = Section::where('article_id', $comic['id'])->limit(9)->orderBy('article_id', 'desc')->orderBy('weight', 'desc')->get(['id', 'article_id', 'weight', 'updated_at', 'access_type'])->toArray();
             $comic['sections'] = $sections;
+
+            $first_section = Section::where('article_id', $comic['id'])
+                ->orderBy('article_id', 'desc')
+                ->orderBy('weight', 'asc')
+                ->first();
+            $comic['first_section'] = $first_section ? $first_section->toArray() : null;
             return $this->success($comic);
         }else{
             return $this->failed('漫画不存在');

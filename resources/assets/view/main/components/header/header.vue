@@ -11,7 +11,7 @@
             <!--<a class="btn-top search" href="/search/index">[搜索]</a>-->
             <a class="btn-top menu" @click="showMenu">[菜单]</a>
         </header>
-        <Nav :class="menu_state ? 'show':  ''" :display="menu_state ? 'block' : 'none'"></Nav>
+        <Nav :class="menu_state ? 'show':  ''" :display="menu_state ? 'block' : 'none'" @jumpView="closeMenu"></Nav>
     </div>
 </template>
 <script>
@@ -34,6 +34,10 @@
             showMenu() {
                 this.menu_state = !this.menu_state;
                 console.log(this.menu_state);
+            },
+            closeMenu(value){
+                console.log(value);
+                this.menu_state = value;
             }
         }
     }

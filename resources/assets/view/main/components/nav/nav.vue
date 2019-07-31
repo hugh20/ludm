@@ -4,17 +4,17 @@
         <div class="nav-menu-bg"></div>
         <div class="nav-menu">
             <ul class="nav-list">
-                <li class="item" data-name="index">
-                    <a class="link" href="/">
+                <li class="item" data-name="index"  @click="jump">
+                    <router-link class="link" to="/">
                         <i class="icon index">[家]</i>
                         <span class="name">首页</span>
-                    </a>
+                    </router-link>
                 </li>
-                <li class="item" data-name="category">
-                    <a class="link" href="/category/index">
+                <li class="item" data-name="category" @click="jump">
+                    <router-link class="link" to="/category-list" >
                         <i class="icon category">[分]</i>
                         <span class="name">分类</span>
-                    </a>
+                    </router-link>
                 </li>
             </ul>
         </div>
@@ -35,6 +35,10 @@
             display: String
         },
         computed: {},
-        methods: {}
+        methods: {
+            jump(){
+                this.$emit('jumpView', false);
+            }
+        }
     }
 </script>

@@ -22,7 +22,7 @@ class UserController extends ApiController
         $authUser = Auth::user();
         $return = $authUser->toArray();
         $time = date('Y-m-d');
-        $vip = Vip::where('started_at', '<', $time)
+        $vip = Vip::where('user_id', $return['id'])->where('started_at', '<', $time)
             ->where('expired_at', '>', $time)->first();
         $return['vip'] = $vip ? true : false;
         return $this->success($return);

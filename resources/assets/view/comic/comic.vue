@@ -111,7 +111,7 @@
                     <a id="btn_toolDownload" class="toolBar-toolDownload">[下载]</a>
                 </div>
                 <router-link id="btn_toolRead" class="toolBar-toolRead"
-                             :to="{path:'/art/1'}">开始阅读
+                             :to="{path:'/art/' + first_id}">开始阅读
                 </router-link>
             </div>
         </section>
@@ -135,7 +135,8 @@
                     user: {},
                     sections: []
                 },
-                toggle: 1
+                toggle: 1,
+                first_id: 0
             }
         },
         computed:{
@@ -159,8 +160,10 @@
                 }
 
                 this.comic = res.data;
+
+                this.first_id = res.data.first_section ? res.data.first_section.id : 0;
+                console.log(res);
             });
-            console.log(this.$data);
         },
         methods: {
             tab(type) {
@@ -174,6 +177,10 @@
         beforeRouteLeave (to, from, next) {
             // 导航离开该组件的对应路由时调用
             // 可以访问组件实例 `this`
+            if(to.params.id == 0){
+                Message({showClose: true, message: '未找到您访问的章节', type: 'error'});
+                return next(false);
+            }
             if(to.query.lock) {
                 Message({showClose: true, message: '您暂时没有权限阅读此章节', type: 'error'});
                 return next(false);
