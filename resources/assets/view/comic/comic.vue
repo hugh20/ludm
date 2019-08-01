@@ -78,8 +78,7 @@
                 <div class="comicList-info">
 
                     <div class="comicList-info-layBox">
-                    <span
-                            class="comicList-info-time">{{comic.sections.length && comic.sections[0].updated_at.substr(0, 11)}}</span>
+                        <span class="comicList-info-time">{{comic.sections.length && comic.sections[0].updated_at.substr(0, 11)}}</span>
                         <span class="comicList-info-update">更新到{{comic.sections.length && comic.sections[0].weight}}话</span>
                     </div>
                 </div>
@@ -88,14 +87,14 @@
                     <ul class="chapter-list" data-vip-free="1">
                         <li class="chapter-item" v-for="section in comic.sections">
                             <router-link :class="{'chapter-link' : true, lock: section.access_type > 0 && !vip}"
-                                         :to="{path:'/art/' + section.id, query:{lock: section.access_type > 0 && !vip}}">
+                                         :to="{path:'/art/' + section.id, query:{lock: section.access_type > 0 && !vip, comic_id: id, min: min, max: max}}">
                                 {{section.weight}}
                             </router-link>
                         </li>
                     </ul>
                     <router-link class="btn-expand-chapter-list"
                                  id="btn_expandChapterList"
-                                 :to="{path: '/chapter-list/'+ id}">大人，查看更多目录
+                                 :to="{path: '/chapter-list/'+ id, query:{comic_id: id, min: min, max: max}}">大人，查看更多目录
                     </router-link>
                 </div>
             </section>
@@ -111,7 +110,7 @@
                     <a id="btn_toolDownload" class="toolBar-toolDownload">[下载]</a>
                 </div>
                 <router-link id="btn_toolRead" class="toolBar-toolRead"
-                             :to="{path:'/art/' + first_id}">开始阅读
+                             :to="{path:'/art/' + first_id, query:{comic_id: id, min: min, max: max}}">开始阅读
                 </router-link>
             </div>
         </section>
@@ -136,6 +135,8 @@
                     sections: []
                 },
                 toggle: 1,
+                min: 1,
+                max: 1,
                 first_id: 0
             }
         },
@@ -160,7 +161,10 @@
                 }
 
                 this.comic = res.data;
-
+                if(this.comic.sections.length > 0){
+                    this.max = this.comic.sections[0].weight;
+                }
+                this.min = res.data.first_section ? res.data.first_section.weight : 1;
                 this.first_id = res.data.first_section ? res.data.first_section.id : 0;
                 console.log(res);
             });

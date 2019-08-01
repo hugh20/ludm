@@ -10,7 +10,7 @@
             <ul class="chapter-list normal">
                 <li class="chapter-item" v-for="section in sections">
                     <router-link :class="{'chapter-link' : true, lock: section.access_type > 0 && !vip}"
-                                 :to="{path:'/art/' + section.id, query:{lock: section.access_type > 0 && !vip}}">
+                                 :to="{path:'/art/' + section.id, query:{lock: section.access_type > 0 && !vip, comic_id: id, min: min, max: max}}">
                         {{section.weight}}
                     </router-link>
                 </li>
@@ -34,7 +34,9 @@
                 sort: 'desc',
                 sort_text: '正序',
                 sections: [],
-                iconfont: {transform: 'rotate(180deg)'}
+                iconfont: {transform: 'rotate(180deg)'},
+                min: 1,
+                max: 1
             }
         },
         computed: {
@@ -47,6 +49,10 @@
             getChapters({id: this.id, sort: this.sort}).then((res) => {
                 if (res.status == 'success') {
                     this.sections = res.data.section;
+                    if(this.sections.length){
+                        this.min = Math.min(this.sections[this.sections.length - 1].weight, this.sections[0].weight);
+                        this.max = Math.max(this.sections[this.sections.length - 1].weight, this.sections[0].weight);
+                    }
                 }
 
             });
@@ -56,6 +62,10 @@
                 getChapters({id: this.id, sort: this.sort == 'desc' ? 'asc' : 'desc'}).then((res) => {
                     if (res.status == 'success') {
                         this.sections = res.data.section;
+                        if(this.sections.length){
+                            this.min = Math.min(this.sections[this.sections.length - 1].weight, this.sections[0].weight);
+                            this.max = Math.max(this.sections[this.sections.length - 1].weight, this.sections[0].weight);
+                        }
                         if(this.sort == 'desc'){
                             this.sort = 'asc';
                             this.sort_text = '返序';

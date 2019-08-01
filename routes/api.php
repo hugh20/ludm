@@ -177,6 +177,8 @@ Route::namespace('Api')->group(function () {
     Route::get('comic', 'ArticlesController@comic')->name('comic.desc');
     Route::get('chapters', 'ArticlesController@chapters')->name('comic.chapters');
     Route::get('comic_info', 'SectionsController@getInfo')->name('comic.info');
+    Route::get('next_section', 'SectionsController@next')->name('comic.next');
+    Route::get('prev_section', 'SectionsController@prev')->name('comic.prev');
 });
 
 

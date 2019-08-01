@@ -1,16 +1,15 @@
 <template>
     <div>
-
         <!-- 悬浮栏区域 -->
-        <section class="float-bar top">
-            <a class="float-bar-btn back">[返回]</a>
+        <section :class="{'float-bar': true, top: true, hidden: tabHide}">
+            <a class="float-bar-btn back" @click="$router.go(-1)">[返回]</a>
             <label class="float-bar-title">
                 <span class="title">我爱上了女友的……</span>
-                <span class="progress">第...话 - 1/1</span>
+                <!--<span class="progress">第...话 - 1/1</span>-->
             </label>
-            <a class="float-bar-btn home" href="/">[首页]</a>
-            <a class="float-bar-btn bookshelf" href="/bookshelf/index">[书架]</a>
-            <a class="float-bar-btn more">[更多]</a>
+            <router-link class="float-bar-btn home" to="/">[首页]</router-link>
+            <!--<a class="float-bar-btn bookshelf " href="/bookshelf/index">[书架]</a>-->
+            <!--<a class="float-bar-btn more">[更多]</a>-->
         </section>
         <section class="float-bar-menu top-right hidden">
             <div class="menu-arrow-tag"></div>
@@ -26,57 +25,23 @@
             </div>
         </section>
 
-        <section class="float-bar bottom">
-            <a class="float-bar-btn chapter-list" href="/comic/chapterList/id/622756">[目录]</a>
-            <a class="float-bar-btn view-mode">[阅读模式]</a>
-            <div class="float-bar-btn download">[下载]</div>
-            <a class="float-bar-btn prev-chapter">[上一章]</a>
-            <a class="float-bar-btn next-chapter">[下一章]</a>
+        <section :class="{'float-bar': true, bottom: true, hidden: tabHide}">
+            <router-link class="float-bar-btn chapter-list" to="/comic/chapterList/id/622756">[目录]</router-link>
+            <!--<a class="float-bar-btn view-mode">[阅读模式]</a>-->
+            <!--<div class="float-bar-btn download">[下载]</div>-->
+            <a class="float-bar-btn prev-chapter" @click="next">[上一章]</a>
+            <a class="float-bar-btn next-chapter" @click="prev">[下一章]</a>
         </section>
         <!-- 漫画图片区域 -->
         <section class="comic-pic-area">
             <!-- 浏览控制按键 - 上一页 -->
-            <a class="nav-ctrl-btn prev">点击加载上一章节</a>
-            <!-- 章节图片列表loading -->
-            <!-- 浏览页新增漫画详情信息 -->
-            <div class="comic-pic-detail">
-                <div class="comic-pic-container">
-                    <img src="picture/c36b92ebcfa643eaabee6e77e5d1ddd3.gif" class="comic-pic-cover" />
-                    <div class="comic-pic-mask">
-                        <div class="mask">
-                            <p class="comic-title">
-                                我爱上了女友的……                                                    <span class="tag-type c-r">蔷薇</span>
-                                <span class="tag-type c-r">都市</span>
-                            </p>
-                            <p class="comic-desc">三年前邱子南高中毕业时，曾和朋友们去酒吧玩耍，他乔装打扮，在那一晚偶遇了叫做【柳也】的男人。
-                                子南一直对他念念不忘，没想到三年后这个男人成了姐姐的男朋友…</p>
-                        </div>
-                        <div class="comic-cover-info">
-                            <p class="comic-detail">17.8亿<small>人气</small><a href="https://m.ac.qq.com/Chapter/index/id/622756/cid/3" class="go-to-read">看第一话<i class="icon-circle-arrow-right"></i></a></p>
-                            <p class="comic-from">该作品来自腾讯动漫<span class="line"></span></p>
-                        </div>
-                    </div>
-                    <div class="comic-chap-title">
-                        <p><span class="chap-title">我爱上女友的……</span></p>
-                    </div>
-                </div>
-            </div>
-            <!-- APP引导语（分享流程下） -->   <!-- 分享的作品隐藏顶部引导下载bar -->
-            <section class="app-guiding shared" style="display: none!important;"
-                     data-url-Android="http://m.ac.qq.com/apkSet/qqcomic_android_dm2097.apk"
-                     data-url-iOS="https://itunes.apple.com/cn/app/id569387346">
-                <a class="app-guiding-download">
-                    <img class="app-guiding-img"
-                         src="picture/app-guiding.png"/>
-                </a>
-                <a class="app-guiding-close">X</a>
-            </section>
+            <a class="nav-ctrl-btn prev" @click="prev">点击加载上一章节</a>
 
             <!-- 浏览模式提示 -->
             <div class="view-mode-hint"></div>
 
             <!-- 漫画图片列表插入位置 -->
-            <section class="comic-pic-list-all">
+            <section class="comic-pic-list-all" @click="showTob">
                 <ul class="comic-pic-list">
 
                     <li class="comic-pic-item pic-loaded" v-for="url in urls">
@@ -108,14 +73,12 @@
             </div>
         </div>
 
-        <!-- 进度框 -->
-        <div class="progress-box"></div>
     </div>
 </template>
 
 <script>
     import './art.scss';
-    import {getInfo} from '@/api/section';
+    import {getInfo, nextComic, prevComic} from '@/api/section';
     import {Message, Image} from 'element-ui';
     import Vue from 'vue';
     import VueLazyload from 'vue-lazyload';
@@ -127,44 +90,81 @@
 
     export default {
         name: 'Art',
-        components: {
-        },
+        components: {},
         props: ['id'],
         data() {
             return {
-                urls : []
+                urls: [],
+                tabHide: false,
+                current: 1,
+                comic_id: 0,
+                min: 1,
+                max: 1
             }
         },
-//        created(){
-//            window.onscroll = function(){
-                //变量scrollTop是滚动条滚动时，距离顶部的距离
-//                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-//                //变量windowHeight是可视区的高度
-//                var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-//                //变量scrollHeight是滚动条的总高度
-//                var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-                //滚动条到底部的条件
-//                if(scrollTop+windowHeight==scrollHeight){
-//                    //写后台加载数据的函数
-//                    console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
-//                }
-//            }
-//        },
+        created() {
+        },
         mounted() {
-            getInfo({id: this.id}).then( (res) => {
-                if(res.status == 'success'){
+            this.comic_id = this.$route.query.comic_id;
+            getInfo({id: this.id, comic_id: this.comic_id}).then((res) => {
+                if (res.status == 'success') {
                     this.urls = res.data.urls;
-                }else{
+                    this.current = res.data.id;
+                    this.comic_id = res.data.article_id;
+                } else {
                     Message({showClose: true, message: res.message, type: 'error'});
                 }
                 console.log(res);
-            },  (res) => {
+            }, (res) => {
                 console.log(res);
 //                Message({showClose: true, message: res.message, type: 'error'});
 //                this.$router.go(-1);
             });
+            window.onscroll = () => {
+//                变量scrollTop是滚动条滚动时，距离顶部的距离
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                //变量windowHeight是可视区的高度
+                var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+                //变量scrollHeight是滚动条的总高度
+                var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+                if (scrollTop > 0) {
+                    this.tabHide = true;
+                }
+//                滚动条到底部的条件
+                if (scrollTop + windowHeight == scrollHeight) {
+                    //写后台加载数据的函数
+                    console.log("距顶部" + scrollTop + "可视区高度" + windowHeight + "滚动条总高度" + scrollHeight);
+                }
+//                console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
+            };
+            setTimeout(() => {
+                this.tabHide = true;
+            }, 2000);
         },
         methods: {
+            showTob() {
+                this.tabHide = false;
+                setTimeout(() => {
+                    this.tabHide = true;
+                }, 2000);
+            },
+            next() {
+                nextComic({
+                    weight: this.current,
+                    comic_id: this.comic_id
+                }).then((res) => {
+                    console.log(res);
+
+                });
+            },
+            prev() {
+                nextComic({
+                    weight: this.current,
+                    comic_id: this.comic_id
+                }).then((res) => {
+                    console.log(res);
+                });
+            }
         }
     }
 </script>
