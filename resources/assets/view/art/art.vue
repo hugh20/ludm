@@ -26,16 +26,16 @@
         </section>
 
         <section :class="{'float-bar': true, bottom: true, hidden: tabHide}">
-            <router-link class="float-bar-btn chapter-list" to="/comic/chapterList/id/622756">[目录]</router-link>
+            <router-link class="float-bar-btn chapter-list" :to="{path:'/chapter-list/'+ comic_id, query:{comic_id: comic_id, min: min, max: max}}">[目录]</router-link>
             <!--<a class="float-bar-btn view-mode">[阅读模式]</a>-->
             <!--<div class="float-bar-btn download">[下载]</div>-->
-            <a class="float-bar-btn prev-chapter" @click="next">[上一章]</a>
-            <a class="float-bar-btn next-chapter" @click="prev">[下一章]</a>
+            <a class="float-bar-btn prev-chapter" @click="prev">[上一章]</a>
+            <a class="float-bar-btn next-chapter" @click="next">[下一章]</a>
         </section>
         <!-- 漫画图片区域 -->
         <section class="comic-pic-area">
             <!-- 浏览控制按键 - 上一页 -->
-            <a class="nav-ctrl-btn prev" @click="prev">点击加载上一章节</a>
+            <a class="nav-ctrl-btn prev" @click="prev">{{current == min ? '前面没有更多了~' : '点击加载上一章节'}}</a>
 
             <!-- 浏览模式提示 -->
             <div class="view-mode-hint"></div>
@@ -57,7 +57,7 @@
 
             </section>
             <!-- 浏览控制按键 - 下一页 -->
-            <a class="nav-ctrl-btn next">点击加载下一章节</a>
+            <a class="nav-ctrl-btn next" :style="{display: current == max ? 'none' : 'block'}" @click="next">点击加载下一章节</a>
             <!-- 结束信息区域 -->
             <section class="end-chapter-ads"></section>
         </section>
@@ -105,11 +105,13 @@
         created() {
         },
         mounted() {
+            this.min = this.$route.query.min;
+            this.max = this.$route.query.max;
             this.comic_id = this.$route.query.comic_id;
             getInfo({id: this.id, comic_id: this.comic_id}).then((res) => {
                 if (res.status == 'success') {
                     this.urls = res.data.urls;
-                    this.current = res.data.id;
+                    this.current = res.data.weight;
                     this.comic_id = res.data.article_id;
                 } else {
                     Message({showClose: true, message: res.message, type: 'error'});
@@ -149,19 +151,39 @@
                 }, 2000);
             },
             next() {
+                if(this.max == this.current){
+                    return;
+                }
                 nextComic({
                     weight: this.current,
                     comic_id: this.comic_id
                 }).then((res) => {
+                    if (res.status == 'success') {
+                        this.urls = res.data.urls;
+                        this.current = res.data.weight;
+                        this.$router.replace({path: '/art/' + res.data.id, query:{comic_id: this.comic_id, min: this.min, max: this.max}});
+                    } else {
+                        Message({showClose: true, message: res.message, type: 'error'});
+                    }
                     console.log(res);
 
                 });
             },
             prev() {
-                nextComic({
+                if(this.min == this.current){
+                    return;
+                }
+                prevComic({
                     weight: this.current,
                     comic_id: this.comic_id
                 }).then((res) => {
+                    if (res.status == 'success') {
+                        this.urls = res.data.urls;
+                        this.current = res.data.weight;
+                        this.$router.replace({path: '/art/' + res.data.id, query:{comic_id: this.comic_id, min: this.min, max: this.max}});
+                    } else {
+                        Message({showClose: true, message: res.message, type: 'error'});
+                    }
                     console.log(res);
                 });
             }

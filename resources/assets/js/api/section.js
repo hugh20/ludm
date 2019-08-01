@@ -9,14 +9,14 @@ export const getInfo = ({id, comic_id}) => {
 
 export const nextComic = ({weight, comic_id}) => {
     return axios.request({
-        url: 'api/next?comic_id=' + comic_id + '&weight=' + weight,
+        url: 'api/next_section?comic_id=' + comic_id + '&weight=' + weight,
         method: 'get'
     });
 };
 
 export const prevComic = ({weight, comic_id}) => {
     return axios.request({
-        url: 'api/prev?comic_id=' + comic_id + '&weight=' + weight,
+        url: 'api/prev_section?comic_id=' + comic_id + '&weight=' + weight,
         method: 'get'
     });
 };

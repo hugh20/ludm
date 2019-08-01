@@ -77,6 +77,36 @@ class SectionsController extends ApiController
             $res_msg = $validator->errors()->first();
             return $this->failed($res_msg);
         }
+
+        $section = Section::where('article_id', $request->get('comic_id'))->where('weight', '>', $request->get('weight'))->orderBy('article_id', 'asc')->orderBy('weight', 'asc')->first();
+        if (!$section) return $this->failed('章节不存在');
+
+        if ($section->access_type == 1) {
+            $id = Auth::id();
+            if (!$id) {
+                return $this->failed('请先登录', Response::HTTP_UNAUTHORIZED);
+            }
+            $time = date('Y-m-d');
+            $vip  = Vip::where('user_id', $id)->where('started_at', '<', $time)
+                ->where('expired_at', '>', $time)->first();
+            if (!$vip) {
+                return $this->failed('您的权限不足');
+            }
+        }
+        $section->view_count += 1;
+        $section->save();
+
+//        Section::where()
+
+//        $article_id = $request->get('comic_id');
+        $article             = Article::find($section['article_id']);
+        $article->view_count += 1;
+        $article->save();
+        $pattern = '/<img.*? src=\"(.*?)\".*?>/s';
+        $section->content['html'];
+        preg_match_all($pattern, $section->content['html'], $arr);
+        $section->urls = $arr[1];
+        return $this->success($section->toArray());
     }
 
     public function prev(Request $request)
@@ -91,7 +121,35 @@ class SectionsController extends ApiController
             $res_msg = $validator->errors()->first();
             return $this->failed($res_msg);
         }
+        $section = Section::where('article_id', $request->get('comic_id'))->where('weight', '<', $request->get('weight'))->orderBy('article_id', 'desc')->orderBy('weight', 'desc')->first();
 
+        if (!$section) return $this->failed('章节不存在');
 
+        if ($section->access_type == 1) {
+            $id = Auth::id();
+            if (!$id) {
+                return $this->failed('请先登录', Response::HTTP_UNAUTHORIZED);
+            }
+            $time = date('Y-m-d');
+            $vip  = Vip::where('user_id', $id)->where('started_at', '<', $time)
+                ->where('expired_at', '>', $time)->first();
+            if (!$vip) {
+                return $this->failed('您的权限不足');
+            }
+        }
+        $section->view_count += 1;
+        $section->save();
+
+//        Section::where()
+
+//        $article_id = $request->get('comic_id');
+        $article             = Article::find($section['article_id']);
+        $article->view_count += 1;
+        $article->save();
+        $pattern = '/<img.*? src=\"(.*?)\".*?>/s';
+        $section->content['html'];
+        preg_match_all($pattern, $section->content['html'], $arr);
+        $section->urls = $arr[1];
+        return $this->success($section->toArray());
     }
 }
