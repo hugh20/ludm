@@ -58,6 +58,7 @@
     import './categoryComic.scss';
     import {InfiniteScroll} from 'element-ui';
     import {getCategoryComic} from '@/api/category';
+    import {mapMutations} from 'vuex';
 
     export default {
         name: 'categoryComic',
@@ -72,6 +73,7 @@
                 loading: false,
                 noMore: false,
                 load_fail: false,
+                categoryName: '',
                 meta:{
                     current_page: 0,
                     from:1,
@@ -83,6 +85,9 @@
             }
         },
         mounted() {
+            this.categoryName = this.$route.query.category;
+            this.setNoTitle(false);
+            this.setTitle(this.categoryName);
 //            this.load();
         },
         computed: {
@@ -94,9 +99,14 @@
             }
         },
         methods: {
+            ...mapMutations([
+                'setNoTitle',
+                'setTitle',
+            ]),
             loadMore() {
                 this.loading = true;
                 getCategoryComic({category_id: this.id, page: this.meta.current_page + 1, per_page: this.meta.per_page}).then((res) => {
+                    console.log(res);
                     if (res.data.length) {
                         res.data.forEach(function (item) {
                             if (item.tags.length) {

@@ -1,9 +1,9 @@
 <template>
     <div>
-        <header class="top-bar no-title">
-            <a class="btn-top back">[返回]</a>
+        <header :class="{'top-bar': true, 'no-title': noTitle}">
+            <a class="btn-top back" @click="$router.go(-1)">[返回]</a>
 
-            <h1 class="top-title">#top_title#</h1>
+            <h1 class="top-title">{{title}}</h1>
 
             <div class="top-logo">[腾讯动漫LOGO]</div>
 
@@ -17,6 +17,8 @@
 <script>
     import './header.scss';
     import Nav from '../../components/nav';
+    import {mapState} from 'vuex';
+
 
     export default {
         name: 'Header',
@@ -29,7 +31,12 @@
                 menu_state: false
             };
         },
-        computed: {},
+        computed: {
+            ...mapState({
+                title: state => state.app.title,
+                noTitle: state => state.app.noTitle
+            })
+        },
         methods: {
             showMenu() {
                 this.menu_state = !this.menu_state;

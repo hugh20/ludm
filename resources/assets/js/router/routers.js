@@ -28,8 +28,9 @@ export default [
                 path: '/index',
                 name: 'index',
                 meta: {
-                    hideInMenu: true,
+                    hideLogo: false,
                     title: '首页',
+                    showTop: true
                 },
                 component: r => require.ensure([], () => r(require('../../view/single-page/index')), 'index')
             }
@@ -43,6 +44,10 @@ export default [
             {
                 path: '/category-list',
                 name: 'category-list',
+                meta: {
+                    hideLogo: true,
+                    showTop: false
+                },
                 component: r => require.ensure([], () => r(require('../../view/category/index')), 'category-list')
             }
         ]
@@ -55,6 +60,10 @@ export default [
             {
                 path: '/category-comic-list/:id',
                 name: 'category-comic-list',
+                meta: {
+                    hideLogo: true,
+                    showTop: true
+                },
                 component: r => require.ensure([], () => r(require('../../view/category-comic/index')), 'category-comic-list'),
                 props: true
             }
@@ -68,6 +77,10 @@ export default [
             {
                 path: '/comic-desc/:id',
                 name: 'comic-desc',
+                meta: {
+                    hideLogo: true,
+                    showTop: false
+                },
                 component: r => require.ensure([], () => r(require('../../view/comic/index')), 'comic-desc'),
                 props: true
             }
@@ -81,6 +94,10 @@ export default [
             {
                 path: '/chapter-list/:id',
                 name: 'chapter-list',
+                meta: {
+                    hideLogo: true,
+                    showTop: false
+                },
                 component: r => require.ensure([], () => r(require('../../view/chapter/index')), 'chapter-list'),
                 props: true
             }
@@ -89,6 +106,10 @@ export default [
     {
         path: '/art/:id',
         name: 'art-desc',
+        meta: {
+            hideLogo: true,
+            showTop: false
+        },
         component: r => require.ensure([], () => r(require('../../view/art/index')), 'art-desc'),
         props: true
     },

@@ -25,8 +25,8 @@
         computed: {},
         watch: {},
         mounted() {
-
         },
-        methods: {}
+        methods: {
+        }
     }
 </script>

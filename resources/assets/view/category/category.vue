@@ -4,7 +4,7 @@
         <section class="category-strong under-top-bar">
             <ul class="category-strong-ul">
                 <li class="strong-ul-item" v-for="(item, index) in categorys1">
-                    <router-link :to="'/category-comic-list/' + (index + 1)" class="strong-ul-item-link">
+                    <router-link :to="{path:'/category-comic-list/' + item.id, query: { category: item.name }}" class="strong-ul-item-link">
                         <strong>{{item.name}}</strong>
                         <small>{{item.description}}</small>
                     </router-link>
@@ -30,6 +30,7 @@
 <script>
     import './category.scss';
     import {getCategorys} from '@/api/category';
+    import {mapMutations} from 'vuex';
 
     export default {
         name: 'category',
@@ -43,12 +44,18 @@
             }
         },
         mounted() {
+            this.setNoTitle(false);
+            this.setTitle('分类');
             getCategorys().then((res) => {
                 this.categorys1 = res.data.slice(0, 4);
                 this.categorys2 = res.data.slice(4);
             });
         },
         methods: {
+            ...mapMutations([
+                'setNoTitle',
+                'setTitle',
+            ])
         }
     }
 </script>

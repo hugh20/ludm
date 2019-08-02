@@ -110,6 +110,7 @@
     import {Carousel, CarouselItem} from 'element-ui';
     import {getAdverts, getIndexComic} from '@/api/index';
     import Vue from 'vue';
+    import {mapMutations} from 'vuex';
 
     const VueTouch = require('vue-touch');
     Vue.use(VueTouch, {name: 'v-touch'});
@@ -135,6 +136,7 @@
             }
         },
         mounted() {
+            this.setNoTitle(true);
             getAdverts().then(res => {
                 this.adverts = res.data;
             });
@@ -145,6 +147,9 @@
             });
         },
         methods: {
+            ...mapMutations([
+                'setNoTitle'
+            ]),
             swipe_prev(i) {
                 this.$refs.carousel.setActiveItem(i-1);
             },

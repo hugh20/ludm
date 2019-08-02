@@ -21,7 +21,7 @@
 
 <script>
     import './chapter.scss';
-    import { mapState } from 'vuex';
+    import { mapState, mapMutations } from 'vuex';
     import { getChapters } from '@/api/chapter';
     //    import {getAdverts, getIndexComic} from '@/api/index';
 
@@ -46,8 +46,11 @@
             })
         },
         mounted() {
+            this.setNoTitle(false);
             getChapters({id: this.id, sort: this.sort}).then((res) => {
                 if (res.status == 'success') {
+                    console.log(res);
+                    this.setTitle(res.data.title);
                     this.sections = res.data.section;
                     if(this.sections.length){
                         this.min = Math.min(this.sections[this.sections.length - 1].weight, this.sections[0].weight);
@@ -58,6 +61,10 @@
             });
         },
         methods: {
+            ...mapMutations([
+                'setNoTitle',
+                'setTitle',
+            ]),
             reverse(){
                 getChapters({id: this.id, sort: this.sort == 'desc' ? 'asc' : 'desc'}).then((res) => {
                     if (res.status == 'success') {

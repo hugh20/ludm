@@ -120,8 +120,9 @@
 <script>
     import './comic.scss';
     import {getComic} from '@/api/comic';
-    import { mapState } from 'vuex';
+    import { mapState, mapMutations} from 'vuex';
     import {Message} from 'element-ui';
+
 
     export default {
         name: 'Comic',
@@ -141,13 +142,13 @@
             }
         },
         computed:{
-
             ...mapState({
                 vip: state => state.user.vip,
 
             })
         },
         mounted() {
+            this.setNoTitle(false);
             getComic({id: this.id}).then((res) => {
                 if (!res.data || !res.data.id) {
                     this.$router().go(-1);
@@ -161,15 +162,22 @@
                 }
 
                 this.comic = res.data;
+                this.setTitle(this.comic.title);
                 if(this.comic.sections.length > 0){
                     this.max = this.comic.sections[0].weight;
                 }
                 this.min = res.data.first_section ? res.data.first_section.weight : 1;
                 this.first_id = res.data.first_section ? res.data.first_section.id : 0;
                 console.log(res);
+            }, (res) => {
+
             });
         },
         methods: {
+            ...mapMutations([
+                'setNoTitle',
+                'setTitle',
+            ]),
             tab(type) {
                 if(type == 1){
                     this.toggle = 0;
