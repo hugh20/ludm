@@ -53,6 +53,8 @@ class  ArticleValidate extends Validate
 
     public function destroyValidate($model)
     {
+        $is_model_has_this_category = $model->section()->count();
+        if ($is_model_has_this_category) return $this->baseFailed('有模型在使用该文章,无法删除');
         return $this->baseSucceed($this->data, $this->message);
     }
 

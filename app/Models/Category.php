@@ -58,6 +58,9 @@ class Category extends Model
     public function destroyAction()
     {
         try {
+            if(in_array($this->id, [1,2,3,4])){
+                return ['status' => false, 'message' => '前四个分类不可删除'];
+            }
             $this->delete();
             return $this->baseSucceed([], '删除成功');
         } catch (\Exception $e) {
