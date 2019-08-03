@@ -1,5 +1,5 @@
 <template>
-    <article class="main">
+    <article class="main under-top-bar">
         <section class="mod-bgGirl">
             <img :src="src">
         </section>
@@ -14,12 +14,11 @@
 </template>
 
 <script>
-    import error404 from '../../images/npc-not-found.png'
+    import error404 from '../../../images/npc-not-found.png'
     import './error.scss';
     import {mapMutations} from 'vuex';
 
     export default {
-        name: 'error_404',
         components: {},
         data() {
             return {
@@ -27,7 +26,8 @@
             }
         },
         mounted(){
-
+            this.setNoTitle(false);
+            this.setTitle('错误页面');
         },
         methods:{
             ...mapMutations([

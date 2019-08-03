@@ -131,15 +131,18 @@ export default [
         props: true
     },
     {
-        path: '/',
-        name: 'main',
-        redirect: '/index',
+        path: '*',
+        name: 'error',
         component: Main,
         children: [
             {
                 path: '*',
                 name: 'error_404',
-                component: r => require.ensure([], () => r(require('../../view/error-page/404.vue')), 'error_404')
+                meta: {
+                    hideLogo: true,
+                    showTop: false
+                },
+                component: r => require.ensure([], () => r(require('../../view/error-page/404/index')), 'error_404')
             }
         ]
     }

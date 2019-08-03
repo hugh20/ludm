@@ -20,7 +20,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/touch-icon-ipad-144.png?v=784fdda39985ba20" />
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/touch-icon-ipad-144.png?v=784fdda39985ba20" />
     <link rel="shortcut icon" href="images/touch-icon-iphone-114.png?v=35ef6fea80e50951">
-    <link rel="shortcut icon" sizes="196x196" href="touch-icon-iphone-196.png?v=271259d431f48a94">
+    <link rel="shortcut icon" sizes="196x196" href="images/touch-icon-iphone-196.png?v=271259d431f48a94">
 
     <!-- QQ浏览器锁定竖屏、全屏、应用模式 -->
     <!--<meta name="x5-orientation" content="portrait"/>-->
