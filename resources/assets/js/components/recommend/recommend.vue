@@ -8,17 +8,17 @@
 
         <ul :class="['comic-list', 'col-3', 'no-tag', typeClass + '-list']">
             <li :class="['comic-item', 'item-' + (index + 1)]" v-for="(item, index) in comicData">
-                <a class="comic-link" :href="item.url">
+                <router-link class="comic-link" :to="'/comic-desc/' + item.id + '?title=' + item.title">
                     <div class="comic-cover">
-                        <img class="cover-image" src="item.cover_image.url"/>
+                        <img class="cover-image" :src="item.cover_image.url"/>
                     </div>
                     <div class="comic-content">
-                        <strong class="comic-title">{{item.name}}</strong>
+                        <strong class="comic-title">{{item.title}}</strong>
                         <small class="comic-desc">
-                            {{item.desc}}
+                            {{item.keywords}}
                         </small>
                     </div>
-                </a>
+                </router-link>
             </li>
         </ul>
     </section>

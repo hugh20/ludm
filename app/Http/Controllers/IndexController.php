@@ -15,7 +15,7 @@ class IndexController extends WebController
     public function index()
     {
         //轮播图
-        $advert = Advertisement::advertisementPositionSearch(2);//2是广告位
+        $advert = Advertisement::advertisementPositionSearch(1);//1是广告位
         $adverts = $advert->enable()->select('id', 'name', 'cover_image', 'link_url' )->limit(5)->get();
 
 //        dd($adverts->toArray());

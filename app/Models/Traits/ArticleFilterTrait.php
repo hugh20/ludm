@@ -22,7 +22,7 @@ trait ArticleFilterTrait
         $filter = $this->getArticleFilter($filter);
 
         return $this->applyFilter($filter, $user_id, $title, $tag_id, $category_id, $recommend, $top, $enable, $year, $month, $order, $order_type)
-            ->with('user', 'category', 'tags')
+            ->with('user', 'category', 'tags', 'section')
             ->paginate($limit);
     }
 

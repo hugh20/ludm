@@ -21,6 +21,9 @@ class AdvertisementPosition extends Model
     {
 
         try {
+            if(in_array($this->id, [1])){
+                return ['status' => false, 'message' => '轮播图不可删除'];
+            }
             $this->delete();
             return $this->baseSucceed([], '广告位删除成功');
         } catch (\Exception $e) {

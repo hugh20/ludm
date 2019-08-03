@@ -1,0 +1,70 @@
+html {
+  font-size: 20px; }
+
+html {
+  font-size: 10px;
+  overflow-x: hidden; }
+  @media screen and (min-width: 320px) {
+    html {
+      font-size: 17px; } }
+  @media screen and (min-width: 360px) {
+    html {
+      font-size: 19px; } }
+  @media screen and (min-width: 375px) {
+    html {
+      font-size: 20px; } }
+  @media screen and (min-width: 414px) {
+    html {
+      font-size: 22px; } }
+
+body {
+  font-size: 14px; }
+
+@font-face {
+  font-family: 'iconfont';
+  src: url("../../public/font/iconfont.eot?v=b5578579b7a67d36");
+  /* IE9*/
+  src: url("../../public/font/iconfont.woff?v=1988bfc95cc9b427") format("woff"), url("../../public/font/iconfont.ttf?v=462788dd5e7a3ab3") format("truetype"), url("../../public/font/iconfont.svg?v=79f3767cf584e25c") format("svg");
+  /* iOS 4.1- */ }
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-style: normal;
+  -moz-osx-font-smoothing: grayscale; }
+
+/*
+刷新1
+*/
+html {
+  background-color: #F5F5EE; }
+
+body {
+  padding-top: 2.5rem; }
+
+.main {
+  padding-top: 2.75rem; }
+  .main .mod-bgGirl img {
+    width: 4.65rem;
+    height: 6.225rem;
+    display: block;
+    margin: 1.25rem auto; }
+  .main .err-type1 p, .main .err-type2 p, .main .err-type3 p {
+    padding-top: 0.45rem;
+    font-size: 0.9rem;
+    padding-bottom: 0.75rem;
+    text-align: center;
+    color: #C5C5C5; }
+  .main .err-type1 .btn-link, .main .err-type2 .btn-link, .main .err-type3 .btn-link {
+    color: #e86a3e;
+    border: 0.125rem solid #e86a3e;
+    height: 2.25rem;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    text-align: center;
+    line-height: 2.25rem;
+    display: block;
+    margin: 0 auto; }
+  .main .err-type1 .w-320, .main .err-type2 .w-320, .main .err-type3 .w-320 {
+    width: 8rem; }
+  .main .err-type1 .w-230, .main .err-type2 .w-230, .main .err-type3 .w-230 {
+    width: 5.75rem; }

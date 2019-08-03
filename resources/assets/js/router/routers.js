@@ -53,6 +53,23 @@ export default [
         ]
     },
     {
+        path: '/tagComic',
+        name: 'tagComic',
+        component: Main,
+        children: [
+            {
+                path: '/tag-comic-list/:id',
+                name: 'tag-comic-list',
+                meta: {
+                    hideLogo: true,
+                    showTop: true
+                },
+                component: r => require.ensure([], () => r(require('../../view/tag-comic/index')), 'tag-comic-list'),
+                props: true
+            }
+        ]
+    },
+    {
         path: '/categoryComic',
         name: 'categoryComic',
         component: Main,
@@ -114,16 +131,16 @@ export default [
         props: true
     },
     {
-        path: '/401',
-        name: 'error_401',
-        component: r => require.ensure([], () => r(require('../../view/error-page/401.vue')), 'error_401')
-    }, {
-        path: '/500',
-        name: 'error_500',
-        component: r => require.ensure([], () => r(require('../../view/error-page/500.vue')), 'error_500')
-    }, {
-        path: '*',
-        name: 'error_404',
-        component: r => require.ensure([], () => r(require('../../view/error-page/404.vue')), 'error_404')
+        path: '/',
+        name: 'main',
+        redirect: '/index',
+        component: Main,
+        children: [
+            {
+                path: '*',
+                name: 'error_404',
+                component: r => require.ensure([], () => r(require('../../view/error-page/404.vue')), 'error_404')
+            }
+        ]
     }
 ]

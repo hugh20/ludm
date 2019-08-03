@@ -37,6 +37,30 @@ class ArticlesController extends ApiController
 
     }
 
+    public function tagComic(Request $request){
+        $validator = Validator::make($request->all(), [
+            'tag_id' => 'required|integer|min:1',
+        ]);
+
+        if ($validator->fails()) {
+            $res_msg = $validator->errors()->first();
+            return $this->failed($res_msg);
+        }
+
+        $tag_id = $request->get('tag_id');
+        $per_page    = $request->get('per_page', 10);
+
+        $filter     = 'default';
+        $user_id    = 0;
+        $tag_id     = 0;
+        $year       = '';
+        $month      = '';
+        $order      = 'id';
+        $order_type = 'desc';
+        $list       = (new Article())->getArticlesWithFilter($filter, $user_id, '', $tag_id, 0, '', '', 'T', $year, $month, $order, $order_type, $per_page);
+        return new CommonCollection($list);
+    }
+
     public function comic(Request $request)
     {
         $validator = Validator::make($request->all(), [
