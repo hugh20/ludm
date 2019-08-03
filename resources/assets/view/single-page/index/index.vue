@@ -67,7 +67,7 @@
             <h2 class="sub-title">
                 <strong class="title-content">[今日我更新]</strong>
                 <small class="desc">“已把作者逼疯，吐血ing...”</small>
-                <router-link class="link-more" to="/tag-comic-list/4?tagName=今日我更新">[更多]</router-link>
+                <router-link class="link-more" to="/tag-comic-list/2?tagName=今日我更新">[更多]</router-link>
             </h2>
             <div class="update-area">
                 <aside class="npc-2">[NPC图片2]</aside>
@@ -81,13 +81,14 @@
                                 <strong class="comic-title">{{comic.title}}</strong>
                                 <small class="comic-artist">作者：{{comic.author}}</small>
                                 <small class="comic-latest">更新到{{comic.section ? comic.section.length : 0}}章</small>
-                                <!--<ul class="rank-bar">-->
-                                    <!--<li class="rank-star">[星]</li>-->
-                                    <!--<li class="rank-star">[星]</li>-->
-                                    <!--<li class="rank-star">[星]</li>-->
-                                    <!--<li class="rank-star">[星]</li>-->
-                                    <!--<li class="rank-score">7.9</li>-->
-                                <!--</ul>-->
+                                <ul class="rank-bar">
+                                    <li class="rank-star">[星]</li>
+                                    <li class="rank-star">[星]</li>
+                                    <li class="rank-star">[星]</li>
+                                    <li class="rank-star">[星]</li>
+                                    <li class="rank-star">[星]</li>
+                                    <li class="rank-score">9.0</li>
+                                </ul>
                             </div>
                         </router-link>
                     </li>
@@ -95,7 +96,7 @@
             </div>
         </section>
         <recommend title="日漫经典" title-desc="日漫经典" link-more="/tag-comic-list/5?tagName=日漫经典" :comic-data="comices.classical.data" type-class="japan-comic"></recommend>
-        <recommend title="新作上线" title-desc="新作上线" link-more="/tag-comic-list/2?tagName=新作上线" :comic-data="comices.be_online.data" type-class="new-comic"></recommend>
+        <recommend title="新作上线" title-desc="新作上线" link-more="/tag-comic-list/1?tagName=新作上线" :comic-data="comices.be_online.data" type-class="new-comic"></recommend>
         <Footer></Footer>
     </div>
 </template>

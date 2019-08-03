@@ -137,12 +137,12 @@ export default [
         children: [
             {
                 path: '*',
-                name: 'error_404',
+                name: 'error-404',
                 meta: {
                     hideLogo: true,
                     showTop: false
                 },
-                component: r => require.ensure([], () => r(require('../../view/error-page/404/index')), 'error_404')
+                component: r => require.ensure([], () => r(require('../../view/error-page/404/index')), 'error-404')
             }
         ]
     }

@@ -79,7 +79,7 @@
 
                     <div class="comicList-info-layBox">
                         <span class="comicList-info-time">{{comic.sections.length && comic.sections[0].updated_at.substr(0, 11)}}</span>
-                        <span class="comicList-info-update">更新到{{comic.sections.length && comic.sections[0].weight}}话</span>
+                        <span class="comicList-info-update">更新到{{comic.sections.length && comic.sections[0].weight}}章</span>
                     </div>
                 </div>
                 <!-- 9 -->

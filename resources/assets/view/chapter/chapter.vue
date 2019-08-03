@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="chapterAll-info under-top-bar">
-            <a class="chapterAll-count">共{{sections.length}}话</a>
+            <a class="chapterAll-count">共{{sections.length}}章</a>
             <a class="chapterAll-sequence reverse" @click="reverse">
                 <span class="iconfont" :style="iconfont">&#xe60b;</span><span>{{sort_text}}</span>
             </a>

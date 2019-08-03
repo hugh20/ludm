@@ -30,8 +30,8 @@ class ArticlesController extends ApiController
         $tag_id     = 0;
         $year       = '';
         $month      = '';
-        $order      = 'id';
-        $order_type = 'desc';
+        $order      = 'weight';
+        $order_type = 'asc';
         $list       = (new Article())->getArticlesWithFilter($filter, $user_id, '', $tag_id, $category_id, '', '', 'T', $year, $month, $order, $order_type, $per_page);
         return new CommonCollection($list);
 
@@ -52,12 +52,12 @@ class ArticlesController extends ApiController
 
         $filter     = 'default';
         $user_id    = 0;
-        $tag_id     = 0;
         $year       = '';
         $month      = '';
-        $order      = 'id';
-        $order_type = 'desc';
-        $list       = (new Article())->getArticlesWithFilter($filter, $user_id, '', $tag_id, 0, '', '', 'T', $year, $month, $order, $order_type, $per_page);
+        $category_id = 0;
+        $order      = 'weight';
+        $order_type = 'asc';
+        $list       = (new Article())->getArticlesWithFilter($filter, $user_id, '', $tag_id, $category_id, '', '', 'T', $year, $month, $order, $order_type, $per_page);
         return new CommonCollection($list);
     }
 
