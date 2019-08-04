@@ -15,19 +15,19 @@
             </div>
             <ul class="menu-list">
                 <li class="item">
-                    <router-link to="/category-list" class="link" data-name="category">
+                    <router-link to="/category-list" class="link">
                         <i class="icon category">[分]</i>
                         <span class="name">分类</span>
                     </router-link>
                 </li>
                 <li class="item">
-                    <router-link to="/vip/index" data-name="rank" class="link">
+                    <router-link to="/vip" class="link">
                         <i class="icon rank">[奖]</i>
                         <span class="name">VIP</span>
                     </router-link>
                 </li>
                 <li class="item">
-                    <router-link to="/login" class="link" data-name="schedule">
+                    <router-link to="/login" class="link">
                         <i class="icon time">[表]</i>
                         <span class="name">登录</span>
                     </router-link>

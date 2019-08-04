@@ -131,6 +131,54 @@ export default [
         props: true
     },
     {
+        path: '/error401',
+        name: 'error401',
+        component: Main,
+        children: [
+            {
+                path: '/401',
+                name: 'error_401',
+                meta: {
+                    hideLogo: true,
+                    showTop: false
+                },
+                component: r => require.ensure([], () => r(require('../../view/error-page/401/index')), 'error-401')
+            }
+        ]
+    },
+    {
+        path: '/error500',
+        name: 'error500',
+        component: Main,
+        children: [
+            {
+                path: '/500',
+                name: 'error_500',
+                meta: {
+                    hideLogo: true,
+                    showTop: false
+                },
+                component: r => require.ensure([], () => r(require('../../view/error-page/500/index')), 'error-500')
+            }
+        ]
+    },
+    {
+        path: '/vipindex',
+        name: 'vindex',
+        component: Main,
+        children: [
+            {
+                path: '/vip',
+                name: 'vip',
+                meta: {
+                    hideLogo: true,
+                    showTop: false
+                },
+                component: r => require.ensure([], () => r(require('../../view/vip/index')), 'vip')
+            }
+        ]
+    },
+    {
         path: '*',
         name: 'error',
         component: Main,

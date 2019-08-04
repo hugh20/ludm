@@ -1,9 +1,14 @@
 let mix = require('laravel-mix');
+let path = require('path');
 
 mix.js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
 
 mix.webpackConfig({
+    output:{
+        path: path.resolve(__dirname, "public/assets"),
+        publicPath: '/assets/'
+    },
     resolve: {
         alias: {
             'components': 'assets/js/components',

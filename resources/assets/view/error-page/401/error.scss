@@ -1,0 +1,45 @@
+/*
+刷新1
+*/
+html {
+  background-color: #F5F5EE;
+}
+
+.main {
+  padding-top: 2.75rem;
+}
+
+.main .mod-bgGirl img {
+  width: 4.65rem;
+  height: 6.225rem;
+  display: block;
+  margin: 1.25rem auto;
+}
+
+.main .err-type1 p, .main .err-type2 p, .main .err-type3 p {
+  padding-top: 0.45rem;
+  font-size: 0.9rem;
+  padding-bottom: 0.75rem;
+  text-align: center;
+  color: #C5C5C5;
+}
+
+.main .err-type1 .btn-link, .main .err-type2 .btn-link, .main .err-type3 .btn-link {
+  color: #e86a3e;
+  border: 0.125rem solid #e86a3e;
+  height: 2.25rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 2.25rem;
+  display: block;
+  margin: 0 auto;
+}
+
+.main .err-type1 .w-320, .main .err-type2 .w-320, .main .err-type3 .w-320 {
+  width: 8rem;
+}
+
+.main .err-type1 .w-230, .main .err-type2 .w-230, .main .err-type3 .w-230 {
+  width: 5.75rem;
+}

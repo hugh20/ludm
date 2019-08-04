@@ -6,11 +6,14 @@
     "/category-list.js": "/category-list.js",
     "/chapter-list.js": "/chapter-list.js",
     "/comic-desc.js": "/comic-desc.js",
+    "/error-401.js": "/error-401.js",
     "/error-404.js": "/error-404.js",
+    "/error-500.js": "/error-500.js",
     "/index.js": "/index.js",
     "/login.js": "/login.js",
     "/register.js": "/register.js",
     "/tag-comic-list.js": "/tag-comic-list.js",
     "/vendors~art-desc.js": "/vendors~art-desc.js",
-    "/vendors~index.js": "/vendors~index.js"
+    "/vendors~index.js": "/vendors~index.js",
+    "/vip.js": "/vip.js"
 }
