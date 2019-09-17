@@ -8,7 +8,9 @@
                 <Carousel style="width:auto; height:auto;" arrow="never" ref="carousel">
                     <carousel-item v-for="(item, index) in adverts" :key="index">
                         <v-touch @swipeleft="swipe_next(index)" @swiperight="swipe_prev(index)">
-                            <img :src="item['cover_image']['url']"/>
+                            <a :href="item['link_url']">
+                                <img :src="item['cover_image']['url']"/>
+                            </a>
                         </v-touch>
                     </carousel-item>
                 </Carousel>
