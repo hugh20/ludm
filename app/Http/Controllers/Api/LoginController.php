@@ -43,7 +43,9 @@ class LoginController extends ApiController
         }
 
         $user = User::enable()
-            ->where('email', $request->email)
+            ->where(function ($query) use ($request){
+                $query->where('email', $request->email)->orWhere('phone', $request->email);
+            })
             ->isAdminSearch('T')
             ->firstOrFail();
 
@@ -155,10 +157,10 @@ class LoginController extends ApiController
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required|string|min:6',
         ], [
-            'email.required' => '请输入邮箱',
+            'email.required' => '请输入邮箱或手机号',
             'email.email' => '邮箱格式不正确',
             'password.required' => '请输入密码',
             'password.min' => '密码长度至少是6位',

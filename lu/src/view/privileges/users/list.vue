@@ -17,7 +17,7 @@
             </Select>
             </Col>
             <Col :xs="6" :lg="3" class="hidden-mobile">
-            <Input icon="search" placeholder="请输入邮箱搜索..." v-model="searchForm.email"/>
+            <Input icon="search" placeholder="请输入手机号搜索..." v-model="searchForm.phone"/>
             </Col>
             <Col :xs="3" :lg="3">
             <Button type="primary" icon="ios-search" @click="getTableDataExcute(feeds.current_page)">Search</Button>
@@ -187,8 +187,8 @@
                         }
                     },
                     {
-                        title: '邮箱',
-                        key: 'email',
+                        title: '手机号',
+                        key: 'phone',
                         minWidth: 150,
                     },
                     {

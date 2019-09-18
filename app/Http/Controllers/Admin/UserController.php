@@ -45,6 +45,10 @@ class UserController extends AdminController
             $model = $model->orderBy($order_by[0], $order_by[1]);
         }
 
+        $phone = isset_and_not_empty($search_data, 'phone');
+        if ($phone) {
+            $model = $model->ColumnLike('phone', $phone);
+        }
         return new CommonCollection($model->paginate($per_page));
     }
 
