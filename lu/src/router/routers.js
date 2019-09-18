@@ -123,7 +123,8 @@ export default [
                 path: '/carousel-list',
                 name: 'carousel-list',
                 meta: {
-                    title: '抡播图'
+                    title: '抡播图',
+                    hideInMenu: true,
                 },
                 component: () => import ('@/view/news-system/carousels/list.vue')
             }
