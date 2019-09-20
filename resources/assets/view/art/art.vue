@@ -82,6 +82,7 @@
     import {Message, Image} from 'element-ui';
     import Vue from 'vue';
     import VueLazyload from 'vue-lazyload';
+    import {mapMutations} from 'vuex';
 
     Vue.use(VueLazyload, {
         preLoad: 1.3, // 提前加载高度（数字 1 表示 1 屏的高度） 默认值:1.3
@@ -113,6 +114,9 @@
                     this.urls = res.data.urls;
                     this.current = res.data.weight;
                     this.comic_id = res.data.article_id;
+                    this.setMetaTitle(res.data.title);
+                    this.setDescription(res.data.descriptions);
+                    this.setKeywords(res.data.keywords);
                 } else {
                     Message({showClose: true, message: res.message, type: 'error'});
                 }
@@ -144,6 +148,13 @@
             }, 2000);
         },
         methods: {
+            ...mapMutations([
+                'setNoTitle',
+                'setTitle',
+                'setMetaTitle',
+                'setDescription',
+                'setKeywords',
+            ]),
             showTob() {
                 this.tabHide = false;
                 setTimeout(() => {

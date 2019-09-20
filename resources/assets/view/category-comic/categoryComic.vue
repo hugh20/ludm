@@ -81,7 +81,8 @@
                     total: 0,
                     last_page: 1,
                     per_page: 10
-                }
+                },
+                cat:{}
             }
         },
         mounted() {
@@ -102,13 +103,16 @@
             ...mapMutations([
                 'setNoTitle',
                 'setTitle',
+                'setMetaTitle',
+                'setDescription',
+                'setKeywords',
             ]),
             loadMore() {
                 this.loading = true;
                 getCategoryComic({category_id: this.id, page: this.meta.current_page + 1, per_page: this.meta.per_page}).then((res) => {
                     console.log(res);
                     if (res.data.length) {
-                        res.data.forEach(function (item) {
+                        res.data.forEach((item, key) => {
                             if (item.tags.length) {
                                 item.tags_name = item.tags.map(function (tag) {
                                     return tag.name;
@@ -116,6 +120,7 @@
                             } else {
                                 item.tags_name = '';
                             }
+                            this.cat = item.category;
                         });
                         if(res.data.length < res.meta.per_page)  this.noMore = true;
                     } else {
@@ -124,6 +129,11 @@
                     this.meta = Object.assign({}, this.meta, res.meta);
                     this.comics = res.data.concat(this.comics);
                     this.loading = false;
+
+                    this.setMetaTitle(this.cat.name);
+                    this.setDescription('漫画-' + this.cat.description);
+                    this.setKeywords('漫画-' + this.cat.description);
+                    console.log(this.cat);
                 }, (res) => {
                     this.load_fail = true;
                     this.loading = false;

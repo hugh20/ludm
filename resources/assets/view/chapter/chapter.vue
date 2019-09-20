@@ -56,6 +56,9 @@
                         this.min = Math.min(this.sections[this.sections.length - 1].weight, this.sections[0].weight);
                         this.max = Math.max(this.sections[this.sections.length - 1].weight, this.sections[0].weight);
                     }
+                    this.setMetaTitle(res.data.title);
+                    this.setDescription(res.data.descriptions);
+                    this.setKeywords(res.data.keywords);
                 }
 
             });
@@ -64,6 +67,9 @@
             ...mapMutations([
                 'setNoTitle',
                 'setTitle',
+                'setMetaTitle',
+                'setDescription',
+                'setKeywords',
             ]),
             reverse(){
                 getChapters({id: this.id, sort: this.sort == 'desc' ? 'asc' : 'desc'}).then((res) => {

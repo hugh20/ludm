@@ -168,6 +168,10 @@
                 }
                 this.min = res.data.first_section ? res.data.first_section.weight : 1;
                 this.first_id = res.data.first_section ? res.data.first_section.id : 0;
+
+                this.setMetaTitle(this.comic.title);
+                this.setDescription(this.comic.descriptions);
+                this.setKeywords(this.comic.keywords);
                 console.log(res);
             }, (res) => {
 
@@ -177,6 +181,9 @@
             ...mapMutations([
                 'setNoTitle',
                 'setTitle',
+                'setMetaTitle',
+                'setDescription',
+                'setKeywords',
             ]),
             tab(type) {
                 if(type == 1){
