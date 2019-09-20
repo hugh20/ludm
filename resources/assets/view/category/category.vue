@@ -40,7 +40,7 @@
             return {
                 categorys1:[],
                 categorys2:[],
-
+                cat_name:[],
             }
         },
         mounted() {
@@ -49,12 +49,21 @@
             getCategorys().then((res) => {
                 this.categorys1 = res.data.slice(0, 4);
                 this.categorys2 = res.data.slice(4);
+                this.cat_name = res.data.map((item) => {
+                    return item.name;
+                });
+                this.setMetaTitle('分类');
+                this.setDescription('漫画-' + '分类,' + this.cat_name.join(',') );
+                this.setKeywords('漫画-' + '分类,'+ this.cat_name.join(',') );
             });
         },
         methods: {
             ...mapMutations([
                 'setNoTitle',
                 'setTitle',
+                'setMetaTitle',
+                'setDescription',
+                'setKeywords',
             ])
         }
     }

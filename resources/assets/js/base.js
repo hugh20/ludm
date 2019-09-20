@@ -27,7 +27,6 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );*/
 // Cookies.remove('access_token');
-console.log(123);
 new Vue({
     el: '#app',
     router,

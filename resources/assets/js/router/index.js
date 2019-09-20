@@ -7,8 +7,8 @@ import {getToken, canTurnTo} from '@/libs/util'
 
 Vue.use(Router);
 const router = new Router({
+    mode: 'history',
     routes
-    // mode: 'history'
 });
 let loadinginstace;
 

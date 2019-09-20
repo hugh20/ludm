@@ -15,6 +15,9 @@ export default {
         local: '',
         title: '',
         noTitle: false,
+        description: '',
+        metaTitle: '',
+        keywords: '',
     },
     getters: {
         menuList: (state, getters, rootState) => getMenuByRouter(routers, rootState.user.accessRole)
@@ -44,6 +47,20 @@ export default {
         },
         setTitle(state, title){
             state.title = title;
+        },
+        setMetaTitle(state, title){
+            state.metaTitle = title;
+            document.title = title || '动漫、漫画'
+        },
+        setDescription(state, description){
+            state.description = description;
+            document.querySelector('meta[name="description"]').setAttribute('content', description || '动漫、漫画')
+
+        },
+        setKeywords(state, keywords){
+            state.keywords = keywords;
+            document.querySelector('meta[name="keywords"]').setAttribute('content', keywords || '动漫、漫画')
         }
     }
 }
+

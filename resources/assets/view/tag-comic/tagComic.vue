@@ -67,6 +67,7 @@
                 noMore: false,
                 load_fail: false,
                 tagName: '',
+                tag: {},
                 meta:{
                     current_page: 0,
                     from:1,
@@ -81,6 +82,10 @@
             this.tagName = this.$route.query.tagName;
             this.setNoTitle(false);
             this.setTitle(this.tagName);
+            this.setMetaTitle(this.tagName);
+            this.setDescription('漫画-' + this.tagName);
+            this.setKeywords('漫画-' + this.tagName);
+
 //            this.load();
         },
         computed: {
@@ -95,20 +100,26 @@
             ...mapMutations([
                 'setNoTitle',
                 'setTitle',
+                'setMetaTitle',
+                'setDescription',
+                'setKeywords',
             ]),
             loadMore() {
                 this.loading = true;
                 getTagComic({tag_id: this.id, page: this.meta.current_page + 1, per_page: this.meta.per_page}).then((res) => {
                     console.log(res);
                     if (res.data.length) {
-                        res.data.forEach(function (item) {
+                        res.data.forEach((item) => {
+                            item.tags_name = [];
                             if (item.tags.length) {
-                                item.tags_name = item.tags.map(function (tag) {
-                                    return tag.name;
-                                }).join(' ');
-                            } else {
-                                item.tags_name = '';
+                                item.tags.forEach((tag) => {
+                                    item.tags_name.push(tag.name);
+                                    if(tag.id == this.id){
+                                        this.tag = tag;
+                                    }
+                                });
                             }
+                            item.tags_name = item.tags_name.join(' ');
                         });
                         if(res.data.length < res.meta.per_page)  this.noMore = true;
                     } else {
@@ -117,6 +128,7 @@
                     this.meta = Object.assign({}, this.meta, res.meta);
                     this.comics = res.data.concat(this.comics);
                     this.loading = false;
+                    console.log(this.tag);
                 }, (res) => {
                     this.load_fail = true;
                     this.loading = false;

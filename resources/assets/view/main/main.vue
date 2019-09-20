@@ -10,6 +10,8 @@
     import Nav from './components/nav';
     import BackToTop from './components/back-to-top';
     import './main.scss';
+    import {mapMutations} from 'vuex';
+
 
     export default {
         name: 'Main',

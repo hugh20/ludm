@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="baidu-site-verification" content="SEGRBySjTy"/>
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
@@ -35,8 +34,6 @@
     <!-- 分享信息 -->
     <meta itemprop="image" content="images/share-icon.png?v=7ee367fb9d2965dc" />
     <meta itemprop="name" content="动漫" />
-    <meta name="description" itemprop="description" content="" />
-
     <meta name="page-name" content="index" />
 
     <!-- 通用样式与脚本 -->
@@ -47,6 +44,8 @@
         ]); ?>
     </script>
     <title>@yield('title'){{ config('app.name') }} </title>
+    <meta name="keywords" content="漫画、动漫">
+    <meta name="description" content="漫画、动漫">
 </head>
 <body>
 
