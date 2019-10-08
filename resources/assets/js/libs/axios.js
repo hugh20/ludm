@@ -50,7 +50,8 @@ class httpRequest {
             if (response) {
                 if (response.status === 401) {
                     Cookies.remove(TOKEN_KEY)
-                    window.location.href = window.location.pathname + '#/login'
+
+                    window.location.href = '/login'
                 }
                 if (response.hasOwnProperty('data')) {
                     Message({showClose: true, message: response.data.message, type: 'error'});

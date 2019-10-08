@@ -8,7 +8,7 @@ import Cookies from 'js-cookie'
 
 window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
-window.baseURL = 'http://dm.lc/';
+window.baseURL = 'http://dm.diansuo9999.com/';
 
 Vue.use(ElementUI);
 
